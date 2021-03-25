@@ -3,12 +3,15 @@ import styles from './loginStyle.module.css';
 const IconMenu = (props) => {
 
     const closeAndOpenDialogBoxs = () => {
-        for(let i=0;i<props.tabDialogBox.length;i++)
+        if(props.tabDialogBox)
         {
-            props.tabDialogBox[i](false);
+            for(let i=0;i<props.tabDialogBox.length;i++)
+            {
+                props.tabDialogBox[i](false);
+            }
         }
 
-        if(typeof(props.open)!=="undefined")
+        if(props.open)
         {
             props.open(!props.isOpen);
         }
