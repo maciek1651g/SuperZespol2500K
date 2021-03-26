@@ -4,6 +4,7 @@ import IconMenu from './../LoginPage/IconMenu.js';
 import DialogBox from './../LoginPage/DialogBox.js';
 import CheckBox from './../LoginPage/CheckBox.js';
 import React from "react";
+import {Avatar, Badge} from "@material-ui/core";
 
 const Svg = (props) => {
     return (
@@ -60,20 +61,30 @@ const MainPage = () => {
                 </div>
             </div>
             <div className={stylesMainPage.rightColumn}>
-                <div className={stylesMainPage.rightTop}>
-                    <div style={{margin: "0 50px", fontWeight: "bold", display: "flex", flexDirection: "column", alignContent: "flex-end"}}>
-                        <p style={{fontSize: "30px", margin: "14px 0", color: "#979797"}}>Hej <span style={{color: "#43D7E2"}}>Mariusz</span>!</p>
-                        <p style={{fontSize: "40px", margin: "0"}}>Twoje Grupy</p>
+                <div className={stylesMainPage.rightContent}>
+                    <div className={stylesMainPage.rightTop}>
+                        <div style={{fontWeight: "bold", display: "flex", flexDirection: "column", alignContent: "flex-end"}}>
+                            <p style={{fontSize: "30px", margin: "14px 0", color: "#979797"}}>Hej <span style={{color: "#43D7E2"}}>Mariusz</span>!</p>
+                            <p style={{fontSize: "40px", margin: "0"}}>Twoje Grupy</p>
+                        </div>
+                        <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+                            <Avatar variant="rounded" style={{width:"50px", height:"50px", margin:"0 20px"}}>H</Avatar>
+                            <Badge badgeContent=" " color="primary" invisible={false}>
+                                <label className={styles.buttonMenu} style={{margin:"0"}}>
+                                    <input type="checkbox" className={styles.offInput}/>
+                                    <span className={styles.icon}>
+                                        {bellIco}
+                                    </span>
+                                </label>
+                            </Badge>
+                        </div>
                     </div>
-                    <div>
-                        <IconMenu name="userMenu" icoSVG={bellIco} tabDialogBox={tabDialogBox}  isChecked={false}/>
+                    <div className={stylesMainPage.rightMiddle}>
+
                     </div>
-                </div>
-                <div className={stylesMainPage.rightMiddle}>
+                    <div className={stylesMainPage.rightBottom}>
 
-                </div>
-                <div className={stylesMainPage.rightBottom}>
-
+                    </div>
                 </div>
             </div>
         </div>

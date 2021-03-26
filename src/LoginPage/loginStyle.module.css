@@ -42,9 +42,6 @@ body
 {
 	width:90%;
 	background-color: #F5F5F5;
-	background-image: url("./../img/ksiazki.svg");
-	background-repeat: no-repeat;
-	background-position: 80% 60%;
 	border-radius: inherit;
 	display:flex;
 	align-items: center;
@@ -70,6 +67,9 @@ body
 {
 	display: flex;
 	flex-direction: column;
+	background-image: url("./../img/ksiazki.svg");
+	background-repeat: no-repeat;
+	background-position: right bottom;
 	width: 80%;
 	height: 80%;
 }
@@ -91,7 +91,7 @@ body
 }
 
 
-input[type=radio]
+input[type=radio], .offInput
 {
 	position: absolute;
 	opacity: 0;
