@@ -4,8 +4,9 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 100vw;
     height: 100vh;
+    min-width: 800px;
+    min-height: 600px;
     color : #444;
 }
 
@@ -37,6 +38,7 @@
 {
     width: 90%;
     height: 90%;
+    font-weight: bold;
 }
 
 .rightTop
@@ -45,18 +47,42 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    height: 20%;
+    height: 10%;
     width: 100%;
 }
 
 .rightMiddle
 {
-    height: 60%;
+    height: 50%;
     width: 100%;
 }
 
 .rightBottom
 {
-    height: 20%;
+    height: 40%;
     width: 100%;
+}
+
+.middleContent
+{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.middleContentLeft
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #F2F2F2;
+    width: 90%;
+    height: 90%;
+    min-height: 230px;
+    min-width: 460px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
 }

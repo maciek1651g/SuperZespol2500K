@@ -63,16 +63,15 @@ const MainPage = () => {
             <div className={stylesMainPage.rightColumn}>
                 <div className={stylesMainPage.rightContent}>
                     <div className={stylesMainPage.rightTop}>
-                        <div style={{fontWeight: "bold", display: "flex", flexDirection: "column", alignContent: "flex-end"}}>
-                            <p style={{fontSize: "30px", margin: "14px 0", color: "#979797"}}>Hej <span style={{color: "#43D7E2"}}>Mariusz</span>!</p>
-                            <p style={{fontSize: "40px", margin: "0"}}>Twoje Grupy</p>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-end", height: "100%"}}>
+                            <p style={{fontSize: "30px", margin: "0", color: "#979797"}}>Hej <span style={{color: "#43D7E2"}}>Mariusz</span>!</p>
                         </div>
                         <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-                            <Avatar variant="rounded" style={{width:"50px", height:"50px", margin:"0 20px"}}>H</Avatar>
+                            <Avatar variant="rounded" style={{width:"50px", height:"50px", margin:"0 20px", borderRadius: "10px"}}>H</Avatar>
                             <Badge badgeContent=" " color="primary" invisible={false}>
                                 <label className={styles.buttonMenu} style={{margin:"0"}}>
                                     <input type="checkbox" className={styles.offInput}/>
-                                    <span className={styles.icon}>
+                                    <span className={styles.iconNotification}>
                                         {bellIco}
                                     </span>
                                 </label>
@@ -80,7 +79,24 @@ const MainPage = () => {
                         </div>
                     </div>
                     <div className={stylesMainPage.rightMiddle}>
+                        <p style={{fontSize: "40px", margin: "0"}}>Twoje Grupy</p>
+                        <div style={{width: "100%", height: "100%", display: "flex", flexDirection: "row"}}>
+                            <div className={stylesMainPage.middleContent}>
+                                <div className={stylesMainPage.middleContentLeft}>
+                                    <div style={{width: "90%", height: "60%"}}>
+                                        <p style={{fontSize: "36px", margin: "0"}}>Podstawy Informatyki Kwantowej</p>
+                                        <p style={{color: "#979797"}}>Grupa II</p>
+                                    </div>
+                                    <div style={{display: "flex", justifyContent: "space-between",width: "90%", height: "20%"}}>
+                                        <div><button className={styles.errorButton + ' ' + styles.buttonStyle}>PRZEJDŹ DO GRUPY</button></div>
+                                        <div><p>{"<-->"}</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={stylesMainPage.middleContent}>
 
+                            </div>
+                        </div>
                     </div>
                     <div className={stylesMainPage.rightBottom}>
 
