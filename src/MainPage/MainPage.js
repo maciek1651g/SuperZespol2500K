@@ -5,6 +5,7 @@ import DialogBox from './../LoginPage/DialogBox.js';
 import CheckBox from './../LoginPage/CheckBox.js';
 import React from "react";
 import {Avatar, Badge} from "@material-ui/core";
+import ListElement from "./ListElement";
 
 const Svg = (props) => {
     return (
@@ -94,7 +95,14 @@ const MainPage = () => {
                                 </div>
                             </div>
                             <div className={stylesMainPage.middleContent}>
-
+                                <div className={stylesMainPage.middleContentRight}>
+                                    <p style={{fontSize: "20px"}}>Dzisiejsze zajęcia</p>
+                                    <ul className={stylesMainPage.scrollBar}>
+                                        <ListElement text="Bezpieczeństwo Informacji - wykład" time="8:30 - 10:00" color="#78E0E8"/>
+                                        <ListElement text="Architektura Komputerów - wykład" time="10:15 - 11:45" />
+                                        <ListElement text="Technmologie Baz Danych" time="12:00 - 13:30" />
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
