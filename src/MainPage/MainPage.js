@@ -6,6 +6,7 @@ import CheckBox from './../LoginPage/CheckBox.js';
 import React from "react";
 import {Avatar, Badge} from "@material-ui/core";
 import ListElement from "./ListElement";
+import TestBox from "./TestBox";
 
 const Svg = (props) => {
     return (
@@ -80,15 +81,15 @@ const MainPage = () => {
                         </div>
                     </div>
                     <div className={stylesMainPage.rightMiddle}>
-                        <p style={{fontSize: "40px", margin: "0"}}>Twoje Grupy</p>
-                        <div style={{width: "100%", height: "100%", display: "flex", flexDirection: "row"}}>
+                        <p style={{fontSize: "40px", margin: "0", height: "10%"}}>Twoje Grupy</p>
+                        <div style={{width: "100%", height: "90%", display: "flex", flexDirection: "row"}}>
                             <div className={stylesMainPage.middleContent}>
                                 <div className={stylesMainPage.middleContentLeft}>
                                     <div style={{width: "90%", height: "60%"}}>
                                         <p style={{fontSize: "36px", margin: "0"}}>Podstawy Informatyki Kwantowej</p>
                                         <p style={{color: "#979797"}}>Grupa II</p>
                                     </div>
-                                    <div style={{display: "flex", justifyContent: "space-between",width: "90%", height: "20%"}}>
+                                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-end",width: "90%", height: "20%"}}>
                                         <div><button className={styles.errorButton + ' ' + styles.buttonStyle}>PRZEJDŹ DO GRUPY</button></div>
                                         <div><p>{"<-->"}</p></div>
                                     </div>
@@ -107,7 +108,16 @@ const MainPage = () => {
                         </div>
                     </div>
                     <div className={stylesMainPage.rightBottom}>
+                        <p style={{fontSize: "20px", margin: "0", height: "10%"}}>Zbliżające się terminy zaliczenia</p>
+                        <div style={{width: "100%", height: "90%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                            <div className={stylesMainPage.scrollBar + " " + stylesMainPage.mainBottomList}>
+                                <TestBox title="Sieci Komputerowe" testName="Kolokwium 1" date="Wtorek 14:00"/>
+                                <TestBox title="Technologie baz danych" testName="Egzamin" date="Poniedziałek 12:00"/>
+                                <TestBox title="Analiza matematyczna" testName="Kolokwium nr 1" date="Poniedziałek 16:00"/>
+                                <TestBox title="Systemy przetwarzania danych" testName="Kolokwium nr 1" date="Czwartek 16:00"/>
 
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
