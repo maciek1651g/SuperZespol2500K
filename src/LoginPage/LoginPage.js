@@ -12,13 +12,6 @@ const Svg = (props) => {
     )
 }
 
-const clickedLoginButton = () => {
-    const login = document.getElementById("login").value;
-    const password = document.getElementById("password").value;
-
-    clientApi.logIn(login, password);
-}
-
 const LoginPage = () => {
     const userIco = <Svg class={styles.svgIcon}><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></Svg>
     const groupIco = <Svg class={styles.svgIcon}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></Svg>
@@ -32,6 +25,15 @@ const LoginPage = () => {
     const [showInfoDialogBox, setShowInfoDialogBox] = React.useState(false);
     const [showSettingsDialogBox, setshowSettingsDialogBox] = React.useState(false);
     const tabDialogBox = [setShowInfoDialogBox, setshowSettingsDialogBox];
+
+    const clickedLoginButton = async () => {
+        const login = document.getElementById("login").value;
+        const password = document.getElementById("password").value;
+
+        const api = new clientApi();
+        api.logIn(login,password);
+    }
+
 
     return (
         <div id="app" className={styles.app}>

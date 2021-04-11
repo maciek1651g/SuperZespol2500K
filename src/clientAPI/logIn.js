@@ -1,71 +1,84 @@
-let baseUrl = "http://localhost:3000";
+class clientAPI
+{
+    static #baseUrl = "http://localhost:3000";
 
-const sendMessage = (method, url, jsonData, headers = {}, onErrorFunction = null) => {
-    let xhr = new XMLHttpRequest();
-    xhr.open(method.toUpperCase(), baseUrl+url, false);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    let response = null;
+    onErrorFunction = null;
 
-    xhr.onreadystatechange = (aEvt) =>
+    #sendMessage (method, url, jsonData, headers = {})
     {
-        if (xhr.readyState === 4)
+        let xhr = new XMLHttpRequest();
+        xhr.open(method.toUpperCase(), clientAPI.#baseUrl+url, false);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        let response = null;
+
+        xhr.onreadystatechange = () =>
         {
-            if(xhr.status === 200)
+            if (xhr.readyState === 4)
             {
-                response = xhr.responseText;
-            }
-            else
-            {
-                let error = {codeStatus: xhr.status, textStatus: xhr.statusText};
-                if(onErrorFunction!==null)
+                if(xhr.status === 200)
                 {
-                    onErrorFunction(error);
+                    response = xhr.responseText;
                 }
-                response = null;
+                else
+                {
+                    let error = {codeStatus: xhr.status, textStatus: xhr.statusText};
+                    this.#onError(error)
+                    response = null;
+                }
             }
+        };
+
+        let headersKeys = Object.keys(headers);
+        for(let i=0;i<headersKeys.length;i++)
+        {
+            let key = headersKeys[i];
+            xhr.setRequestHeader(key+"",headers[key]+"");
         }
-    };
 
-    let headersKeys = Object.keys(headers);
-    for(let i=0;i<headersKeys.length;i++)
+        xhr.send(jsonData);
+        return response;
+    }
+
+    #onError(errorInfo)
     {
-        let key = headersKeys[i];
-        xhr.setRequestHeader(key+"",headers[key]+"");
+        if(this.onErrorFunction!==null)
+        {
+            this.onErrorFunction(errorInfo);
+        }
     }
 
-    xhr.send(jsonData);
-    return response;
-}
-
-const dataToJson = (data) => {
-    try{
-        return JSON.stringify(data);
-    } catch {
-        console.error("Error conversion data to JSON")
-    }
-}
-
-const jsonToData = (jsonData) => {
-    try{
-        return JSON.parse(jsonData);
-    } catch {
-        console.error("Error conversion JSON to data")
-    }
-}
-
-const logIn = async (login, password, onErrorFunction = null) => {
-    let data = {email: login, password: password};
-    data = dataToJson(data);
-    let response = sendMessage("POST", "/Users/login", data, {}, onErrorFunction);
-    response = jsonToData(response);
-    if(response!==null)
+    #dataToJson(data)
     {
-        let cookie = "value="+response["value"]+"; expires="+(new Date(response["expires"]));
-        document.cookie = cookie;
-        window.location.href = "http://localhost:3000";
+        try{
+            return JSON.stringify(data);
+        } catch {
+            console.error("Error conversion data to JSON")
+        }
     }
-    console.log(response);
+
+    #jsonToData(jsonData)
+    {
+        try{
+            return JSON.parse(jsonData);
+        } catch {
+            console.error("Error conversion JSON to data")
+        }
+    }
+
+    logIn (login, password)
+    {
+        let data = {email: login, password: password};
+        data = this.#dataToJson(data);
+        let response = this.#sendMessage("POST", "/Users/login", data);
+        response = this.#jsonToData(response);
+        if(response!==null)
+        {
+            document.cookie = "value="+response["value"]+"; expires="+(new Date(response["expires"]));
+            window.location.href = "http://localhost:3000";
+        }
+        console.log(response);
+    }
 }
 
-let toExport = {logIn};
-export default toExport;
+
+export default clientAPI;
