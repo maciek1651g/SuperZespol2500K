@@ -1,7 +1,7 @@
 import styles from './loginStyle.module.css';
 import React from "react";
 
-const InputField = ({type="text", text, icoSVG, eyeIco, noEyeIco}) => {
+const InputField = ({type="text", text, icoSVG, eyeIco, noEyeIco, id}) => {
     const [showEyeState, setShowEyeState] = React.useState(true);
     const [showPassword, setShowPassword] = React.useState(type);
     let isPassword = false;
@@ -23,7 +23,7 @@ const InputField = ({type="text", text, icoSVG, eyeIco, noEyeIco}) => {
 
     return (
         <div className={styles.loginBox}>
-            <input type={showPassword} className={styles.loginInput} required/>
+            <input id={id} type={showPassword} className={styles.loginInput} required/>
             <span className={styles.placeHolder}>{text}</span>
             {icoSVG}
             {isPassword ? <span onClick={changeIco}>{isPassword ? (showEyeState ? eyeIco : noEyeIco) : null}</span> : null}

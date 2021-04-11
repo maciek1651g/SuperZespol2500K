@@ -3,12 +3,20 @@ import IconMenu from './IconMenu.js';
 import InputField from './InputField.js';
 import DialogBox from './DialogBox.js';
 import CheckBox from './CheckBox.js';
+import clientApi from '../clientAPI/logIn.js';
 import React from "react";
 
 const Svg = (props) => {
     return (
         <svg className={props.class} viewBox="0 0 24 24">{props.children}</svg>
     )
+}
+
+const clickedLoginButton = () => {
+    const login = document.getElementById("login").value;
+    const password = document.getElementById("password").value;
+
+    clientApi.logIn(login, password);
 }
 
 const LoginPage = () => {
@@ -63,9 +71,9 @@ const LoginPage = () => {
                         <p className={styles.rightHello}>Witaj w <span style={{color: "#43D7E2"}}>Lorem</span>!</p>
 						<p className={styles.rightInfo}>Zaloguj się do konta lub dowiedz się jak działa aplikacja klikając na grupę testową w menu bocznym.</p>
 						<div className={styles.loginPanel}>
-                            <InputField type="text" text="E-mail" icoSVG={loginUserIco}/>
-                            <InputField type="password" text="Hasło" icoSVG={loginPasswordIco} eyeIco={eyeIco} noEyeIco={notEyeIco}/>
-                            <button id="loginButton" className={styles.loginButton + ' ' + styles.buttonStyle}>ZALOGUJ</button>
+                            <InputField id="login" type="text" text="E-mail" icoSVG={loginUserIco}/>
+                            <InputField id="password" type="password" text="Hasło" icoSVG={loginPasswordIco} eyeIco={eyeIco} noEyeIco={notEyeIco}/>
+                            <button id="loginButton" className={styles.loginButton + ' ' + styles.buttonStyle} onClick={clickedLoginButton}>ZALOGUJ</button>
                             <div className={styles.helpSection}>
                                 <button className={styles.downButton + ' ' + styles.buttonStyle}>ZAŁÓŻ KONTO</button>
                                 <button className={styles.downButton + ' ' + styles.buttonStyle}>ZAPOMNIAŁEM HASŁA</button>
