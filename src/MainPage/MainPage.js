@@ -1,12 +1,13 @@
 import styles from './../LoginPage/loginStyle.module.css';
 import stylesMainPage from './stylesMainPage.module.css';
 import IconMenu from './../LoginPage/IconMenu.js';
-import DialogBox from './../LoginPage/DialogBox.js';
-import CheckBox from './../LoginPage/CheckBox.js';
 import React from "react";
 import {Avatar, Badge} from "@material-ui/core";
 import ListElement from "./ListElement";
 import TestBox from "./TestBox";
+import InfoBox from "../LoginPage/InfoBox";
+import SettingsBox from "../LoginPage/SettingsBox";
+import SingleIco from "../LoginPage/SingleIco";
 
 const Svg = (props) => {
     return (
@@ -26,27 +27,13 @@ const MainPage = () => {
 
     const [showInfoDialogBox, setShowInfoDialogBox] = React.useState(false);
     const [showSettingsDialogBox, setshowSettingsDialogBox] = React.useState(false);
+    const [showNotyfication, setNotyfication] = React.useState(false);
     const tabDialogBox = [setShowInfoDialogBox, setshowSettingsDialogBox];
 
     return (
         <div id="app" className={stylesMainPage.app}>
-            {showInfoDialogBox ?
-                <DialogBox title="O aplikacji" close={setShowInfoDialogBox}>
-                    <p>
-                        Aplikacja stworzona przez SUPER ZESPÓŁ 2500K.
-                        Służy ona do komunikacji oraz upraszczania organizowania planu i nauki dla studentów i uczniów.
-                        W przypadku problemów prosimy o kontakt mailowy.
-                    </p>
-                    <div style={{width: "100%", display: "flex", justifyContent: "center"}}>
-                        <button className={styles.errorButton + ' ' + styles.buttonStyle}>ZGŁOŚ BŁĄD</button>
-                    </div>
-                </DialogBox> : null}
-
-            {showSettingsDialogBox ?
-                <DialogBox title="Ustawienia" close={setshowSettingsDialogBox}>
-                    <CheckBox text="Tryb ciemny"/>
-                    <CheckBox text="Wysyłaj powiadomienia push"/>
-                </DialogBox> : null}
+            {showInfoDialogBox ? <InfoBox close={setShowInfoDialogBox} />: null}
+            {showSettingsDialogBox ? <SettingsBox close={setshowSettingsDialogBox} />: null}
 
 
             <div className={stylesMainPage.leftColumn}>
@@ -71,12 +58,7 @@ const MainPage = () => {
                         <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
                             <Avatar variant="rounded" style={{width:"50px", height:"50px", margin:"0 20px", borderRadius: "10px"}}>H</Avatar>
                             <Badge badgeContent=" " color="primary" invisible={false}>
-                                <label className={styles.buttonMenu} style={{margin:"0"}}>
-                                    <input type="checkbox" className={styles.offInput}/>
-                                    <span className={styles.iconNotification}>
-                                        {bellIco}
-                                    </span>
-                                </label>
+                                <SingleIco icon={bellIco} open={showNotyfication} set={setNotyfication}/>
                             </Badge>
                         </div>
                     </div>

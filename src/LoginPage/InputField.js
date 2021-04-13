@@ -1,7 +1,7 @@
 import styles from './loginStyle.module.css';
 import React from "react";
 
-const InputField = ({type="text", text, icoSVG, eyeIco, noEyeIco, id}) => {
+const InputField = ({type="text", text, icoSVG, eyeIco, noEyeIco, id, required}) => {
     const [showEyeState, setShowEyeState] = React.useState(true);
     const [showPassword, setShowPassword] = React.useState(type);
     let isPassword = false;

@@ -15,10 +15,14 @@ const IconMenu = (props) => {
         {
             props.open(!props.isOpen);
         }
+        if(props.setOptionMenu)
+        {
+            props.setOptionMenu(props.optionMenu);
+        }
     }
 
-    const onChange = () => {
-       
+    const onChange = (event) => {
+
     }
 
     let input = null;

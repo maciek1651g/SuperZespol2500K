@@ -2,11 +2,12 @@ class ClientAPI
 {
     static baseUrl = "http://localhost:3000";
     onErrorFunction = null;
+    onSuccessFunction = null;
 
     sendMessage (method, url, jsonData, headers = {})
     {
         let xhr = new XMLHttpRequest();
-        xhr.open(method.toUpperCase(), ClientAPI.baseUrl+url, false);
+        xhr.open(method.toUpperCase(), ClientAPI.baseUrl+url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         let response = null;
 
@@ -14,17 +15,18 @@ class ClientAPI
         {
             if (xhr.readyState === 4)
             {
-                if(xhr.status === 200)
+                if(parseInt(xhr.status/100) === 2)
                 {
-                    if(xhr.responseText!=="")
+                    if(xhr.status===200)
                     {
                         response = xhr.responseText;
+                        response = this.jsonToData(response);
                     }
-                    else
+                    else if(xhr.status===201)
                     {
                         response = true;
                     }
-
+                    this.onSuccess(response);
                 }
                 else
                 {
@@ -43,7 +45,14 @@ class ClientAPI
         }
 
         xhr.send(jsonData);
-        return response;
+    }
+
+    onSuccess(response)
+    {
+        if(this.onSuccessFunction!==null)
+        {
+            this.onSuccessFunction(response)
+        }
     }
 
     onError(errorInfo)
@@ -76,18 +85,14 @@ class ClientAPI
     {
         let data = {email: login, password: password};
         data = this.dataToJson(data);
-        let response = this.sendMessage("POST", "/Users/login", data);
-        response = this.jsonToData(response);
-        return response;
+        this.sendMessage("POST", "/Users/login", data);
     }
 
-    register(username, email, password, firstName, lastName, role)
+    register(username, email, password, firstName, lastName, role=0)
     {
         let data = {role: role, username: username, email: email, password: password, firstName: firstName, lastName: lastName};
         data = this.dataToJson(data);
-        let response = this.sendMessage("POST", "/Users/register", data);
-        response = this.jsonToData(response);
-        return response;
+        this.sendMessage("POST", "/Users/register", data);
     }
 }
 
