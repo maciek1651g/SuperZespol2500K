@@ -1,13 +1,12 @@
-class clientAPI
+class ClientAPI
 {
-    static #baseUrl = "http://localhost:3000";
-
+    static baseUrl = "http://localhost:3000";
     onErrorFunction = null;
 
-    #sendMessage (method, url, jsonData, headers = {})
+    sendMessage (method, url, jsonData, headers = {})
     {
         let xhr = new XMLHttpRequest();
-        xhr.open(method.toUpperCase(), clientAPI.#baseUrl+url, false);
+        xhr.open(method.toUpperCase(), ClientAPI.baseUrl+url, false);
         xhr.setRequestHeader("Content-Type", "application/json");
         let response = null;
 
@@ -17,12 +16,20 @@ class clientAPI
             {
                 if(xhr.status === 200)
                 {
-                    response = xhr.responseText;
+                    if(xhr.responseText!=="")
+                    {
+                        response = xhr.responseText;
+                    }
+                    else
+                    {
+                        response = true;
+                    }
+
                 }
                 else
                 {
                     let error = {codeStatus: xhr.status, textStatus: xhr.statusText};
-                    this.#onError(error)
+                    this.onError(error)
                     response = null;
                 }
             }
@@ -39,7 +46,7 @@ class clientAPI
         return response;
     }
 
-    #onError(errorInfo)
+    onError(errorInfo)
     {
         if(this.onErrorFunction!==null)
         {
@@ -47,7 +54,7 @@ class clientAPI
         }
     }
 
-    #dataToJson(data)
+    dataToJson(data)
     {
         try{
             return JSON.stringify(data);
@@ -56,7 +63,7 @@ class clientAPI
         }
     }
 
-    #jsonToData(jsonData)
+    jsonToData(jsonData)
     {
         try{
             return JSON.parse(jsonData);
@@ -68,17 +75,21 @@ class clientAPI
     logIn (login, password)
     {
         let data = {email: login, password: password};
-        data = this.#dataToJson(data);
-        let response = this.#sendMessage("POST", "/Users/login", data);
-        response = this.#jsonToData(response);
-        if(response!==null)
-        {
-            document.cookie = "value="+response["value"]+"; expires="+(new Date(response["expires"]));
-            window.location.href = "http://localhost:3000";
-        }
-        console.log(response);
+        data = this.dataToJson(data);
+        let response = this.sendMessage("POST", "/Users/login", data);
+        response = this.jsonToData(response);
+        return response;
+    }
+
+    register(username, email, password, firstName, lastName, role)
+    {
+        let data = {role: role, username: username, email: email, password: password, firstName: firstName, lastName: lastName};
+        data = this.dataToJson(data);
+        let response = this.sendMessage("POST", "/Users/register", data);
+        response = this.jsonToData(response);
+        return response;
     }
 }
 
 
-export default clientAPI;
+export default ClientAPI;
