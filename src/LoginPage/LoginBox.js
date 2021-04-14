@@ -4,6 +4,7 @@ import {useHistory} from "react-router-dom";
 import ClientApi from '../clientAPI/ClientAPI.js';
 import React from "react";
 import Svg from "./Svg";
+import $ from "../MainPage/getElement";
 
 const LoginBox = () => {
     const history = useHistory();
@@ -25,10 +26,10 @@ const LoginBox = () => {
         return null;
     }*/
 
-    const clickedLoginButton = async (event) => {
+    const clickedLoginButton = (event) => {
         event.preventDefault();
-        let login = document.getElementById("login").value;
-        let password = document.getElementById("password").value;
+        let login = $("login").value;
+        let password = $("password").value;
         if(login==="asd")
         {
             login = "admin123@sggw.edu.pl";
@@ -51,6 +52,7 @@ const LoginBox = () => {
 
     const loginError = (errorInfo) => {
         //Czynności wykonywane po błędzie logowania
+        console.log(errorInfo)
     }
 
 

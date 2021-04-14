@@ -3,17 +3,23 @@ import styles from './loginStyle.module.css';
 const IconMenu = (props) => {
 
     const closeAndOpenDialogBoxs = () => {
-        if(props.tabDialogBox)
+        if(props.setOpenDialogBox)
         {
-            for(let i=0;i<props.tabDialogBox.length;i++)
+            if(typeof (props.actualIdDialogBox)!=="undefined")
             {
-                props.tabDialogBox[i](false);
+                if(props.actualIdDialogBox===props.idMyDialogBox)
+                {
+                    props.setOpenDialogBox(0);
+                }
+                else
+                {
+                    props.setOpenDialogBox(props.idMyDialogBox);
+                }
             }
-        }
-
-        if(props.open)
-        {
-            props.open(!props.isOpen);
+            else
+            {
+                props.setOpenDialogBox(0);
+            }
         }
         if(props.setOptionMenu)
         {
@@ -26,21 +32,13 @@ const IconMenu = (props) => {
     }
 
     let input = null;
-    if(typeof(props.isChecked)!=="undefined")
+    if(typeof(props.actualOptionMenu)!=="undefined")
     {
-        if(props.isChecked)
-        {
-            input = <input type="radio" name={props.name} onChange={onChange} defaultChecked/>
-        }
-        else
-        {
-            input = <input type="radio" name={props.name} onChange={onChange}/>
-        }
-        
+        input = <input type="radio" name={props.name} onChange={onChange} checked={props.actualOptionMenu===props.optionMenu?true:false}/>
     }
-    else if(typeof(props.isOpen)!=="undefined")
+    else if(typeof(props.actualIdDialogBox)!=="undefined")
     {
-        input = <input type="radio" name={props.name} onChange={onChange} checked={props.isOpen}/>
+        input = <input type="radio" name={props.name} onChange={onChange} checked={props.actualIdDialogBox===props.idMyDialogBox?true:false}/>
     }
 
     return (

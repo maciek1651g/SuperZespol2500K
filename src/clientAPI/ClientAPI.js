@@ -1,8 +1,11 @@
+import ErrorClass from "./ErrorClass";
+
 class ClientAPI
 {
     static baseUrl = "http://localhost:3000";
     onErrorFunction = null;
     onSuccessFunction = null;
+    functionAfterRequest = null;
 
     sendMessage (method, url, jsonData, headers = {})
     {
@@ -30,10 +33,12 @@ class ClientAPI
                 }
                 else
                 {
-                    let error = {codeStatus: xhr.status, textStatus: xhr.statusText};
+                    let error = new ErrorClass(xhr.status, xhr.statusText);
                     this.onError(error)
                     response = null;
                 }
+
+                this.afterRequest();
             }
         };
 
@@ -60,6 +65,14 @@ class ClientAPI
         if(this.onErrorFunction!==null)
         {
             this.onErrorFunction(errorInfo);
+        }
+    }
+
+    afterRequest()
+    {
+        if(this.functionAfterRequest!==null)
+        {
+            this.functionAfterRequest();
         }
     }
 

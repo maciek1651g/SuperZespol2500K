@@ -18,28 +18,29 @@ const LoginPage = () => {
     const settingsIco = <Svg class={styles.svgIcon}><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></Svg>
     const infoIco = <Svg class={styles.svgIcon}><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></Svg>
 
-    const [showInfoDialogBox, setShowInfoDialogBox] = React.useState(false);
-    const [showSettingsDialogBox, setShowSettingsDialogBox] = React.useState(false);
+    const [showDialogBoxes, setDialogBoxes] = React.useState(0);
     const [optionMenu, setOptionMenu] = React.useState(1);
-
-    const tabDialogBox = [setShowInfoDialogBox, setShowSettingsDialogBox];
 
     return (
         <div id="app" className={styles.app}>
-            {showInfoDialogBox ? <InfoBox close={setShowInfoDialogBox} />: null}
-            {showSettingsDialogBox ? <SettingsBox close={setShowSettingsDialogBox} />: null}
+            {showDialogBoxes===1 ? <InfoBox close={setDialogBoxes} />: null}
+            {showDialogBoxes===2 ? <SettingsBox close={setDialogBoxes} />: null}
             
                 
             <div id="main" className={styles.main}>
                 <div id="leftColumn" className={styles.leftColumn}>
                     <div id="leftTop" className={styles.leftTop}>
                         <h2 style={{marginTop: "40px"}}>Lorem</h2>
-                        <IconMenu name="navMenu" icoSVG={userIco} tabDialogBox={tabDialogBox} isChecked={true} optionMenu={1} setOptionMenu={setOptionMenu}/>
-                        <IconMenu name="navMenu" icoSVG={groupIco} tabDialogBox={tabDialogBox} isChecked={false} optionMenu={2} setOptionMenu={setOptionMenu}/>
+                        <IconMenu name="navMenu" icoSVG={userIco} optionMenu={1}
+                                  actualOptionMenu={optionMenu} setOptionMenu={setOptionMenu} setOpenDialogBox={setDialogBoxes}/>
+                        <IconMenu name="navMenu" icoSVG={groupIco}optionMenu={2}
+                                  actualOptionMenu={optionMenu} setOptionMenu={setOptionMenu} setOpenDialogBox={setDialogBoxes}/>
                     </div>
                     <div id="leftBottom" className={styles.leftBottom}>
-                        <IconMenu name="infoMenu" icoSVG={settingsIco} tabDialogBox={tabDialogBox} isOpen={showSettingsDialogBox} open={setShowSettingsDialogBox}/>
-                        <IconMenu name="infoMenu" icoSVG={infoIco}  tabDialogBox={tabDialogBox} isOpen={showInfoDialogBox} open={setShowInfoDialogBox}/>
+                        <IconMenu name="infoMenu" icoSVG={settingsIco} idMyDialogBox={1} actualIdDialogBox={showDialogBoxes}
+                                  setOpenDialogBox={setDialogBoxes}/>
+                        <IconMenu name="infoMenu" icoSVG={infoIco}  idMyDialogBox={2} actualIdDialogBox={showDialogBoxes}
+                                  setOpenDialogBox={setDialogBoxes}/>
                     </div>
                 </div>
                 <div id="rightColumn" className={styles.rightColumn}>

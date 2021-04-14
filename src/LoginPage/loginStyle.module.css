@@ -230,7 +230,7 @@ input:checked + .icon, input:checked + .iconNotification
 	font-weight: revert;
 }
 
-.buttonStyle:active, .buttonStyle:focus
+.buttonStyle:active, .buttonStyle:focus, .arrowButton:active, .arrowButton:focus
 {
 	border: none;
 	outline: none;
@@ -243,6 +243,26 @@ input:checked + .icon, input:checked + .iconNotification
 }
 
 .buttonStyle:active
+{
+	box-shadow: inset 0 0 8px 0 rgba(0,0,0,0.5);
+}
+
+.arrowButton
+{
+	box-sizing: border-box;
+	padding: 10px;
+	color: #979797;
+	border: none;
+	letter-spacing: 1px;
+	border-radius: 5px;
+}
+
+.arrowButton:hover, .arrowButton:focus
+{
+	cursor: pointer;
+}
+
+.arrowButton:active
 {
 	box-shadow: inset 0 0 8px 0 rgba(0,0,0,0.5);
 }

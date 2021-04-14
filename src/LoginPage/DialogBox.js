@@ -3,7 +3,7 @@ import React from "react";
 
 const DialogBox = (props) => {
     const closeWindow = () => {
-        props.close(false);
+        props.close(0);
     }
 
     return (
