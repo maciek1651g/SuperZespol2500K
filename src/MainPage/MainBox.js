@@ -1,34 +1,19 @@
 import stylesMainPage from "./stylesMainPage.module.css";
-import {Avatar, Badge} from "@material-ui/core";
-import SingleIco from "../LoginPage/SingleIco";
 import styles from "../LoginPage/loginStyle.module.css";
 import ListElement from "./ListElement";
 import TestBox from "./TestBox";
 import React from "react";
-import Svg from "../LoginPage/Svg";
+import Icons from "./../img/iconsSVG.js";
+import TopMainPage from "./TopMainPage";
 
 
 const MainBox = () => {
 
-    const bellIco = <Svg class={styles.svgIcon}><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></Svg>
-    const arrowleft = <Svg class={styles.svgIcon}><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></Svg>
-    const arrowright = <Svg class={styles.svgIcon}><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></Svg>
 
-    const [showNotyfication, setNotyfication] = React.useState(false);
 
     return (
         <div className={stylesMainPage.rightContent}>
-            <div className={stylesMainPage.rightTop}>
-                <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-end", height: "100%"}}>
-                    <p style={{fontSize: "30px", margin: "0", color: "#979797"}}>Hej <span style={{color: "#43D7E2"}}>Mariusz</span>!</p>
-                </div>
-                <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-                    <Avatar variant="rounded" style={{width:"50px", height:"50px", margin:"0 20px", borderRadius: "10px"}}>H</Avatar>
-                    <Badge badgeContent=" " color="primary" invisible={false}>
-                        <SingleIco icon={bellIco} open={showNotyfication} set={setNotyfication}/>
-                    </Badge>
-                </div>
-            </div>
+            <TopMainPage name="Mariusz"/>
             <div className={stylesMainPage.rightMiddle}>
                 <p style={{fontSize: "40px", margin: "0", height: "10%"}}>Twoje Grupy</p>
                 <div style={{width: "100%", height: "90%", display: "flex", flexDirection: "row"}}>
@@ -41,8 +26,8 @@ const MainBox = () => {
                             <div style={{display: "flex", justifyContent: "space-between", alignItems: "center",width: "90%", height: "20%"}}>
                                 <div><button className={styles.errorButton + ' ' + styles.buttonStyle}>PRZEJDŹ DO GRUPY</button></div>
                                 <div>
-                                    <button className={styles.arrowButton}>{arrowleft}</button>
-                                    <button className={styles.arrowButton}>{arrowright}</button>
+                                    <button className={styles.arrowButton}>{Icons.arrowLeft}</button>
+                                    <button className={styles.arrowButton}>{Icons.arrowRight}</button>
                                 </div>
                             </div>
                         </div>
