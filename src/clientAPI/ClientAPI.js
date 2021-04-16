@@ -3,19 +3,28 @@ import ErrorClass from "./ErrorClass";
 class ClientAPI
 {
     static baseUrl = "http://localhost:3000";
+    static nameCookie = "Lorem_value";
+    static bearer = null;
     onErrorFunction = null;
     onSuccessFunction = null;
     functionAfterRequest = null;
+    backgroundFunctionHandler = null;
 
     sendMessage (method, url, jsonData, headers = {})
     {
         let xhr = new XMLHttpRequest();
         xhr.open(method.toUpperCase(), ClientAPI.baseUrl+url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.timeout = 5000;
+
+        if(ClientAPI.bearer!==null)
+        {
+            xhr.setRequestHeader("Authorization", "Bearer "+ClientAPI.bearer);
+        }
+
         let response = null;
 
-        xhr.onreadystatechange = () =>
-        {
+        xhr.onreadystatechange = () => {
             if (xhr.readyState === 4)
             {
                 if(parseInt(xhr.status/100) === 2)
@@ -33,14 +42,21 @@ class ClientAPI
                 }
                 else
                 {
-                    let error = new ErrorClass(xhr.status, xhr.statusText);
-                    this.onError(error)
+                    if(xhr.status!==0)
+                    {
+                        let error = new ErrorClass(xhr.status, xhr.statusText);
+                        this.onError(error)
+                    }
                     response = null;
                 }
-
-                this.afterRequest();
             }
-        };
+        }
+        xhr.ontimeout = (e) => {
+            this.onError(new ErrorClass(404, "Zbyt długi czas oczekiwania na odpoweidź"))
+        }
+        xhr.onabort = (e) => {
+            this.onError(new ErrorClass(404, "Zatrzymano zapytanie z nieznanych przyczyn"))
+        }
 
         let headersKeys = Object.keys(headers);
         for(let i=0;i<headersKeys.length;i++)
@@ -52,20 +68,62 @@ class ClientAPI
         xhr.send(jsonData);
     }
 
+    checkIfLoggedIn()
+    {
+        if(ClientAPI.bearer===null)
+        {
+            ClientAPI.bearer = this.getCookie(ClientAPI.nameCookie);
+            if(ClientAPI.bearer===null)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    getCookie(cname)
+    {
+       let name = cname + "=";
+       let decodedCookie = decodeURIComponent(document.cookie);
+       let ca = decodedCookie.split(';');
+       for(let i = 0; i <ca.length; i++) {
+           let c = ca[i];
+           while (c.charAt(0) === ' ') {
+               c = c.substring(1);
+           }
+           if (c.indexOf(name) === 0) {
+               return c.substring(name.length, c.length);
+           }
+       }
+       return null;
+   }
+
     onSuccess(response)
     {
         if(this.onSuccessFunction!==null)
         {
             this.onSuccessFunction(response)
         }
+        if(this.backgroundFunctionHandler!==null)
+        {
+            this.backgroundFunctionHandler(response);
+        }
+        this.afterRequest();
     }
 
     onError(errorInfo)
     {
+        console.log(errorInfo)
         if(this.onErrorFunction!==null)
         {
             this.onErrorFunction(errorInfo);
         }
+        if(this.backgroundFunctionHandler!==null)
+        {
+            this.backgroundFunctionHandler(errorInfo);
+        }
+        this.afterRequest();
     }
 
     afterRequest()
@@ -80,8 +138,8 @@ class ClientAPI
     {
         try{
             return JSON.stringify(data);
-        } catch {
-            console.error("Error conversion data to JSON")
+        } catch(error) {
+            this.onError(new ErrorClass(404, "Błąd konwersji danych do typu JSON"));
         }
     }
 
@@ -89,8 +147,8 @@ class ClientAPI
     {
         try{
             return JSON.parse(jsonData);
-        } catch {
-            console.error("Error conversion JSON to data")
+        } catch(error) {
+            this.onError(new ErrorClass(404, "Błąd konwersji typu JSON na dane"));
         }
     }
 
@@ -98,6 +156,15 @@ class ClientAPI
     {
         let data = {email: login, password: password};
         data = this.dataToJson(data);
+
+        this.backgroundFunctionHandler = (response) => {
+            if(response!==null && typeof(response["value"])!==undefined)
+            {
+                ClientAPI.bearer = response["value"];
+                document.cookie = ClientAPI.nameCookie+"="+response["value"]+"; expires="+(new Date(response["expires"]));
+            }
+        }
+
         this.sendMessage("POST", "/Users/login", data);
     }
 

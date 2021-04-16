@@ -12,6 +12,7 @@ const RegisterBox = (props) => {
 
     const clickedRegisterButton = (event) => {
         event.preventDefault();
+        props.setLoadingScreen(true);
         let username = $("nick").value;
         let email = $("email").value;
         let password1 = $("password1").value;
@@ -22,12 +23,14 @@ const RegisterBox = (props) => {
         if(password1!==password2)
         {
             registerError(new ErrorClass(418, "Hasła nie zgadzają się ze sobą!"));
+            afterRegisterRequest();
             return
         }
 
         const api = new ClientApi();
         api.onSuccessFunction = registerSuccess;
         api.onErrorFunction = registerError;
+        api.afterRequest = afterRegisterRequest;
         api.register(username, email, password1, firsName, LastName);
     }
 
@@ -39,7 +42,10 @@ const RegisterBox = (props) => {
     }
 
     const registerError = (errorInfo) => {
-        console.log(errorInfo);
+    }
+
+    const afterRegisterRequest=()=> {
+        props.setLoadingScreen(false)
     }
 
     return (

@@ -6,28 +6,12 @@ import React from "react";
 import Icons from "./../img/iconsSVG.js";
 import $ from "../MainPage/getElement";
 
-const LoginBox = () => {
+const LoginBox = (props) => {
     const history = useHistory();
-    const nameCookie = "Lorem_value";
-
-    /*const getCookie = (cname) => {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for(let i = 0; i <ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) === ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) === 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return null;
-    }*/
 
     const clickedLoginButton = (event) => {
         event.preventDefault();
+        props.setLoadingScreen(true);
         let login = $("login").value;
         let password = $("password").value;
         if(login==="asd")
@@ -45,15 +29,14 @@ const LoginBox = () => {
     const loginSuccess = (response) => {
         if(response!==null)
         {
-            document.cookie = nameCookie+"="+response["value"]+"; expires="+(new Date(response["expires"]));
             history.push("/");
         }
     }
 
     const loginError = (errorInfo) => {
-        //Czynności wykonywane po błędzie logowania
-        console.log(errorInfo)
+        props.setLoadingScreen(false)
     }
+
 
 
     return (
