@@ -57,6 +57,9 @@ class ClientAPI
         xhr.onabort = (e) => {
             this.onError(new ErrorClass(404, "Zatrzymano zapytanie z nieznanych przyczyn"))
         }
+        xhr.onerror = (e) => {
+            console.log(e);
+        }
 
         let headersKeys = Object.keys(headers);
         for(let i=0;i<headersKeys.length;i++)

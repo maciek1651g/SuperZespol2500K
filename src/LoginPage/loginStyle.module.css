@@ -173,6 +173,13 @@ input:checked + .icon, input:checked + .iconNotification
 	border-bottom: 2px solid #43D7E2;
 }
 
+.loginInputError:focus
+{
+	border: none;
+	outline: none;
+	border-bottom: 2px solid #F44336;
+}
+
 .placeHolder
 {
 	position: absolute;
@@ -466,4 +473,34 @@ input:checked + .slider:before {
 @keyframes spin {
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
+}
+
+.errorMessage
+{
+	background-color: #f44336;
+	min-width: 150px;
+	height: 50px;
+	position: absolute;
+	z-index: 1;
+	bottom: 100px;
+	border-radius: 5px;
+	box-shadow: 0 3px 5px -1px;
+	display: flex;
+	flex-direction: row;
+	animation: showSlow 0.1s linear forwards;
+}
+
+@keyframes showSlow {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+@keyframes hiddenSlow {
+	0% { opacity: 1; }
+	100% { opacity: 0; }
+}
+
+.closeButton
+{
+	cursor: pointer;
 }

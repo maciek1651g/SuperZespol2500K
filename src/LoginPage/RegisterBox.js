@@ -3,7 +3,6 @@ import React from "react";
 import InputField from "./InputField";
 import ClientApi from "../clientAPI/ClientAPI";
 import $ from "../MainPage/getElement";
-import ErrorClass from "../clientAPI/ErrorClass";
 
 
 const RegisterBox = (props) => {
@@ -12,7 +11,6 @@ const RegisterBox = (props) => {
 
     const clickedRegisterButton = (event) => {
         event.preventDefault();
-        props.setLoadingScreen(true);
         let username = $("nick").value;
         let email = $("email").value;
         let password1 = $("password1").value;
@@ -20,12 +18,17 @@ const RegisterBox = (props) => {
         let firsName = $("name").value;
         let LastName = $("surname").value;
 
-        if(password1!==password2)
+        if(username==="" || email==="" || password1==="" || password2==="" || firsName==="" || LastName==="")
         {
-            registerError(new ErrorClass(418, "Hasła nie zgadzają się ze sobą!"));
-            afterRegisterRequest();
+            props.setMessage("Wypełnij wszystkie pola rejestracji.");
             return
         }
+        if(password1!==password2)
+        {
+            props.setMessage("Podane hasła różnią się od siebie.");
+            return
+        }
+        props.setLoadingScreen(true);
 
         const api = new ClientApi();
         api.onSuccessFunction = registerSuccess;
@@ -42,9 +45,10 @@ const RegisterBox = (props) => {
     }
 
     const registerError = (errorInfo) => {
+        props.setMessage("Kod błędu: "+errorInfo.errorCode+". "+errorInfo.errorMessage+".");
     }
 
-    const afterRegisterRequest=()=> {
+    const afterRegisterRequest = () => {
         props.setLoadingScreen(false)
     }
 

@@ -11,9 +11,15 @@ const LoginBox = (props) => {
 
     const clickedLoginButton = (event) => {
         event.preventDefault();
-        props.setLoadingScreen(true);
         let login = $("login").value;
         let password = $("password").value;
+        if(login==="" || password==="")
+        {
+            props.setMessage("Wypełnij oba pola logowania.");
+            return
+        }
+        props.setLoadingScreen(true);
+
         if(login==="asd")
         {
             login = "admin123@sggw.edu.pl";
@@ -34,10 +40,13 @@ const LoginBox = (props) => {
     }
 
     const loginError = (errorInfo) => {
+        props.setMessage("Kod błędu: "+errorInfo.errorCode+". "+errorInfo.errorMessage+".");
         props.setLoadingScreen(false)
     }
 
-
+    const createAccountButton = () => {
+        props.setOptionMenu(2)
+    }
 
     return (
         <div id="rightContent" className={styles.rightContent}>
@@ -50,7 +59,7 @@ const LoginBox = (props) => {
                     <button id="loginButton" className={styles.loginButton + ' ' + styles.buttonStyle} onClick={clickedLoginButton}>ZALOGUJ</button>
                 </form>
                 <div className={styles.helpSection}>
-                    <button className={styles.downButton + ' ' + styles.buttonStyle}>ZAŁÓŻ KONTO</button>
+                    <button className={styles.downButton + ' ' + styles.buttonStyle} onClick={createAccountButton}>ZAŁÓŻ KONTO</button>
                     <button className={styles.downButton + ' ' + styles.buttonStyle}>ZAPOMNIAŁEM HASŁA</button>
                 </div>
             </div>

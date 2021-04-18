@@ -17,9 +17,8 @@ const MainPage = () => {
 
     return (
         <div id="app" className={stylesMainPage.app}>
-            {showDialogBoxes===1 ? <InfoBox close={setDialogBoxes} />: null}
-            {showDialogBoxes===2 ? <SettingsBox close={setDialogBoxes} />: null}
-
+            {showDialogBoxes===1 ? <SettingsBox close={setDialogBoxes} />: null}
+            {showDialogBoxes===2 ? <InfoBox close={setDialogBoxes} />: null}
 
             <div className={stylesMainPage.leftColumn}>
                 <div id="leftTop" className={styles.leftTop}>

@@ -7,6 +7,7 @@ import InfoBox from "./InfoBox";
 import SettingsBox from "./SettingsBox";
 import RegisterBox from "./RegisterBox";
 import LoadingScreen from "./LoadingScreen";
+import ErrorMessage from "./ErrorMessage";
 
 
 
@@ -15,15 +16,15 @@ const LoginPage = () => {
     const [showDialogBoxes, setDialogBoxes] = React.useState(0);
     const [optionMenu, setOptionMenu] = React.useState(1);
     const [showLoading, setLoading] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState(null);
 
     return (
         <div id="app" className={styles.app}>
-            {showDialogBoxes===1 ? <InfoBox close={setDialogBoxes} />: null}
-            {showDialogBoxes===2 ? <SettingsBox close={setDialogBoxes} />: null}
+            {showDialogBoxes===1 ? <SettingsBox close={setDialogBoxes} />: null}
+            {showDialogBoxes===2 ? <InfoBox close={setDialogBoxes} />: null}
             {showLoading ? <LoadingScreen /> : null}
+            {errorMessage!==null ? <ErrorMessage message={errorMessage} setMessage={setErrorMessage}/> : null}
 
-
-                
             <div id="main" className={styles.main}>
                 <div id="leftColumn" className={styles.leftColumn}>
                     <div id="leftTop" className={styles.leftTop}>
@@ -41,10 +42,11 @@ const LoginPage = () => {
                     </div>
                 </div>
                 <div id="rightColumn" className={styles.rightColumn}>
-                    {optionMenu===1 ? <LoginBox setLoadingScreen={setLoading}/> : null}
-                    {optionMenu===2 ? <RegisterBox setLoadingScreen={setLoading} setOptionMenu={setOptionMenu} /> : null}
+                    {optionMenu===1 ? <LoginBox setLoadingScreen={setLoading} setOptionMenu={setOptionMenu} setMessage={setErrorMessage}/> : null}
+                    {optionMenu===2 ? <RegisterBox setLoadingScreen={setLoading} setOptionMenu={setOptionMenu} setMessage={setErrorMessage}/> : null}
                 </div>
             </div>
+
         </div>
     )
 }
