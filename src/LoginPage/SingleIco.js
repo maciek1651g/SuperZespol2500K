@@ -11,7 +11,7 @@ const SingleIco = (props) => {
     return (
         <label className={styles.buttonMenu} style={{margin:"0"}}>
             <input type="checkbox" className={styles.offInput} onChange={onChange} checked={props.open}/>
-            <span className={styles.iconNotification}>
+            <span className={styles.iconNotification} onClick={props.onClick}>
                 {props.icon}
             </span>
         </label>

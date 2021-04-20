@@ -85,6 +85,11 @@ class ClientAPI
         return true;
     }
 
+    logout()
+    {
+        ClientAPI.bearer = null;
+    }
+
     getCookie(cname)
     {
        let name = cname + "=";

@@ -7,6 +7,7 @@ import SettingsBox from "../LoginPage/SettingsBox";
 import MainBox from "./MainBox";
 import Icons from "./../img/iconsSVG.js";
 import CalendarBox from "./CalendarBox";
+import GroupBox from "./GroupBox";
 
 const MainPage = () => {
 
@@ -41,6 +42,7 @@ const MainPage = () => {
             </div>
             <div className={stylesMainPage.rightColumn}>
                 {optionMenu===1 ? <MainBox /> : null}
+                {optionMenu===2 ? <GroupBox /> : null}
                 {optionMenu===3 ? <CalendarBox /> : null}
             </div>
         </div>
