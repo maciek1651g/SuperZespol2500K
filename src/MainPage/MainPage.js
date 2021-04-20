@@ -8,6 +8,7 @@ import MainBox from "./MainBox";
 import Icons from "./../img/iconsSVG.js";
 import CalendarBox from "./CalendarBox";
 import GroupBox from "./GroupBox";
+import BoxBox from "./BoxBox";
 
 const MainPage = () => {
 
@@ -44,6 +45,7 @@ const MainPage = () => {
                 {optionMenu===1 ? <MainBox /> : null}
                 {optionMenu===2 ? <GroupBox /> : null}
                 {optionMenu===3 ? <CalendarBox /> : null}
+                {optionMenu===4 ? <BoxBox /> : null}
             </div>
         </div>
     )

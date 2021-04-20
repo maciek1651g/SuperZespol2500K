@@ -23,6 +23,17 @@ const App = () => {
       </Router>
     </Fragment>
   );
+
+    // return (
+    //     <Fragment>
+    //         <Router>
+    //             <Switch>
+    //                 <PrivateRoute component={MainPage} path="/" exact/>
+    //                 <PublicRoute restricted={true} component={LoginPage} path="/login/" exact/>
+    //             </Switch>
+    //         </Router>
+    //     </Fragment>
+    // );
 }
 
 export default App;

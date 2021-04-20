@@ -73,13 +73,10 @@ class ClientAPI
 
     checkIfLoggedIn()
     {
+        ClientAPI.bearer = this.getCookie(ClientAPI.nameCookie);
         if(ClientAPI.bearer===null)
         {
-            ClientAPI.bearer = this.getCookie(ClientAPI.nameCookie);
-            if(ClientAPI.bearer===null)
-            {
-                return false;
-            }
+            return false;
         }
 
         return true;
@@ -87,6 +84,7 @@ class ClientAPI
 
     logout()
     {
+        document.cookie = ClientAPI.nameCookie+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         ClientAPI.bearer = null;
     }
 
