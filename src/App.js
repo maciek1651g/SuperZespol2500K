@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import LoginPage from "./LoginPage/LoginPage.js";
 import MainPage from "./MainPage/MainPage.js";
 import ClientAPI from "./clientAPI/ClientAPI";
+import NoMatch from "./router/NoMatch";
 
 const App = () => {
     const clientAPI = new ClientAPI();
@@ -18,6 +19,9 @@ const App = () => {
             </Route>
             <Route path="/login/">
                 <LoginPage />
+            </Route>
+            <Route path="*">
+                <NoMatch />
             </Route>
         </Switch>
       </Router>
