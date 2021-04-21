@@ -42,11 +42,13 @@ class ClientAPI
                 }
                 else
                 {
-                    if(xhr.status!==0)
-                    {
-                        let error = new ErrorClass(xhr.status, xhr.statusText);
-                        this.onError(error)
-                    }
+                    // if(xhr.status!==0)
+                    // {
+                    //     let error = new ErrorClass(xhr.status, xhr.statusText);
+                    //     this.onError(error)
+                    // }
+                    let error = new ErrorClass(xhr.status, xhr.statusText);
+                    this.onError(error);
                     response = null;
                 }
             }
@@ -107,13 +109,13 @@ class ClientAPI
 
     onSuccess(response)
     {
-        if(this.onSuccessFunction!==null)
-        {
-            this.onSuccessFunction(response)
-        }
         if(this.backgroundFunctionHandler!==null)
         {
             this.backgroundFunctionHandler(response);
+        }
+        if(this.onSuccessFunction!==null)
+        {
+            this.onSuccessFunction(response)
         }
         this.afterRequest();
     }
@@ -121,13 +123,13 @@ class ClientAPI
     onError(errorInfo)
     {
         console.log(errorInfo)
-        if(this.onErrorFunction!==null)
-        {
-            this.onErrorFunction(errorInfo);
-        }
         if(this.backgroundFunctionHandler!==null)
         {
             this.backgroundFunctionHandler(errorInfo);
+        }
+        if(this.onErrorFunction!==null)
+        {
+            this.onErrorFunction(errorInfo);
         }
         this.afterRequest();
     }
@@ -167,7 +169,7 @@ class ClientAPI
             if(response!==null && typeof(response["value"])!==undefined)
             {
                 ClientAPI.bearer = response["value"];
-                document.cookie = ClientAPI.nameCookie+"="+response["value"]+"; expires="+(new Date(response["expires"]));
+                document.cookie = ClientAPI.nameCookie+"="+response["value"]+"; expires="+(new Date(response["expires"]+'; path="/";'));
             }
         }
 

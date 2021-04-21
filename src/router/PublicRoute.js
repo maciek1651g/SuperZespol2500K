@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import ClientAPI from "../clientAPI/ClientAPI";
 
-const PublicRoute = ({component: Component, restricted, ...rest}) => {
+const PublicRoute = ({children, restricted, ...rest}) => {
     const api = new ClientAPI();
 
     return (
@@ -11,7 +11,7 @@ const PublicRoute = ({component: Component, restricted, ...rest}) => {
         <Route {...rest} render={props => (
             api.checkIfLoggedIn() && restricted ?
                 <Redirect to="/" />
-                : <Component {...props} />
+                : children
         )} />
     );
 };

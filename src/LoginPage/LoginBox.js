@@ -35,7 +35,7 @@ const LoginBox = (props) => {
     const loginSuccess = (response) => {
         if(response!==null)
         {
-            history.push("/");
+            setTimeout(()=>{history.push("/");},0);
         }
     }
 

@@ -3,23 +3,21 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 import LoginPage from "./LoginPage/LoginPage.js";
 import MainPage from "./MainPage/MainPage.js";
-import ClientAPI from "./clientAPI/ClientAPI";
 import NoMatch from "./router/NoMatch";
+import PrivateRoute from "./router/PrivateRoute";
+import PublicRoute from "./router/PublicRoute";
 
 const App = () => {
-    const clientAPI = new ClientAPI();
-    const isLoggedIn = clientAPI.checkIfLoggedIn();
-
   return (
     <Fragment>
       <Router>
         <Switch>
-            <Route exact path="/">
+            <PrivateRoute exact path="/">
                 <MainPage />
-            </Route>
-            <Route path="/login/">
+            </PrivateRoute>
+            <PublicRoute path="/login/" restricted={true}>
                 <LoginPage />
-            </Route>
+            </PublicRoute>
             <Route path="*">
                 <NoMatch />
             </Route>
@@ -27,17 +25,6 @@ const App = () => {
       </Router>
     </Fragment>
   );
-
-    // return (
-    //     <Fragment>
-    //         <Router>
-    //             <Switch>
-    //                 <PrivateRoute component={MainPage} path="/" exact/>
-    //                 <PublicRoute restricted={true} component={LoginPage} path="/login/" exact/>
-    //             </Switch>
-    //         </Router>
-    //     </Fragment>
-    // );
 }
 
 export default App;
