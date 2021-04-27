@@ -79,33 +79,41 @@ const Calendar = ({date, setDate}) => {
         setDate(new Date(date.setMonth(date.getMonth()-1)))
     }
 
-    let tmpDate = new Date(date.getFullYear(),date.getMonth(),1);
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear()
+    const currentMonth = currentDate.getMonth()
+    const currentDay = currentDate.getDate()
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    let tmpDate = new Date(year,month,0);
     let firstDayInMonth = tmpDate.getDay();
-    if(firstDayInMonth===0)firstDayInMonth=7;
     let countOfDays = numberOfDaysInMonth(tmpDate.getMonth(), tmpDate.getFullYear())
-    let lastDayInMonth = 7-(new Date(tmpDate.getFullYear(),tmpDate.getMonth(),countOfDays)).getDay();
-    if(lastDayInMonth===7)lastDayInMonth=0;
+    let lastDayInMonth = 6-(new Date(tmpDate.setDate(tmpDate.getDate()+countOfDays))).getDay();
     let htmlDays=[];
-    let j=1;
-    tmpDate = new Date(date.getFullYear(),date.getMonth(),1);
+    const days = firstDayInMonth+countOfDays+lastDayInMonth+1;
+    tmpDate = new Date(year,month,1);
     tmpDate = new Date(tmpDate.setDate(tmpDate.getDate()-firstDayInMonth));
 
-    for(let i=1;i<firstDayInMonth;i++)
+    for(let i=0;i<days;i++)
     {
-        htmlDays.push(<div key={j} className={stylesCalendar.dayBoxGray}>{tmpDate.getDate()}</div>);
-        j+=1;
+        if(tmpDate.getMonth()===month)
+        {
+            if(tmpDate.getDate()===currentDay && tmpDate.getFullYear()===currentYear && tmpDate.getMonth()===currentMonth)
+            {
+                htmlDays.push(<div key={i} style={{backgroundColor: "#43D7E2"}} className={stylesCalendar.dayBox}>{tmpDate.getDate()}</div>);
+            }
+            else
+            {
+                htmlDays.push(<div key={i} className={stylesCalendar.dayBox}>{tmpDate.getDate()}</div>);
+            }
+        }
+        else
+        {
+            htmlDays.push(<div key={i} className={stylesCalendar.dayBoxGray}>{tmpDate.getDate()}</div>);
+        }
         tmpDate = new Date(tmpDate.setDate(tmpDate.getDate()+1));
     }
-    for(let i=1;i<=countOfDays;i++)
-    {
-        htmlDays.push(<div key={j} className={stylesCalendar.dayBox}>{i}</div>);
-        j+=1;
-    }
-    for(let i=1;i<=lastDayInMonth;i++)
-    {
-        htmlDays.push(<div key={j} className={stylesCalendar.dayBoxGray}>{i}</div>);
-        j+=1;
-    }
+
 
     return (
         <div className={stylesCalendar.calendar}>
