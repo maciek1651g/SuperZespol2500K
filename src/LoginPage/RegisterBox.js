@@ -54,7 +54,7 @@ const RegisterBox = (props) => {
 
     return (
         <div id="rightContent" className={styles.rightContent} >
-            <div style={{display: "flex", flexDirection: "column", width: "80%"}}>
+            <div className={styles.registerForm}>
                 <p style={{fontSize:"30px", fontWeight: "bold", color: "#444444", textAlign: "center", margin: "20px 0 0 0"}}>Zarejestruj się</p>
                 <form>
                     <InputField id="name" type="text" text="Imie"/>

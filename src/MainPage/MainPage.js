@@ -20,7 +20,7 @@ const MainPage = () => {
     const [showDialogBoxes, setDialogBoxes] = React.useState(0);
     const [optionMenu, setOptionMenu] = React.useState(1);
 
-    
+
     React.useEffect(() => {
         if(typeof(id)!=="undefined")
         {
