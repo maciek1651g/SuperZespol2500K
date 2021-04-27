@@ -79,7 +79,7 @@ const Calendar = ({date, setDate}) => {
         setDate(new Date(date.setMonth(date.getMonth()-1)))
     }
 
-    const tmpDate = new Date(date.getFullYear(),date.getMonth(),1);
+    let tmpDate = new Date(date.getFullYear(),date.getMonth(),1);
     let firstDayInMonth = tmpDate.getDay();
     if(firstDayInMonth===0)firstDayInMonth=7;
     let countOfDays = numberOfDaysInMonth(tmpDate.getMonth(), tmpDate.getFullYear())
@@ -87,12 +87,14 @@ const Calendar = ({date, setDate}) => {
     if(lastDayInMonth===7)lastDayInMonth=0;
     let htmlDays=[];
     let j=1;
-
+    tmpDate = new Date(date.getFullYear(),date.getMonth(),1);
+    tmpDate = new Date(tmpDate.setDate(tmpDate.getDate()-firstDayInMonth));
 
     for(let i=1;i<firstDayInMonth;i++)
     {
-        htmlDays.push(<div key={j} className={stylesCalendar.dayBoxGray}>31</div>);
+        htmlDays.push(<div key={j} className={stylesCalendar.dayBoxGray}>{tmpDate.getDate()}</div>);
         j+=1;
+        tmpDate = new Date(tmpDate.setDate(tmpDate.getDate()+1));
     }
     for(let i=1;i<=countOfDays;i++)
     {
