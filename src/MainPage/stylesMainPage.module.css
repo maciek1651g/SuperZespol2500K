@@ -5,18 +5,20 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    min-width: 1210px;
-    min-height: 630px;
+    min-width: 480px;
     color : #444;
 }
 
 .leftColumn
 {
     display: flex;
+    position: fixed;
     flex-direction: column;
     align-items: center;
+    top: 0;
+    left: 0;
     width: 10%;
-    height: 100%;
+    height: 100vh;
     justify-content: space-between;
 }
 
@@ -26,6 +28,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
     width: 90%;
     height: 100%;
     background-color: #F5F5F5;
@@ -58,6 +63,14 @@
     width: 100%;
 }
 
+.rightMiddleBottom
+{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+}
+
 .rightBottom
 {
     height: 40%;
@@ -83,7 +96,6 @@
     width: 90%;
     height: 90%;
     min-height: 230px;
-    min-width: 460px;
     border-radius: 20px;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
 }
@@ -95,7 +107,6 @@
     width: 90%;
     height: 90%;
     min-height: 230px;
-    min-width: 460px;
 }
 
 .listElement
@@ -198,4 +209,55 @@
 .contextMenuElement:hover
 {
     background-color: #E4E4E4;
+}
+
+.middleContentLeftTitle
+{
+    width: 90%;
+    height: 60%;
+}
+
+@media only screen and (max-width: 1210px) {
+    .rightMiddle
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .rightMiddleBottom
+    {
+        flex-direction: column;
+        padding: 20px 0;
+    }
+    .rightColumn
+    {
+        height: unset;
+        padding: 50px 0;
+        width: 80%;
+    }
+    .leftColumn
+    {
+        width: 20%;
+    }
+    .rightContent
+    {
+        height: unset;
+    }
+    .middleContent
+    {
+        width: unset;
+    }
+    .middleContentLeft
+    {
+        padding: 20px 0;
+        width: 100%;
+    }
+    .middleContentRight
+    {
+        width: 100%;
+    }
+    .scrollBar
+    {
+        overflow-y: hidden;
+    }
 }

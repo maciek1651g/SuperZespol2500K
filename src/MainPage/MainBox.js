@@ -16,10 +16,10 @@ const MainBox = () => {
             <TopMainPage name="Mariusz"/>
             <div className={stylesMainPage.rightMiddle}>
                 <p style={{fontSize: "40px", margin: "0", height: "10%"}}>Twoje Grupy</p>
-                <div style={{width: "100%", height: "90%", display: "flex", flexDirection: "row"}}>
+                <div className={stylesMainPage.rightMiddleBottom}>
                     <div className={stylesMainPage.middleContent}>
                         <div className={stylesMainPage.middleContentLeft}>
-                            <div style={{width: "90%", height: "60%"}}>
+                            <div className={stylesMainPage.middleContentLeftTitle}>
                                 <p style={{fontSize: "36px", margin: "0"}}>Podstawy Informatyki Kwantowej</p>
                                 <p style={{color: "#979797"}}>Grupa II</p>
                             </div>
