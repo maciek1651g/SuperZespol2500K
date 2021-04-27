@@ -1,0 +1,74 @@
+.calendar
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.calendarRightMiddle
+{
+    width: 100%;
+    height: 90%;
+}
+
+.contentCalendar
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 95%;
+    background-color: #EEEEEE;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
+    padding-bottom: 20px;
+}
+
+.dateBar
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 20px;
+    background-color: #F2F2F2;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
+    margin: 10px 5px;
+}
+
+.dayName
+{
+    text-align: center;
+    justify-content: space-around;
+    grid-column: 1 / 8;
+    display: flex;
+    flex-direction: row;
+    border-radius: 20px;
+    background-color: #F2F2F2;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
+    padding: 10px 0;
+    margin: 15px 0 0 0;
+}
+
+.calendarPage
+{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    grid-gap: 15px;
+    margin: 0 5px;
+}
+
+.dayBox, .dayBoxGray
+{
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
+    padding: 10px 0;
+    background-color: #F2F2F2;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.dayBoxGray
+{
+    background-color: #DDDDDD;
+    color: #777777;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
+}
