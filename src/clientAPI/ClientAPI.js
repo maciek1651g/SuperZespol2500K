@@ -60,7 +60,7 @@ class ClientAPI
             this.onError(new ErrorClass(404, "Zatrzymano zapytanie z nieznanych przyczyn"))
         }
         xhr.onerror = (e) => {
-            console.log(e);
+            this.onError(new ErrorClass(404, "Błąd połączenia."))
         }
 
         let headersKeys = Object.keys(headers);

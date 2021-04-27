@@ -15,9 +15,12 @@ const App = () => {
             <PrivateRoute exact path="/">
                 <MainPage />
             </PrivateRoute>
-            <PublicRoute path="/login/" restricted={true}>
+            <PublicRoute exact path="/login/" restricted={true}>
                 <LoginPage />
             </PublicRoute>
+            <PrivateRoute exact path="/:id">
+                <MainPage />
+            </PrivateRoute>
             <Route path="*">
                 <NoMatch />
             </Route>

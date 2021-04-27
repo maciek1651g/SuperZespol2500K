@@ -34,11 +34,11 @@ const IconMenu = (props) => {
     let input = null;
     if(typeof(props.actualOptionMenu)!=="undefined")
     {
-        input = <input type="radio" name={props.name} onChange={onChange} checked={props.actualOptionMenu===props.optionMenu?true:false}/>
+        input = <input type="radio" name={props.name} onChange={onChange} checked={props.actualOptionMenu === props.optionMenu}/>
     }
     else if(typeof(props.actualIdDialogBox)!=="undefined")
     {
-        input = <input type="radio" name={props.name} onChange={onChange} checked={props.actualIdDialogBox===props.idMyDialogBox?true:false}/>
+        input = <input type="radio" name={props.name} onChange={onChange} checked={props.actualIdDialogBox === props.idMyDialogBox}/>
     }
 
     return (
