@@ -1,5 +1,6 @@
 import stylesCalendar from "./styleCalendar.module.css";
 import styles from "../LoginPage/loginStyle.module.css";
+import DayBox from "./DayBox";
 import Icons from "../img/iconsSVG";
 import React from "react";
 
@@ -96,20 +97,22 @@ const Calendar = ({date, setDate}) => {
 
     for(let i=0;i<days;i++)
     {
+        let notInfo = null;
+
         if(tmpDate.getMonth()===month)
         {
             if(tmpDate.getDate()===currentDay && tmpDate.getFullYear()===currentYear && tmpDate.getMonth()===currentMonth)
             {
-                htmlDays.push(<div key={i} style={{backgroundColor: "#43D7E2"}} className={stylesCalendar.dayBox}>{tmpDate.getDate()}</div>);
+                htmlDays.push(<DayBox key={i} day={tmpDate.getDate()} class={stylesCalendar.dayBox+' '+stylesCalendar.currentDay} notInfo={notInfo}/>)
             }
             else
             {
-                htmlDays.push(<div key={i} className={stylesCalendar.dayBox}>{tmpDate.getDate()}</div>);
+                htmlDays.push(<DayBox key={i} day={tmpDate.getDate()} class={stylesCalendar.dayBox} notInfo={notInfo}/>)
             }
         }
         else
         {
-            htmlDays.push(<div key={i} className={stylesCalendar.dayBoxGray}>{tmpDate.getDate()}</div>);
+            htmlDays.push(<DayBox key={i} day={tmpDate.getDate()} class={stylesCalendar.dayBoxGray} notInfo={notInfo}/>)
         }
         tmpDate = new Date(tmpDate.setDate(tmpDate.getDate()+1));
     }
