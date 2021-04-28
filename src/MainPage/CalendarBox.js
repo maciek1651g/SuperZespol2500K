@@ -11,7 +11,7 @@ import Calendar from "./Calendar";
 const CalendarBox = () => {
     const [openSettings, setOpenSettings] = React.useState(false);
     const [showContextMenu, setContextMenu] = React.useState(0);
-    const [date, setDate] = React.useState(new Date());
+    const [date, setDate] = React.useState(new Date((new Date()).setDate(1)));
 
     return (
         <div className={stylesMainPage.rightContent}>

@@ -86,12 +86,14 @@ const Calendar = ({date, setDate}) => {
     const currentDay = currentDate.getDate()
     const year = date.getFullYear();
     const month = date.getMonth();
-    let tmpDate = new Date(year,month,0);
+    let tmpDate = new Date(year,month,1);
     let firstDayInMonth = tmpDate.getDay();
+    if(firstDayInMonth===0) firstDayInMonth=6; else firstDayInMonth-=1;
     let countOfDays = numberOfDaysInMonth(tmpDate.getMonth(), tmpDate.getFullYear())
-    let lastDayInMonth = 6-(new Date(tmpDate.setDate(tmpDate.getDate()+countOfDays))).getDay();
+    let lastDayInMonth = 6-(new Date(tmpDate.setDate(tmpDate.getDate()+(countOfDays-2)))).getDay();
+    //if(lastDayInMonth===6) lastDayInMonth=0; else lastDayInMonth+=1;
     let htmlDays=[];
-    const days = firstDayInMonth+countOfDays+lastDayInMonth+1;
+    const days = firstDayInMonth+countOfDays+lastDayInMonth;
     tmpDate = new Date(year,month,1);
     tmpDate = new Date(tmpDate.setDate(tmpDate.getDate()-firstDayInMonth));
 
