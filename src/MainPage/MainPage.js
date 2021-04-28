@@ -10,6 +10,7 @@ import CalendarBox from "./CalendarBox";
 import GroupBox from "./GroupBox";
 import BoxBox from "./BoxBox";
 import {useHistory, useParams} from "react-router-dom";
+import {useLocation} from "react-router";
 
 const changeOptionMenu = (id)=>{
     switch(id)
@@ -27,11 +28,48 @@ const changeOptionMenu = (id)=>{
 
 const MainPage = () => {
     const history = useHistory();
+    const location = useLocation();
     const {id} = useParams();
 
     const [showDialogBoxes, setDialogBoxes] = React.useState(0);
     const [optionMenu, setOptionMenu] = React.useState(changeOptionMenu(id));
 
+    React.useEffect(() => {
+        if(typeof(id)!=="undefined")
+        {
+            switch (id)
+            {
+                case "groups":
+                    if(optionMenu!==2)
+                    {
+                        setOptionMenu(2);
+                    }
+                    break;
+                case "calendar":
+                    if(optionMenu!==3)
+                    {
+                        setOptionMenu(3);
+                    }
+                    break;
+                case "box":
+                    if(optionMenu!==4)
+                    {
+                        setOptionMenu(4);
+                    }
+                    break;
+                default:
+                    history.replace("/");
+            }
+        }
+        else
+        {
+            if(optionMenu!==1)
+            {
+                setOptionMenu(1);
+            }
+        }
+
+    }, [location]);
 
     React.useEffect(() => {
         switch (optionMenu)
