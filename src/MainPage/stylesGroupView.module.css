@@ -1,0 +1,188 @@
+.groupContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 230px;
+  min-width: 460px;
+  height: 80%;
+  border-radius: 20px;
+  margin-top: 50px;
+  top: 0;
+  overflow: scroll;
+}
+.groupContainer::-webkit-scrollbar,
+.postsContainer::-webkit-scrollbar {
+  display: none;
+}
+.groupBox {
+  width: 36.5%;
+  background-color: #f2f2f2;
+  padding: 1% 5% 2.5% 2.5%;
+  margin-bottom: 5%;
+  float: left;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+}
+.groupBox:nth-child(1),
+.groupBox:nth-child(2) {
+  margin-top: 10px;
+}
+.groupBox:nth-child(odd) {
+  margin-right: 2.5%;
+  margin-left: 1%;
+}
+.groupBox:nth-child(even) {
+  margin-left: 2.5%;
+  margin-right: 1%;
+}
+.groupNumber {
+  color: #979797;
+  margin-top: 20px;
+  font-size: 20px;
+}
+.dot {
+  display: inline-block !important;
+  margin-left: 10px;
+}
+
+.postsContainer {
+  background-color: #e4e4e4;
+  border-radius: 20px;
+  padding: 10px 20px;
+  height: 55%;
+  overflow: scroll;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+  margin: 2px;
+}
+.postsBox {
+  background-color: #f2f2f2;
+  border-radius: 20px;
+  margin-top: 40px;
+  padding: 20px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+}
+.avatar {
+  width: 30px;
+  height: 30px;
+  background-color: #979797;
+  border-radius: 5px;
+  float: left;
+}
+.detailsBox {
+  display: flex;
+  flex-direction: row;
+  display: inline-block;
+  margin-top: 0px;
+  padding: 0 5px;
+}
+.teacher {
+  margin: 0;
+}
+.date {
+  margin: 0;
+  font-size: 12px;
+  color: #979797;
+}
+.postDescription {
+  margin-left: 35px;
+}
+.postsBox:first-child {
+  margin-top: 15px;
+}
+.postsBox:last-child {
+  margin-bottom: 15px;
+}
+.iconSet {
+  display: flex;
+}
+
+.iconBox {
+  padding: 10px;
+  margin: 5px;
+  background-color: transparent;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.iconBoxActive {
+  padding: 10px;
+  margin: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.sendMessageBox {
+  background-color: #cacaca;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-top: -20px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.sendMessage {
+  background-color: #fff;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  margin-right: 10px;
+}
+.sendMessage p {
+  margin: 0;
+  margin-left: 5px;
+  color: #979797;
+}
+.messageButton {
+  background-color: #4cd5df;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  justify-content: flex-end;
+  margin-top: 10px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: 3px;
+}
+.messageButton p {
+  margin: 0;
+  margin-left: 5px;
+}
+.infoBox,
+.userBox {
+  background-color: #f2f2f2;
+  border-radius: 20px;
+  margin-top: 20px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+}
+.infoBox p {
+  width: 33.3%;
+  display: flex;
+  align-items: center;
+}
+.infoBox div {
+  width: 33.3%;
+  display: flex;
+  align-items: center;
+}
+.width33 {
+  width: 33.3%;
+  display: flex;
+  align-items: center;
+}
