@@ -4,7 +4,7 @@ import GroupViewIcons from "./GroupViewIcons";
 import TopMainPage from "./TopMainPage";
 import ListElement from "./ListElement";
 import NewInfo from "./NewInfo";
-import * as Icon from "react-feather";
+// import * as Icon from "react-feather";
 
 export default class Info extends Component {
   render() {

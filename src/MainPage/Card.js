@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import styles from "../LoginPage/loginStyle.module.css";
 import ListElement from "./ListElement";
 import stylesGroupView from "./stylesGroupView.module.css";
-import stylesMainPage from "./stylesMainPage.module.css";
 export default class Card extends Component {
   render() {
     return (

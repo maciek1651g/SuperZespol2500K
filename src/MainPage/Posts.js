@@ -4,7 +4,7 @@ import ListElement from "./ListElement";
 import stylesGroupView from "./stylesGroupView.module.css";
 import GroupViewIcons from "./GroupViewIcons";
 import Message from "./Message";
-import * as Icon from "react-feather";
+// import * as Icon from "react-feather";
 // feather.replace();
 export default class Posts extends Component {
   render() {

@@ -7,10 +7,10 @@ import SettingsBox from "../LoginPage/SettingsBox";
 import MainBox from "./MainBox";
 import Icons from "./../img/iconsSVG.js";
 import CalendarBox from "./CalendarBox";
-import GroupBox from "./GroupBox";
 import BoxBox from "./BoxBox";
 import {useHistory, useParams} from "react-router-dom";
 import {useLocation} from "react-router";
+import GroupView from "./GroupView";
 
 const changeOptionMenu = (id)=>{
     switch(id)
@@ -129,7 +129,7 @@ const MainPage = () => {
             </div>
             <div className={stylesMainPage.rightColumn}>
                 {optionMenu===1 ? <MainBox /> : null}
-                {optionMenu===2 ? <GroupBox /> : null}
+                {optionMenu===2 ? <GroupView /> : null}
                 {optionMenu===3 ? <CalendarBox /> : null}
                 {optionMenu===4 ? <BoxBox /> : null}
             </div>

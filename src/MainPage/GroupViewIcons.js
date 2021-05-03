@@ -6,7 +6,7 @@ export default class GroupViewIcons extends Component {
     return (
       <>
         <div className={stylesGroupView.iconSet}>
-          {this.props.active == 1 ? (
+          {this.props.active === 1 ? (
             <div
               className={stylesGroupView.iconBoxActive}
               onClick={() => this.props.changeSubpage(1)}
@@ -21,7 +21,7 @@ export default class GroupViewIcons extends Component {
               <Icon.Paperclip width="30" height="30" color="#979797" />
             </div>
           )}
-          {this.props.active == 2 ? (
+          {this.props.active === 2 ? (
             <div
               className={stylesGroupView.iconBoxActive}
               onClick={() => this.props.changeSubpage(2)}
@@ -36,7 +36,7 @@ export default class GroupViewIcons extends Component {
               <Icon.MessageSquare width="30" height="30" color="#979797" />
             </div>
           )}
-          {this.props.active == 3 ? (
+          {this.props.active === 3 ? (
             <div
               className={stylesGroupView.iconBoxActive}
               onClick={() => this.props.changeSubpage(3)}
@@ -51,7 +51,7 @@ export default class GroupViewIcons extends Component {
               <Icon.User width="30" height="30" color="#979797" />
             </div>
           )}
-          {this.props.active == 4 ? (
+          {this.props.active === 4 ? (
             <div
               className={stylesGroupView.iconBoxActive}
               onClick={() => this.props.changeSubpage(4)}
