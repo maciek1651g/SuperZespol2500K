@@ -5,9 +5,9 @@ class ClientAPI
     static baseUrl = "http://localhost:3000";
     static nameCookie = "Lorem_value";
     static bearer = null;
-    onErrorFunction = null;
-    onSuccessFunction = null;
-    functionAfterRequest = null;
+    onErrorFunctionHandler = null;
+    onSuccessFunctionHandler = null;
+    functionAfterRequestHandler = null;
     backgroundFunctionHandler = null;
 
     sendMessage (method, url, jsonData, headers = {})
@@ -42,13 +42,13 @@ class ClientAPI
                 }
                 else
                 {
-                    // if(xhr.status!==0)
-                    // {
-                    //     let error = new ErrorClass(xhr.status, xhr.statusText);
-                    //     this.onError(error)
-                    // }
-                    let error = new ErrorClass(xhr.status, xhr.statusText);
-                    this.onError(error);
+                    if(xhr.status!==0)
+                    {
+                        let error = new ErrorClass(xhr.status, xhr.statusText);
+                        this.onError(error)
+                    }
+                    //let error = new ErrorClass(xhr.status, xhr.statusText);
+                    //this.onError(error);
                     response = null;
                 }
             }
@@ -113,9 +113,9 @@ class ClientAPI
         {
             this.backgroundFunctionHandler(response);
         }
-        if(this.onSuccessFunction!==null)
+        if(this.onSuccessFunctionHandler!==null)
         {
-            this.onSuccessFunction(response)
+            this.onSuccessFunctionHandler(response)
         }
         this.afterRequest();
     }
@@ -127,18 +127,18 @@ class ClientAPI
         {
             this.backgroundFunctionHandler(errorInfo);
         }
-        if(this.onErrorFunction!==null)
+        if(this.onErrorFunctionHandler!==null)
         {
-            this.onErrorFunction(errorInfo);
+            this.onErrorFunctionHandler(errorInfo);
         }
         this.afterRequest();
     }
 
     afterRequest()
     {
-        if(this.functionAfterRequest!==null)
+        if(this.functionAfterRequestHandler!==null)
         {
-            this.functionAfterRequest();
+            this.functionAfterRequestHandler();
         }
     }
 

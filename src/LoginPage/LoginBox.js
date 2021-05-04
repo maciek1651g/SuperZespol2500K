@@ -27,8 +27,8 @@ const LoginBox = (props) => {
         }
 
         const api = new ClientApi();
-        api.onSuccessFunction = loginSuccess;
-        api.onErrorFunction = loginError;
+        api.onSuccessFunctionHandler = loginSuccess;
+        api.onErrorFunctionHandler = loginError;
         api.logIn(login,password);
     }
 

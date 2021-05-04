@@ -20,7 +20,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --testURL \"http://localhost:5000\" --testEnvironment \"node\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

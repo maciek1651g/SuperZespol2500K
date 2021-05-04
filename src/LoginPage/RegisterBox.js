@@ -31,8 +31,8 @@ const RegisterBox = (props) => {
         props.setLoadingScreen(true);
 
         const api = new ClientApi();
-        api.onSuccessFunction = registerSuccess;
-        api.onErrorFunction = registerError;
+        api.onSuccessFunctionHandler = registerSuccess;
+        api.onErrorFunctionHandler = registerError;
         api.afterRequest = afterRegisterRequest;
         api.register(username, email, password1, firsName, LastName);
     }
