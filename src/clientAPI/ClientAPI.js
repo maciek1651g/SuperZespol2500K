@@ -34,7 +34,7 @@ class ClientAPI
                         response = xhr.responseText;
                         response = this.jsonToData(response);
                     }
-                    else if(xhr.status===201)
+                    else //if(xhr.status===201)
                     {
                         response = true;
                     }
@@ -181,6 +181,28 @@ class ClientAPI
         let data = {role: role, username: username, email: email, password: password, firstName: firstName, lastName: lastName};
         data = this.dataToJson(data);
         this.sendMessage("POST", "/Users/register", data);
+    }
+
+    createGroup(name)
+    {
+        let data = {name: name};
+        data = this.dataToJson(data);
+        this.sendMessage("POST", "/Groups", data);
+    }
+
+    getGroups()
+    {
+        this.sendMessage("GET", "/Groups");
+    }
+
+    getInfoGroups()
+    {
+        this.sendMessage("GET", "/Groups/attended");
+    }
+
+    getInfoGroup(groupId)
+    {
+        this.sendMessage("GET", "/Groups/attended/"+groupId);
     }
 }
 
