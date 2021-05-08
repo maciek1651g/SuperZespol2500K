@@ -1,11 +1,13 @@
 class ErrorClass
 {
     errorCode = null;
-    errorMessage = null;
+    errorMessageForUser = null;
+    errorMessageForDev = null;
 
-    constructor(code, message) {
+    constructor(code, messageForUser, messageForDev="Lack of description of error.") {
         this.errorCode = code;
-        this.errorMessage = message
+        this.errorMessageForUser = messageForUser;
+        this.errorMessageForDev = messageForDev;
     }
 }
 

@@ -1,34 +1,28 @@
 import ClientAPI from "../clientAPI/ClientAPI";
+import publicAPI from "./../publicFunctions/PublicFunctionsAPI.js"
 
 beforeAll(() => {
     ClientAPI.baseUrl = "http://localhost:5000";
 })
 
 test('correct login test', (done) => {
-    const api = new ClientAPI();
-
-    api.onSuccessFunctionHandler = (res) => {
+    publicAPI.login("admin123@sggw.edu.pl", "admin123", (res) => {
         if(res!==null)
         {
             done();
         }
-    };
-    api.onErrorFunctionHandler = (error) => {
+    }, (error) => {
         done(error);
-    };
-
-    api.logIn("admin123@sggw.edu.pl", "admin123");
+    })
 });
 
 test('incorrect login test', (done) => {
-    const api = new ClientAPI();
-    api.onSuccessFunctionHandler = (res) => {
-        expect(res).toBe(null);
-        done(res);
-    };
-    api.onErrorFunctionHandler = (error) => {
+    publicAPI.login("sadfgdfdfasd@sggw.edu.pl", "adfgadfg", (res) => {
+        if(res!==null)
+        {
+            done(res);
+        }
+    }, (error) => {
         done();
-    };
-
-    api.logIn("sadfgdfdfasd@sggw.edu.pl", "adfgadfg");
+    })
 });

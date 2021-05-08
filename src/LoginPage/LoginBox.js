@@ -1,9 +1,9 @@
 import styles from './loginStyle.module.css';
 import InputField from './InputField.js';
 import {useHistory} from "react-router-dom";
-import ClientApi from '../clientAPI/ClientAPI.js';
 import React from "react";
 import Icons from "./../img/iconsSVG.js";
+import publicAPI from "./../publicFunctions/PublicFunctionsAPI.js";
 import $ from "../MainPage/getElement";
 
 const LoginBox = (props) => {
@@ -26,21 +26,16 @@ const LoginBox = (props) => {
             password = "admin123";
         }
 
-        const api = new ClientApi();
-        api.onSuccessFunctionHandler = loginSuccess;
-        api.onErrorFunctionHandler = loginError;
-        api.logIn(login,password);
-    }
-
-    const loginSuccess = (response) => {
-        if(response!==null)
-        {
-            setTimeout(()=>{history.push("/");},0);
-        }
+        publicAPI.login(login, password, (response) => {
+            if(response!==null)
+            {
+                setTimeout(()=>{history.push("/");},0);
+            }
+        }, loginError);
     }
 
     const loginError = (errorInfo) => {
-        props.setMessage("Kod błędu: "+errorInfo.errorCode+". "+errorInfo.errorMessage+".");
+        props.setMessage("Kod błędu: "+errorInfo.errorCode+". "+errorInfo.errorMessageForUser);
         props.setLoadingScreen(false)
     }
 

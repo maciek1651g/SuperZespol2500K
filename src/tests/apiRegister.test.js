@@ -1,33 +1,30 @@
 import ClientAPI from "../clientAPI/ClientAPI";
+import publicAPI from "./../publicFunctions/PublicFunctionsAPI.js"
 
 beforeAll(() => {
     ClientAPI.baseUrl = "http://localhost:5000";
 })
 
-const user = ["admin12345678", "admin12345678@sggw.edu.pl", "admin12345678", "admin","admin"];
+const user = ["admin123456789", "admin123456789@sggw.edu.pl", "admin123456789", "admin","admin", 0];
 
 // test('success register test', (done) => {
-//     const api = new ClientAPI();
-//     api.onSuccessFunctionHandler = (res) => {
-//         expect(res).toBe(true)
-//         done();
-//     };
-//     api.onErrorFunctionHandler = (error) => {
+//     publicAPI.register(...user, (res)=>{
+//         if(res!==null)
+//         {
+//             done();
+//         }
+//     }, (error) => {
 //         done(error);
-//     };
-//
-//     api.register(...user);
+//     })
 // });
 
 test('fail register test', (done) => {
-    const api = new ClientAPI();
-    api.onSuccessFunctionHandler = (res) => {
-        expect(res).toBe(false)
-        done(res);
-    };
-    api.onErrorFunctionHandler = (error) => {
+    publicAPI.register(...user, (res)=>{
+        if(res!==null)
+        {
+            done(res);
+        }
+    }, (error) => {
         done();
-    };
-
-    api.register(...user);
+    })
 });

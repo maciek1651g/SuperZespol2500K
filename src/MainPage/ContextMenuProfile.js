@@ -1,16 +1,15 @@
 import stylesMainPage from "./stylesMainPage.module.css";
 import ContextMenu from "./ContexMenu";
 import React from "react";
-import ClientAPI from "../clientAPI/ClientAPI";
 import {useHistory} from "react-router-dom";
+import publicAPI from "./../publicFunctions/PublicFunctionsAPI.js";
 
 
 const ContextMenuProfile = (props) => {
     const history = useHistory();
 
     const logout = () => {
-        const api = new ClientAPI();
-        api.logout();
+        publicAPI.logout();
         props.onClose(0);
         history.push("/login/");
     }

@@ -1,45 +1,38 @@
 import ClientAPI from "../clientAPI/ClientAPI";
+import publicAPI from "./../publicFunctions/PublicFunctionsAPI.js"
 
 beforeAll((done) => {
     ClientAPI.baseUrl = "http://localhost:5000";
-    const api = new ClientAPI();
-    api.onSuccessFunctionHandler = (res) => {
+    publicAPI.login("admin123@sggw.edu.pl", "admin123", (res) => {
         if(res!==null)
         {
             done();
         }
-    };
-    api.logIn("admin123@sggw.edu.pl", "admin123");
+    }, (error) => {
+        done(error);
+    })
 })
 
-const group = ["grupa 1"];
+const group = ["grupa 13"];
 
 // test('success create group test', (done) => {
-//     const api = new ClientAPI();
-//     api.onSuccessFunctionHandler = (res) => {
+//     publicAPI.createGroup(...group, (res) => {
 //         if(res!==null)
 //         {
 //             done();
 //         }
-//     };
-//     api.onErrorFunctionHandler = (error) => {
+//     }, (error) => {
 //         done(error);
-//     };
-//
-//     api.createGroup(...group)
+//     });
 // });
 
 test('fail create group test', (done) => {
-    const api = new ClientAPI();
-    api.onSuccessFunctionHandler = (res) => {
+    publicAPI.createGroup(...group, (res) => {
         if(res!==null)
         {
             done(res);
         }
-    };
-    api.onErrorFunctionHandler = (error) => {
+    }, (error) => {
         done();
-    };
-
-    api.createGroup(...group)
+    });
 });

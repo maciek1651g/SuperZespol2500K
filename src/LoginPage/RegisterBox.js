@@ -1,7 +1,7 @@
 import styles from "./loginStyle.module.css";
-import React from "react";
+import React, {lazy} from "react";
 import InputField from "./InputField";
-import ClientApi from "../clientAPI/ClientAPI";
+import publicAPI from "./../publicFunctions/PublicFunctionsAPI.js";
 import $ from "../MainPage/getElement";
 
 
@@ -16,9 +16,9 @@ const RegisterBox = (props) => {
         let password1 = $("password1").value;
         let password2 = $("password2").value;
         let firsName = $("name").value;
-        let LastName = $("surname").value;
+        let lastName = $("surname").value;
 
-        if(username==="" || email==="" || password1==="" || password2==="" || firsName==="" || LastName==="")
+        if(username==="" || email==="" || password1==="" || password2==="" || firsName==="" || lastName==="")
         {
             props.setMessage("Wypełnij wszystkie pola rejestracji.");
             return
@@ -30,26 +30,17 @@ const RegisterBox = (props) => {
         }
         props.setLoadingScreen(true);
 
-        const api = new ClientApi();
-        api.onSuccessFunctionHandler = registerSuccess;
-        api.onErrorFunctionHandler = registerError;
-        api.afterRequest = afterRegisterRequest;
-        api.register(username, email, password1, firsName, LastName);
-    }
-
-    const registerSuccess = (response) => {
-        if(response)
-        {
-            props.setOptionMenu(1);
-        }
+        publicAPI.register(username,email,password1,firsName,lastName,0,(response) => {
+            if(response)
+            {
+                props.setOptionMenu(1);
+            }
+            props.setLoadingScreen(false);
+        }, registerError)
     }
 
     const registerError = (errorInfo) => {
-        props.setMessage("Kod błędu: "+errorInfo.errorCode+". "+errorInfo.errorMessage+".");
-    }
-
-    const afterRegisterRequest = () => {
-        props.setLoadingScreen(false)
+        props.setMessage("Kod błędu: "+errorInfo.errorCode+". "+errorInfo.errorMessageForUser);
     }
 
     return (

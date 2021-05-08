@@ -7,8 +7,6 @@ class ClientAPI
     static bearer = null;
     onErrorFunctionHandler = null;
     onSuccessFunctionHandler = null;
-    functionAfterRequestHandler = null;
-    backgroundFunctionHandler = null;
 
     sendMessage (method, url, jsonData, headers = {})
     {
@@ -23,44 +21,60 @@ class ClientAPI
         }
 
         let response = null;
+        let error = null;
 
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4)
             {
                 if(parseInt(xhr.status/100) === 2)
                 {
-                    if(xhr.status===200)
+                    response = xhr.responseText;
+                    console.log(response);
+
+                    if(response!=="")
                     {
-                        response = xhr.responseText;
                         response = this.jsonToData(response);
                     }
-                    else //if(xhr.status===201)
+                    else
                     {
                         response = true;
                     }
-                    this.onSuccess(response);
                 }
                 else
                 {
                     if(xhr.status!==0)
                     {
-                        let error = new ErrorClass(xhr.status, xhr.statusText);
-                        this.onError(error)
+                        let regExp = new RegExp("\\{.*\\}", "s");
+                        let errorObject = xhr.responseText.match(regExp);
+                        let textError = null;
+                        if(errorObject!==null)
+                        {
+                            errorObject=errorObject[0];
+                            textError = this.jsonToData(errorObject);
+                        } else{
+                            textError = "Niezidentyfikowany błąd.";
+                        }
+
+                        error = new ErrorClass(xhr.status, textError.Message, xhr.responseText);
                     }
-                    //let error = new ErrorClass(xhr.status, xhr.statusText);
-                    //this.onError(error);
+
                     response = null;
+                }
+                this.onSuccess(response);
+                if(error!==null)
+                {
+                    this.onError(error)
                 }
             }
         }
         xhr.ontimeout = (e) => {
-            this.onError(new ErrorClass(404, "Zbyt długi czas oczekiwania na odpoweidź"))
+            this.onError(new ErrorClass(404, "Zbyt długi czas oczekiwania na odpoweidź.", "Timeout"))
         }
         xhr.onabort = (e) => {
-            this.onError(new ErrorClass(404, "Zatrzymano zapytanie z nieznanych przyczyn"))
+            this.onError(new ErrorClass(404, "Zatrzymano zapytanie z nieznanych przyczyn.", "Abort request"))
         }
         xhr.onerror = (e) => {
-            this.onError(new ErrorClass(404, "Błąd połączenia."))
+            this.onError(new ErrorClass(404, "Błąd połączenia z Internetem.", "Error during request"))
         }
 
         let headersKeys = Object.keys(headers);
@@ -75,18 +89,32 @@ class ClientAPI
 
     checkIfLoggedIn()
     {
-        ClientAPI.bearer = this.getCookie(ClientAPI.nameCookie);
+
         if(ClientAPI.bearer===null)
         {
-            return false;
+            ClientAPI.bearer = this.getCookie(ClientAPI.nameCookie);
+            if(ClientAPI.bearer===null)
+            {
+                return false;
+            }
         }
 
         return true;
     }
 
+    setBearerToken(token)
+    {
+        if(token!==null && typeof(token["value"])!==undefined)
+        {
+            ClientAPI.bearer = token["value"];
+            document.cookie = ClientAPI.nameCookie+"="+token["value"]+"; expires="+(new Date(token["expires"]+'; path="/";'));
+        }
+    }
+
     logout()
     {
         document.cookie = ClientAPI.nameCookie+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = ClientAPI.nameCookie+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/login;";
         ClientAPI.bearer = null;
     }
 
@@ -109,36 +137,18 @@ class ClientAPI
 
     onSuccess(response)
     {
-        if(this.backgroundFunctionHandler!==null)
-        {
-            this.backgroundFunctionHandler(response);
-        }
         if(this.onSuccessFunctionHandler!==null)
         {
             this.onSuccessFunctionHandler(response)
         }
-        this.afterRequest();
     }
 
     onError(errorInfo)
     {
         console.log(errorInfo)
-        if(this.backgroundFunctionHandler!==null)
-        {
-            this.backgroundFunctionHandler(errorInfo);
-        }
         if(this.onErrorFunctionHandler!==null)
         {
             this.onErrorFunctionHandler(errorInfo);
-        }
-        this.afterRequest();
-    }
-
-    afterRequest()
-    {
-        if(this.functionAfterRequestHandler!==null)
-        {
-            this.functionAfterRequestHandler();
         }
     }
 
@@ -147,7 +157,7 @@ class ClientAPI
         try{
             return JSON.stringify(data);
         } catch(error) {
-            this.onError(new ErrorClass(404, "Błąd konwersji danych do typu JSON"));
+            this.onError(new ErrorClass(404, "Błąd konwersji danych do typu JSON", error.message));
         }
     }
 
@@ -156,7 +166,7 @@ class ClientAPI
         try{
             return JSON.parse(jsonData);
         } catch(error) {
-            this.onError(new ErrorClass(404, "Błąd konwersji typu JSON na dane"));
+            this.onError(new ErrorClass(404, "Błąd konwersji typu JSON na dane", error.message));
         }
     }
 
@@ -164,15 +174,6 @@ class ClientAPI
     {
         let data = {email: login, password: password};
         data = this.dataToJson(data);
-
-        this.backgroundFunctionHandler = (response) => {
-            if(response!==null && typeof(response["value"])!==undefined)
-            {
-                ClientAPI.bearer = response["value"];
-                document.cookie = ClientAPI.nameCookie+"="+response["value"]+"; expires="+(new Date(response["expires"]+'; path="/";'));
-            }
-        }
-
         this.sendMessage("POST", "/Users/login", data);
     }
 

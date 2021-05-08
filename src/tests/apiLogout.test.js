@@ -1,21 +1,21 @@
 import ClientAPI from "../clientAPI/ClientAPI";
+import publicAPI from "../publicFunctions/PublicFunctionsAPI";
 
 beforeAll((done) => {
     ClientAPI.baseUrl = "http://localhost:5000";
-    const api = new ClientAPI();
-    api.onSuccessFunctionHandler = (res) => {
+    publicAPI.login("admin123@sggw.edu.pl", "admin123", (res) => {
         if(res!==null)
         {
             done();
         }
-    };
-
-    api.logIn("admin123@sggw.edu.pl", "admin123");
+    }, (error) => {
+        done(error);
+    })
 })
 
 test('logout test', () => {
+    publicAPI.logout();
     const api = new ClientAPI();
-    api.logout();
     let res = api.checkIfLoggedIn();
     expect(res).toBe(false);
 });
