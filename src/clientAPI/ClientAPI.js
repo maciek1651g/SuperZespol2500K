@@ -219,7 +219,7 @@ class ClientAPI
     {
         let data = {emails: emailsArray};
         data = this.dataToJson(data);
-        this.sendMessage("POST", "/groups/"+groupID+"/addUsers", data);
+        this.sendMessage("POST", "/Groups/"+groupID+"/users", data);
     }
 }
 

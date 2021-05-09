@@ -72,15 +72,15 @@ function loadStudents() {
 }
 
 const group = ["Rocznik 2018/2021"];
-let groupID = null;
+let groupID = "986f7465-5a79-43fd-9e4b-26cd21433231";
 
 function loadGroup() {
     publicAPI.createGroup(...group, (res) => {
         if(res!==null)
         {
             groupID = res.id;
-            loadTeams();
         }
+        loadTeams();
     });
 }
 
@@ -100,7 +100,7 @@ function loadStudentsToGroup()
     publicAPI.addUsersToGroup(emails, groupID, ()=>{loadCurses()});
 }
 
-const location = {address:{streerName: "Nowoursynowska", buildingNumber: "34", city: "Warszawa"}, link: "wzim.sggw.pl", room: "13"};
+const location = {address:{streetName: "Nowoursynowska", buildingNumber: "34", city: "Warszawa"}, link: "wzim.sggw.pl", room: "13"};
 const courses = [{name: "Ochrona informacji i bezpieczeństwo systemów komputerowych", lecturer: "Dariusz Strzęsiwilk", location: location,  semester: 6},
                 {name: "Systemy wbudowane", lecturer: "Bartłomiej Kubica", location: location,  semester: 6},
                 {name: "Wizualizacja danych", lecturer: "Leszek Chmielewski", location: location,  semester: 6},
