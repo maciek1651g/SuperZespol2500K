@@ -15,16 +15,16 @@ beforeAll((done) => {
 
 const group = ["grupa 13"];
 
-// test('success create group test', (done) => {
-//     publicAPI.createGroup(...group, (res) => {
-//         if(res!==null)
-//         {
-//             done();
-//         }
-//     }, (error) => {
-//         done(error);
-//     });
-// });
+test('success create group test', (done) => {
+    publicAPI.createGroup(...group, (res) => {
+        if(res!==null)
+        {
+            done();
+        }
+    }, (error) => {
+        done(error);
+    });
+});
 
 test('fail create group test', (done) => {
     publicAPI.createGroup(...group, (res) => {

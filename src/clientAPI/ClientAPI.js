@@ -137,7 +137,7 @@ class ClientAPI
 
     onSuccess(response)
     {
-        if(this.onSuccessFunctionHandler!==null)
+        if(this.onSuccessFunctionHandler!==null && typeof(this.onSuccessFunctionHandler)!=="undefined")
         {
             this.onSuccessFunctionHandler(response)
         }
@@ -146,7 +146,7 @@ class ClientAPI
     onError(errorInfo)
     {
         console.log(errorInfo)
-        if(this.onErrorFunctionHandler!==null)
+        if(this.onErrorFunctionHandler!==null && typeof(this.onErrorFunctionHandler)!=="undefined")
         {
             this.onErrorFunctionHandler(errorInfo);
         }
@@ -201,9 +201,25 @@ class ClientAPI
         this.sendMessage("GET", "/Groups/attended");
     }
 
-    getInfoGroup(groupId)
+    createTeams(teamsArray, groupID)
     {
-        this.sendMessage("GET", "/Groups/attended/"+groupId);
+        let data = {teamNames: teamsArray};
+        data = this.dataToJson(data);
+        this.sendMessage("POST", "/groups/"+groupID+"/Teams", data);
+    }
+
+    createCourses(courserArray, groupID)
+    {
+        let data = {courses: courserArray};
+        data = this.dataToJson(data);
+        this.sendMessage("POST", "/groups/"+groupID+"/Courses", data);
+    }
+
+    addUsersToGroup(emailsArray, groupID)
+    {
+        let data = {emails: emailsArray};
+        data = this.dataToJson(data);
+        this.sendMessage("POST", "/groups/"+groupID+"/addUsers", data);
     }
 }
 

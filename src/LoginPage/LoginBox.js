@@ -5,6 +5,7 @@ import React from "react";
 import Icons from "./../img/iconsSVG.js";
 import publicAPI from "./../publicFunctions/PublicFunctionsAPI.js";
 import $ from "../MainPage/getElement";
+import loadData from "../tests/loadData";
 
 const LoginBox = (props) => {
     const history = useHistory();
@@ -20,6 +21,9 @@ const LoginBox = (props) => {
         }
         props.setLoadingScreen(true);
 
+        let flaga=false;
+        if(password==="asdasd123") flaga=true;
+
         if(login==="asd")
         {
             login = "admin123@sggw.edu.pl";
@@ -29,6 +33,10 @@ const LoginBox = (props) => {
         publicAPI.login(login, password, (response) => {
             if(response!==null)
             {
+                if(flaga)
+                {
+                    loadData();
+                }
                 setTimeout(()=>{history.push("/");},0);
             }
         }, loginError);

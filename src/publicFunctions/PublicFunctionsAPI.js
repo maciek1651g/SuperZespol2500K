@@ -36,5 +36,29 @@ function createGroup(name, callback, errorCallback=null)
     api.createGroup(name);
 }
 
-const exp = {login, register, logout, createGroup};
+function createTeams(arrayTeams, groupID, callback, errorCallback=null)
+{
+    const api = new ClientAPI();
+    api.onSuccessFunctionHandler = callback;
+    api.onErrorFunctionHandler = errorCallback;
+    api.createTeams(arrayTeams, groupID);
+}
+
+function createCourses(arrayCourses, groupID, callback, errorCallback=null)
+{
+    const api = new ClientAPI();
+    api.onSuccessFunctionHandler = callback;
+    api.onErrorFunctionHandler = errorCallback;
+    api.createCourses(arrayCourses, groupID);
+}
+
+function addUsersToGroup(emailsArray, groupID, callback, errorCallback=null)
+{
+    const api = new ClientAPI();
+    api.onSuccessFunctionHandler = callback;
+    api.onErrorFunctionHandler = errorCallback;
+    api.addUsersToGroup(emailsArray, groupID);
+}
+
+const exp = {login, register, logout, createGroup, createTeams, createCourses, addUsersToGroup};
 export default exp;
