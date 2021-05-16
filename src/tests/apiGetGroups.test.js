@@ -17,5 +17,5 @@ test('success get group test', (done) => {
         done(error);
     };
 
-    api.getGroups();
+    api.getAllGroups();
 });

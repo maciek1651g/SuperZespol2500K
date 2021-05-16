@@ -60,5 +60,23 @@ function addUsersToGroup(emailsArray, groupID, callback, errorCallback=null)
     api.addUsersToGroup(emailsArray, groupID);
 }
 
-const exp = {login, register, logout, createGroup, createTeams, createCourses, addUsersToGroup};
+function getAllGroupsAttended(callback, errorCallback=null)
+{
+    const api = new ClientAPI();
+    api.onSuccessFunctionHandler = callback;
+    api.onErrorFunctionHandler = errorCallback;
+    api.getAllGroupsAttended();
+}
+
+function createScheduleForGroupAndTeam(groupID, teamName, semester, scheduledCursesArray, callback, errorCallback=null)
+{
+    const api = new ClientAPI();
+    api.onSuccessFunctionHandler = callback;
+    api.onErrorFunctionHandler = errorCallback;
+    api.createScheduleForGroupAndTeam(groupID, teamName, semester, scheduledCursesArray);
+}
+
+
+const exp = {login, register, logout, createGroup, createTeams, createCourses, addUsersToGroup,
+            getAllGroupsAttended, createScheduleForGroupAndTeam};
 export default exp;

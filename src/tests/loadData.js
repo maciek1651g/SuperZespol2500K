@@ -60,8 +60,7 @@ const students = [["starosta", "starosta@sggw.edu.pl", "starosta", "starosta", "
 ["student57", "student57@sggw.edu.pl", "student57", "student57", "student57", 0],
 ["student58", "student58@sggw.edu.pl", "student58", "student58", "student58", 0],
 ["student59", "student59@sggw.edu.pl", "student59", "student59", "student59", 0],
-["student60", "student60@sggw.edu.pl", "student60", "student60", "student60", 0],
-["admin123", "admin123@sggw.edu.pl", "admin123", "admin123", "admin123", 0]]
+["student60", "student60@sggw.edu.pl", "student60", "student60", "student60", 0]]
 
 
 function loadStudents() {
@@ -72,15 +71,17 @@ function loadStudents() {
 }
 
 const group = ["Rocznik 2018/2021"];
-let groupID = "986f7465-5a79-43fd-9e4b-26cd21433231";
+let groupID = "c30ae428-d3af-46c3-a5d5-07da43791fdc";
 
 function loadGroup() {
     publicAPI.createGroup(...group, (res) => {
         if(res!==null)
         {
             groupID = res.id;
+            loadTeams();
+        } else {
+            getInfo();
         }
-        loadTeams();
     });
 }
 
@@ -113,7 +114,287 @@ const courses = [{name: "Ochrona informacji i bezpieczeństwo systemów komputer
                 {name: "Metody Data Mining", lecturer: "Marek Karwański", location: location,  semester: 6}];
 
 function loadCurses() {
-    publicAPI.createCourses(courses, groupID, ()=>{console.log("Dane załadowane!")});
+    publicAPI.createCourses(courses, groupID, ()=>{
+        getInfo();
+    });
+}
+
+let groupObject = null;
+let coursesArray = null;
+let scheduleTM = null;
+
+function getInfo()
+{
+    publicAPI.getAllGroupsAttended((res)=>{
+        groupObject=getGroup(res,group[0]) ;
+        console.log(groupObject);
+        coursesArray = groupObject.courses;
+        scheduleTM =  [
+                    {
+                        DaysOfTheWeek: "Monday",
+                        StartTime: "09:45:00",
+                        EndTime: "10:30:00",
+                        Course: {
+                            Id: getCourseID(coursesArray, "Wizualizacja danych")
+                        }
+                    },
+                    {
+                        DaysOfTheWeek: "Monday",
+                        StartTime: "10:30:00",
+                        EndTime: "12:00:00",
+                        Course: {
+                            Id: getCourseID(coursesArray, "Wizualizacja danych")
+                        }
+                    },
+                    {
+                        DaysOfTheWeek: "Monday",
+                        StartTime: "14:00:00",
+                        EndTime: "15:30:00",
+                        Course: {
+                            Id: getCourseID(coursesArray, "Seminarium dyplomowe")
+                        }
+                    },
+                    {
+                        DaysOfTheWeek: "Monday",
+                        StartTime: "15:45:00",
+                        EndTime: "17:15:00",
+                        Course: {
+                            Id: getCourseID(coursesArray, "Grafika komputerowa")
+                        }
+                    },
+                    {
+                        DaysOfTheWeek: "Monday",
+                        StartTime: "17:30:00",
+                        EndTime: "18:15:00",
+                        Course: {
+                            Id: getCourseID(coursesArray, "Podstawy przetwarzania dźwięku")
+                        }
+                    },
+                    {
+                        DaysOfTheWeek: "Monday",
+                        StartTime: "18:15:00",
+                        EndTime: "19:45:00",
+                        Course: {
+                            Id: getCourseID(coursesArray, "Podstawy przetwarzania dźwięku")
+                        }
+                    }
+                ];
+        setScheduleForTM(scheduleTM)
+    });
+}
+
+function getGroup(groupsArray, groupName)
+{
+    for(let i=0;i<groupsArray.length;i++)
+    {
+        if(groupsArray[i].name===groupName){
+            groupID = groupsArray[i].id;
+            return groupsArray[i];
+        }
+    }
+
+    return null;
+}
+
+
+function getCourseID(coursesArray, courseName)
+{
+    for(let i=0;i<coursesArray.length;i++)
+    {
+        if(coursesArray[i].name===courseName)
+            return coursesArray[i].id;
+    }
+
+    return null;
+}
+
+let scheduleS = null;
+
+
+function setScheduleForTM(scheduleTM)
+{
+    publicAPI.createScheduleForGroupAndTeam(groupID,"Multimedia",6,scheduleTM, ()=>{
+
+        scheduleS =  [
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "08:45:00",
+                EndTime: "10:15:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Systemy wbudowane")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "10:30:00",
+                EndTime: "12:00:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Systemy wbudowane")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "14:00:00",
+                EndTime: "15:30:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Seminarium dyplomowe")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "15:45:00",
+                EndTime: "17:15:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Usługi sieciowe")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "17:15:00",
+                EndTime: "18:00:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Usługi sieciowe")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "18:15:00",
+                EndTime: "19:45:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Grafika komputerowa")
+                }
+            }
+        ];
+        setScheduleForS(scheduleS)
+    })
+}
+
+let scheduleSI2 = null;
+
+
+function setScheduleForS(scheduleS)
+{
+    publicAPI.createScheduleForGroupAndTeam(groupID,"Sieci komputerowe",6,scheduleS, ()=>{
+
+        scheduleSI2 =  [
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "08:45:00",
+                EndTime: "10:15:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Ochrona informacji i bezpieczeństwo systemów komputerowych")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "10:30:00",
+                EndTime: "12:00:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Systemy przetwarzania danych")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "14:00:00",
+                EndTime: "14:45:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Programowanie w Internecie")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "15:00:00",
+                EndTime: "16:30:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Systemy przetwarzania danych")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "16:45:00",
+                EndTime: "18:15:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Programowanie w Internecie")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "18:30:00",
+                EndTime: "20:00:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Ochrona informacji i bezpieczeństwo systemów komputerowych")
+                }
+            }
+        ];
+        setScheduleForIS2(scheduleSI2)
+    })
+}
+
+let scheduleSI1 = null;
+
+function setScheduleForIS2(scheduleSI2)
+{
+    publicAPI.createScheduleForGroupAndTeam(groupID,"Systemy informacyjne 2",6,scheduleSI2, ()=>{
+
+        scheduleSI1 =  [
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "08:45:00",
+                EndTime: "10:15:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Ochrona informacji i bezpieczeństwo systemów komputerowych")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "10:30:00",
+                EndTime: "12:00:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Systemy przetwarzania danych")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "14:00:00",
+                EndTime: "14:45:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Programowanie w Internecie")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "15:00:00",
+                EndTime: "16:30:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Programowanie w Internecie")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "16:45:00",
+                EndTime: "18:15:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Ochrona informacji i bezpieczeństwo systemów komputerowych")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "18:30:00",
+                EndTime: "20:00:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Systemy przetwarzania danych")
+                }
+            }
+        ];
+        setScheduleForIS1(scheduleSI1)
+    })
+}
+
+function setScheduleForIS1(scheduleSI1)
+{
+    publicAPI.createScheduleForGroupAndTeam(groupID,"Systemy informacyjne 1",6,scheduleSI1, ()=>{
+        console.log("Done!");
+    })
 }
 
 export default loadStudents;

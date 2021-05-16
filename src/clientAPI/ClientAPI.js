@@ -191,14 +191,9 @@ class ClientAPI
         this.sendMessage("POST", "/Groups", data);
     }
 
-    getGroups()
+    getAllGroups()
     {
         this.sendMessage("GET", "/Groups");
-    }
-
-    getInfoGroups()
-    {
-        this.sendMessage("GET", "/Groups/attended");
     }
 
     createTeams(teamsArray, groupID)
@@ -220,6 +215,18 @@ class ClientAPI
         let data = {emails: emailsArray};
         data = this.dataToJson(data);
         this.sendMessage("POST", "/Groups/"+groupID+"/users", data);
+    }
+
+    getAllGroupsAttended()
+    {
+        this.sendMessage("GET", "/Groups/attended/full");
+    }
+
+    createScheduleForGroupAndTeam(groupID, teamName, semester, scheduledCursesArray)
+    {
+        let data = {schedule: {scheduledCourses: scheduledCursesArray, semester: semester}};
+        data = this.dataToJson(data);
+        this.sendMessage("POST", "/groups/"+groupID+"/Teams/"+teamName+"/schedules", data);
     }
 }
 
