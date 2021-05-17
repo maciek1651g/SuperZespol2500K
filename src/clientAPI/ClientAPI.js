@@ -8,7 +8,7 @@ class ClientAPI
     onErrorFunctionHandler = null;
     onSuccessFunctionHandler = null;
 
-    sendMessage (method, url, jsonData, headers = {})
+    sendMessage (method, url, jsonData=null, headers = {})
     {
         let xhr = new XMLHttpRequest();
         xhr.open(method.toUpperCase(), ClientAPI.baseUrl+url, true);
@@ -23,7 +23,8 @@ class ClientAPI
         let response = null;
         let error = null;
 
-        xhr.onreadystatechange = () => {
+        xhr.onreadystatechange = () =>
+        {
             if (xhr.readyState === 4)
             {
                 if(parseInt(xhr.status/100) === 2)
@@ -107,14 +108,13 @@ class ClientAPI
         if(token!==null && typeof(token["value"])!==undefined)
         {
             ClientAPI.bearer = token["value"];
-            document.cookie = ClientAPI.nameCookie+"="+token["value"]+"; expires="+(new Date(token["expires"]+'; path="/";'));
+            document.cookie = ClientAPI.nameCookie+"="+token["value"]+"; expires="+(new Date(token["expires"]))+'; SameSite=Lax; path=/;';
         }
     }
 
     logout()
     {
         document.cookie = ClientAPI.nameCookie+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        document.cookie = ClientAPI.nameCookie+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/login;";
         ClientAPI.bearer = null;
     }
 
