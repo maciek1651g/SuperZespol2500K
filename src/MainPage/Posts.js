@@ -4,6 +4,7 @@ import ListElement from "./ListElement";
 import stylesGroupView from "./stylesGroupView.module.css";
 import GroupViewIcons from "./GroupViewIcons";
 import Message from "./Message";
+import AddUserButton from "./AddUserButton";
 // import * as Icon from "react-feather";
 // feather.replace();
 export default class Posts extends Component {
@@ -11,7 +12,7 @@ export default class Posts extends Component {
     return (
       <>
         <TopMainPage />
-
+        <AddUserButton />
         <p
           style={{
             fontSize: "30px",

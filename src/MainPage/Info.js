@@ -4,14 +4,14 @@ import GroupViewIcons from "./GroupViewIcons";
 import TopMainPage from "./TopMainPage";
 import ListElement from "./ListElement";
 import NewInfo from "./NewInfo";
-// import * as Icon from "react-feather";
+import AddUserButton from "./AddUserButton";
 
 export default class Info extends Component {
   render() {
     return (
       <>
         <TopMainPage />
-
+        <AddUserButton />
         <p
           style={{
             fontSize: "30px",

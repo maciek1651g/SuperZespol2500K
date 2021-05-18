@@ -7,6 +7,7 @@ import Users from "./Users";
 import Chat from "./Chat";
 import Info from "./Info";
 import React, { Component } from "react";
+import GroupButton from "./GroupButton";
 
 export default class GroupView extends Component {
   state = {
@@ -32,8 +33,6 @@ export default class GroupView extends Component {
     });
   }
   render() {
-    // const GroupView = () => {
-    // const subpages =0
     let { isPostsOpen, lesson, groupNumber, subpage } = this.state;
     return (
       <div className={stylesMainPage.rightContent}>
@@ -69,6 +68,7 @@ export default class GroupView extends Component {
         {subpage === 0 ? (
           <>
             <TopMainPage />
+            <GroupButton />
             <p
               style={{
                 fontSize: "30px",
@@ -117,7 +117,6 @@ export default class GroupView extends Component {
             </div>
           </>
         ) : null}
-        {/* )} */}
       </div>
     );
   }

@@ -4,12 +4,13 @@ import GroupViewIcons from "./GroupViewIcons";
 import TopMainPage from "./TopMainPage";
 import ListElement from "./ListElement";
 import NewUser from "./NewUser";
+import AddUserButton from "./AddUserButton";
 export default class Users extends Component {
   render() {
     return (
       <>
         <TopMainPage />
-
+        <AddUserButton />
         <p
           style={{
             fontSize: "30px",

@@ -5,12 +5,13 @@ import TopMainPage from "./TopMainPage";
 import ListElement from "./ListElement";
 import Message from "./Message";
 import * as Icon from "react-feather";
+import AddUserButton from "./AddUserButton";
 export default class Chat extends Component {
   render() {
     return (
       <>
         <TopMainPage />
-
+        <AddUserButton />
         <p
           style={{
             fontSize: "30px",

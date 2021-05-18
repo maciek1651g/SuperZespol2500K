@@ -156,6 +156,7 @@
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
   border: none;
   border-radius: 3px;
+  cursor: pointer;
 }
 .messageButton p {
   margin: 0;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as Icon from "react-feather";
 import stylesGroupView from "./stylesGroupView.module.css";
-export default class NewInfo extends Component {
+export default class NewUser extends Component {
   render() {
     return (
       <>
