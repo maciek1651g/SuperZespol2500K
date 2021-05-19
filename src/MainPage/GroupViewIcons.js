@@ -66,6 +66,21 @@ export default class GroupViewIcons extends Component {
               <Icon.Tag width="30" height="30" color="#979797" />
             </div>
           )}
+          {this.props.active === 5 ? (
+            <div
+              className={stylesGroupView.iconBoxActive}
+              onClick={() => this.props.changeSubpage(5)}
+            >
+              <Icon.Calendar width="30" height="30" color="#4cd5df" />
+            </div>
+          ) : (
+            <div
+              className={stylesGroupView.iconBox}
+              onClick={() => this.props.changeSubpage(5)}
+            >
+              <Icon.Calendar width="30" height="30" color="#979797" />
+            </div>
+          )}
         </div>
       </>
     );

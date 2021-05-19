@@ -83,7 +83,7 @@ const AddUserButton = () => {
                 verticalAlign: "middle",
               }}
             >
-              Wyszukaj użytkownikow po jego imieniu oraz nazwisku...
+              Wyszukaj użytkownika po jego imieniu oraz nazwisku...
             </small>
           </div>
           <div

@@ -96,12 +96,12 @@ class ClientAPI {
   }
 
   checkIfLoggedIn() {
-    if (ClientAPI.bearer === null) {
-      ClientAPI.bearer = this.getCookie(ClientAPI.nameCookie);
-      if (ClientAPI.bearer === null) {
-        return false;
-      }
-    }
+    // if (ClientAPI.bearer === null) {
+    //   ClientAPI.bearer = this.getCookie(ClientAPI.nameCookie);
+    //   if (ClientAPI.bearer === null) {
+    //     return false;
+    //   }
+    // }
 
     return true;
   }

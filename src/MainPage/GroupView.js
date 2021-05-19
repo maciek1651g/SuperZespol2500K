@@ -6,6 +6,7 @@ import Card from "./Card";
 import Users from "./Users";
 import Chat from "./Chat";
 import Info from "./Info";
+import GroupCalendar from "./GroupCalendar";
 import React, { Component } from "react";
 import GroupButton from "./GroupButton";
 
@@ -59,6 +60,13 @@ export default class GroupView extends Component {
         ) : null}
         {subpage === 4 ? (
           <Info
+            lesson={lesson}
+            groupNumber={groupNumber}
+            changeSubpage={this.changeSubpage.bind(this)}
+          />
+        ) : null}
+        {subpage === 5 ? (
+          <GroupCalendar
             lesson={lesson}
             groupNumber={groupNumber}
             changeSubpage={this.changeSubpage.bind(this)}
