@@ -9,6 +9,7 @@
   margin-top: 50px;
   top: 0;
   overflow: scroll;
+  font-size: 20px;
 }
 .groupContainer::-webkit-scrollbar,
 .postsContainer::-webkit-scrollbar {
@@ -186,4 +187,32 @@
   width: 33.3%;
   display: flex;
   align-items: center;
+}
+.svgButton {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 1000px) {
+  .groupContainer {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .groupContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    min-width: auto;
+  }
+  .groupBox {
+    width: 100%;
+  }
+  .postDescription {
+    margin-left: 0px;
+  }
+  .dot {
+    display: inline-block !important;
+    margin-left: 5px;
+  }
 }

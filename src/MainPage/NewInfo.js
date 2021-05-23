@@ -22,7 +22,12 @@ export default class NewInfo extends Component {
               justifyContent: "flex-end",
             }}
           >
-            <Icon.Edit3 width="30" height="30" color="#979797" />
+            <Icon.Edit3
+              width="30"
+              height="30"
+              color="#979797"
+              className={stylesGroupView.svgButton}
+            />
           </div>
         </div>
       </>
