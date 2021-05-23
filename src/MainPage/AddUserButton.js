@@ -31,6 +31,7 @@ const AddNewUserToGroup = (props) => {
             color: "#979797",
             width: "30%",
           }}
+          className={stylesMainPage.center}
         >
           {props.text2}
         </p>

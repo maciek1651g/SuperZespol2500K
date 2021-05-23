@@ -121,7 +121,12 @@ const CheckCalendar = (props) => {
             alignItems: "center",
           }}
         >
-          <Icon.Edit3 width="20" height="20" color="#979797" />
+          <Icon.Edit3
+            width="20"
+            height="20"
+            color="#979797"
+            className={stylesGroupView.svgButton}
+          />
         </div>
       </div>
     </>
