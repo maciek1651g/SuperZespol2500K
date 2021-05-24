@@ -14,7 +14,6 @@ export default class Info extends Component {
     let size = 0;
     if (table) {
       size = table.length;
-      console.log(table);
       for (let i = 0; i < size; i++) {
         if (table[i]["name"] === this.props.lesson) {
           tinfo[0] =
