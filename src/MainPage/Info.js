@@ -8,6 +8,29 @@ import AddUserButton from "./AddUserButton";
 
 export default class Info extends Component {
   render() {
+    let table = [];
+    let tinfo = [];
+    table = this.props.mtable;
+    let size = 0;
+    if (table) {
+      size = table.length;
+      console.log(table);
+      for (let i = 0; i < size; i++) {
+        if (table[i]["name"] === this.props.lesson) {
+          tinfo[0] =
+            <NewInfo text1="Prowadzący" text2={table[i]["lecturer"]} />;
+          tinfo[1] =
+            <NewInfo text1="Link do zespołu" text2={table[i]["location"]["link"]} />;
+          tinfo[2] =
+            <NewInfo text1="Numer sali" text2={table[i]["location"]["room"]} />;
+          tinfo[3] =
+            <NewInfo text1="Pokój prowadzącego" text2={table[i]["location"]["room"]} />;
+          tinfo[4] =
+            <NewInfo text1="Termin konsultacji" text2="Wtorki 10:00-11:30" />;
+        }
+      }
+
+    }
     return (
       <>
         <TopMainPage />
@@ -33,11 +56,7 @@ export default class Info extends Component {
         />
         <p>Najważniejsze Informacje</p>
         <div className={stylesGroupView.postsContainer}>
-          <NewInfo text1="Prowadzący" text2="Jan Kowal" />
-          <NewInfo text1="Link do zespołu" text2="LINK" />
-          <NewInfo text1="Numer sali" text2="10a" />
-          <NewInfo text1="Pokój prowadzącego" text2="12b" />
-          <NewInfo text1="Termin konsultacji" text2="Wtorki 10:00-11:30" />
+          {tinfo}
         </div>
       </>
     );

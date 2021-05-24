@@ -34,6 +34,26 @@ export default class GroupView extends Component {
     });
   }
   render() {
+    let table = [];
+    let tcard = [];
+    table = this.props.gtable;
+    let size = 0;
+    if (table) {
+      size = table.length;
+
+      for (let i = 0; i < size; i++) {
+        tcard[i] = (
+            <Card
+              openPosts={this.openPosts.bind(this)}
+              lesson={table[i]["name"]}
+              group="II"
+              color="#ec524b"
+
+            />
+        )
+      }
+
+    }
     let { isPostsOpen, lesson, groupNumber, subpage } = this.state;
     return (
       <div className={stylesMainPage.rightContent}>
@@ -63,6 +83,7 @@ export default class GroupView extends Component {
             lesson={lesson}
             groupNumber={groupNumber}
             changeSubpage={this.changeSubpage.bind(this)}
+            mtable={table}
           />
         ) : null}
         {subpage === 5 ? (
@@ -86,42 +107,8 @@ export default class GroupView extends Component {
               Twoje Grupy
             </p>
             <div className={stylesGroupView.groupContainer}>
-              <Card
-                openPosts={this.openPosts.bind(this)}
-                lesson="Analiza matematyczna"
-                group="II"
-                color="#ec524b"
-              />
-              <Card
-                openPosts={this.openPosts.bind(this)}
-                lesson="Analiza matematyczna"
-                group="II"
-                color="#7868e6"
-              />
-              <Card
-                openPosts={this.openPosts.bind(this)}
-                lesson="Systemy Przetwarzania Danych"
-                group="II"
-                color="#ec524b"
-              />
-              <Card
-                openPosts={this.openPosts.bind(this)}
-                lesson="Systemy Przetwarzania Danych"
-                group="II"
-                color="#7868e6"
-              />
-              <Card
-                openPosts={this.openPosts.bind(this)}
-                lesson="Podstawy Informatyki Kwantowej"
-                group="II"
-                color="#ec524b"
-              />
-              <Card
-                openPosts={this.openPosts.bind(this)}
-                lesson="Podstawy Informatyki Kwantowej"
-                group="II"
-                color="#7868e6"
-              />
+              <p>{tcard}</p>
+
             </div>
           </>
         ) : null}

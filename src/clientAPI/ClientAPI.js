@@ -24,7 +24,6 @@ class ClientAPI {
       if (xhr.readyState === 4) {
         if (parseInt(xhr.status / 100) === 2) {
           response = xhr.responseText;
-          console.log(response);
 
           if (response !== "") {
             response = this.jsonToData(response);
@@ -96,12 +95,12 @@ class ClientAPI {
   }
 
   checkIfLoggedIn() {
-    // if (ClientAPI.bearer === null) {
-    //   ClientAPI.bearer = this.getCookie(ClientAPI.nameCookie);
-    //   if (ClientAPI.bearer === null) {
-    //     return false;
-    //   }
-    // }
+    if (ClientAPI.bearer === null) {
+      ClientAPI.bearer = this.getCookie(ClientAPI.nameCookie);
+      if (ClientAPI.bearer === null) {
+        return false;
+      }
+    }
 
     return true;
   }

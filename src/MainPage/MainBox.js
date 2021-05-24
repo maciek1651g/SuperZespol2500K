@@ -7,23 +7,58 @@ import Icons from "./../img/iconsSVG.js";
 import TopMainPage from "./TopMainPage";
 
 
-const MainBox = () => {
+const MainBox = (props) => {
+    let table = [];
+    let tname = [];
+    let tasig=[];
+    const currentDate = new Date();
+    const currentDay = currentDate.getDay();
+    const days = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
+    const dayofweek = days[currentDay];
+    table = props.ptable;
+    let licznik = 0;
+    if (table["teams"]) {
+        for (let i = 0; i < table["teams"].length; i++) {
+            let startTime = '';
+            let endTime = '';
+            let pom = [];
+            for (let j = 0; j < table["teams"][i]["schedules"][0]["scheduledCourses"].length; j++) {
+                pom[j] = table["teams"][i]["schedules"][0]["scheduledCourses"][j];
 
+                if (pom[j]["dayOfTheWeek"] === dayofweek) {
+                    startTime = pom[j]["startTime"];
+                    endTime = pom[j]["endTime"];
+                    break;
+                }
+            }
+            if (startTime !== '' && endTime !== '') {
+                let time=startTime +"-"+endTime;
+                tname[licznik] =
+                    <ListElement text={table["teams"][i]["name"]} time={time} />;
+                licznik += 1;
+            }
 
-
+        }
+    }
+    if(table["assignments"]){
+        for(let i=0;i<table["assignments"].length;i++){
+            let datatime=table["assignments"][i]["day"] +" "+table["assignments"][i]["hours"]
+            tasig[i]=<TestBox title={table["assignments"][i]["title"]} testName={table["assignments"][i]["testName"]} date={datatime} />
+        }
+    }
     return (
         <div className={stylesMainPage.rightContent}>
-            <TopMainPage name="Mariusz"/>
+            <TopMainPage name="Mariusz" />
             <div className={stylesMainPage.rightMiddle}>
-                <p style={{fontSize: "40px", margin: "0", height: "10%"}}>Twoje Grupy</p>
+                <p style={{ fontSize: "40px", margin: "0", height: "10%" }}>Twoje Grupy</p>
                 <div className={stylesMainPage.rightMiddleBottom}>
                     <div className={stylesMainPage.middleContent}>
                         <div className={stylesMainPage.middleContentLeft}>
                             <div className={stylesMainPage.middleContentLeftTitle}>
-                                <p style={{fontSize: "36px", margin: "0"}}>Podstawy Informatyki Kwantowej</p>
-                                <p style={{color: "#979797"}}>Grupa II</p>
+                                <p style={{ fontSize: "36px", margin: "0" }}>Podstawy Informatyki Kwantowej</p>
+                                <p style={{ color: "#979797" }}>Grupa II</p>
                             </div>
-                            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center",width: "90%", height: "20%"}}>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "90%", height: "20%" }}>
                                 <div><button className={styles.errorButton + ' ' + styles.buttonStyle}>PRZEJDŹ DO GRUPY</button></div>
                                 <div>
                                     <button className={styles.arrowButton}>{Icons.arrowLeft}</button>
@@ -34,24 +69,19 @@ const MainBox = () => {
                     </div>
                     <div className={stylesMainPage.middleContent}>
                         <div className={stylesMainPage.middleContentRight}>
-                            <p style={{fontSize: "20px"}}>Dzisiejsze zajęcia</p>
+                            <p style={{ fontSize: "20px" }}>Dzisiejsze zajęcia</p>
                             <ul className={stylesMainPage.scrollBar}>
-                                <ListElement text="Bezpieczeństwo Informacji - wykład" time="8:30 - 10:00" color="#78E0E8"/>
-                                <ListElement text="Architektura Komputerów - wykład" time="10:15 - 11:45" />
-                                <ListElement text="Technmologie Baz Danych" time="12:00 - 13:30" />
+                                {tname}
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
             <div className={stylesMainPage.rightBottom}>
-                <p style={{fontSize: "20px", margin: "0", height: "10%"}}>Zbliżające się terminy zaliczenia</p>
-                <div style={{width: "100%", height: "90%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <p style={{ fontSize: "20px", margin: "0", height: "10%" }}>Zbliżające się terminy zaliczenia</p>
+                <div style={{ width: "100%", height: "90%", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <div className={stylesMainPage.scrollBar + " " + stylesMainPage.mainBottomList}>
-                        <TestBox title="Sieci Komputerowe" testName="Kolokwium 1" date="Wtorek 14:00"/>
-                        <TestBox title="Technologie baz danych" testName="Egzamin" date="Poniedziałek 12:00"/>
-                        <TestBox title="Analiza matematyczna" testName="Kolokwium nr 1" date="Poniedziałek 16:00"/>
-                        <TestBox title="Systemy przetwarzania danych" testName="Kolokwium nr 1" date="Czwartek 16:00"/>
+                        {tasig}
                     </div>
                 </div>
             </div>
