@@ -13,7 +13,7 @@ export default class Users extends Component {
         <AddUserButton />
         <p
           style={{
-            fontSize: "30px",
+            fontSize: "2em",
             margin: "0",
             display: "inline-block",
           }}

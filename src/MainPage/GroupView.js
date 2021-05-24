@@ -100,7 +100,7 @@ export default class GroupView extends Component {
             <GroupButton />
             <p
               style={{
-                fontSize: "30px",
+                fontSize: "2em",
                 margin: "0",
               }}
             >

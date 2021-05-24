@@ -25,7 +25,12 @@ export default class NewUser extends Component {
               {this.props.text2}
             </p>
 
-            <Icon.Star width="30" height="30" color="#979797" />
+            <Icon.Star
+              width="30"
+              height="30"
+              color="#979797"
+              className={stylesGroupView.svgButton}
+            />
           </p>
           <div
             className={stylesGroupView.width33}
@@ -35,10 +40,20 @@ export default class NewUser extends Component {
             }}
           >
             <div style={{ margin: "0 15px" }}>
-              <Icon.UserX width="30" height="30" color="#979797" />
+              <Icon.UserX
+                width="30"
+                height="30"
+                color="#979797"
+                className={stylesGroupView.svgButton}
+              />
             </div>
             <div style={{ margin: "0 5px" }}>
-              <Icon.Edit3 width="30" height="30" color="#979797" />
+              <Icon.Edit3
+                width="30"
+                height="30"
+                color="#979797"
+                className={stylesGroupView.svgButton}
+              />
             </div>
           </div>
         </div>

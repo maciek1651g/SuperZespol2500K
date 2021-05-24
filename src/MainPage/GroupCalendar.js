@@ -17,7 +17,7 @@ const GroupCalendar = (props) => {
 
       <p
         style={{
-          fontSize: "30px",
+          fontSize: "2em",
           margin: "0",
           display: "inline-block",
         }}
