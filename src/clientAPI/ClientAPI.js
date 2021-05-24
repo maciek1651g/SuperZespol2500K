@@ -24,7 +24,6 @@ class ClientAPI {
       if (xhr.readyState === 4) {
         if (parseInt(xhr.status / 100) === 2) {
           response = xhr.responseText;
-          console.log(response);
 
           if (response !== "") {
             response = this.jsonToData(response);
