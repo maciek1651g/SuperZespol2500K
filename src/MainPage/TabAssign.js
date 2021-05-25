@@ -12,6 +12,11 @@ const TabAssing = (props) => {
         }
     }
 
+    if(tasig.length===0)
+    {
+        tasig = <p style={{textAlign: "center", fontSize: "25px", color: "#979797"}}>W najbliższym czasie nie masz zaliczeń</p>
+    }
+
     return tasig
 }
 

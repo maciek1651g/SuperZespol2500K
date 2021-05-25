@@ -34,6 +34,11 @@ const TabSchedule = (props) => {
         }
     }
 
+    if(tname.length===0)
+    {
+        tname = <p style={{textAlign: "center", fontSize: "20px", color: "#979797"}}>Mam dobre wieści, dziś nie masz zajęć</p>
+    }
+
     return tname
 }
 

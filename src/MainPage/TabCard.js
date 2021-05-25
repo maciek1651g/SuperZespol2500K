@@ -25,6 +25,11 @@ const TabCard = (props) => {
         }
     }
 
+    if(tcard.length === 0)
+    {
+        tcard = <p style={{textAlign: "center", fontSize: "25px", color: "#979797"}}>Nie należysz jeszcze do żadnej grupy</p>
+    }
+
     return tcard;
 }
 
