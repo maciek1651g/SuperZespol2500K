@@ -76,7 +76,15 @@ function createScheduleForGroupAndTeam(groupID, teamName, semester, scheduledCur
     api.createScheduleForGroupAndTeam(groupID, teamName, semester, scheduledCursesArray);
 }
 
+function getGroupsPartial(callback, errorCallback=null)
+{
+    const api = new ClientAPI();
+    api.onSuccessFunctionHandler = callback;
+    api.onErrorFunctionHandler = errorCallback;
+    api.getGroupsPartial();
+}
+
 
 const exp = {login, register, logout, createGroup, createTeams, createCourses, addUsersToGroup,
-            getAllGroupsAttended, createScheduleForGroupAndTeam};
+            getAllGroupsAttended, createScheduleForGroupAndTeam, getGroupsPartial};
 export default exp;

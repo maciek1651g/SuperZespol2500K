@@ -247,6 +247,11 @@ class ClientAPI {
       data
     );
   }
+
+  getGroupsPartial()
+  {
+    this.sendMessage("GET", "/Groups/attended/partial");
+  }
 }
 
 export default ClientAPI;
