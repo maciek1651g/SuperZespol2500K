@@ -8,8 +8,6 @@ const FindTeam = (props) => {
     const closeSearchGroupModal = props.closeSearchGroupModal;
     const groupsArray = props.groupsArray;
 
-    console.log(groupsArray)
-
     return (
         <div id="modalSearchGroup" className={stylesMainPage.modal}>
             <div className={stylesMainPage.modalContent}>

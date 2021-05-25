@@ -17,7 +17,7 @@ const TabCard = (props) => {
                     key={i+1}
                     openPosts={props.openPosts}
                     lesson={table[i]["name"]}
-                    group="II"
+                    group={table[i]["lecturer"]}
                     color="#ec524b"
 
                 />

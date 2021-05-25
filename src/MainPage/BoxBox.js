@@ -43,7 +43,7 @@ const BoxBox = (props) => {
         <div className={stylesMainPage.rightContent}>
             <TopMainPage />
             <div className={stylesGroupView.groupContainer}>
-                <div style={{width: "100%", height: "100%", display: "flex", flexDirection: "row", justifyContent: "center"}}>
+                <div style={{width: "100%", height: "80%", display: "flex", flexDirection: "row", justifyContent: "center"}}>
 
 
                     <div style={{border: "1px solid black"}}>

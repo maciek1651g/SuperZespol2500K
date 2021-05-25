@@ -10,7 +10,7 @@ export default class Card extends Component {
           <ListElement color={this.props.color} />
           <p style={{ fontSize: "1.6em", margin: "0" }}>{this.props.lesson}</p>
           <p className={stylesGroupView.groupNumber}>
-            Grupa {this.props.group}
+            {this.props.group}
           </p>
           <div>
             <button

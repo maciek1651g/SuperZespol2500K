@@ -10,6 +10,8 @@ import GroupCalendar from "./GroupCalendar";
 import React, { Component } from "react";
 import GroupButton from "./GroupButton";
 import TabCard from "./TabCard";
+import $ from "./getElement";
+import CheckBox from "../LoginPage/CheckBox";
 
 export default class GroupView extends Component {
   state = {
@@ -17,6 +19,8 @@ export default class GroupView extends Component {
     isInfoOpen: false,
     isChatOpen: false,
     isUsersOpen: false,
+    coursesOrTeams: true,
+    selectedGroup: 0,
     subpage: 0,
     lesson: "",
     groupNumber: 0,
@@ -34,11 +38,25 @@ export default class GroupView extends Component {
       subpage: number,
     });
   }
+  changeGroup() {
+    this.setState({
+      selectedGroup: $("group").value,
+    });
+  }
+  changeCoursesOrGroup(){
+    this.setState({
+      coursesOrTeams: !this.state.coursesOrTeams,
+    });
+  }
   render() {
     let table = [];
     if(this.props.gtable.length>0)
     {
-      table = this.props.gtable[0]["courses"];
+      if(this.state.coursesOrTeams){
+        table = this.props.gtable[this.state.selectedGroup]["courses"];
+      } else {
+        table = this.props.gtable[this.state.selectedGroup]["teams"];
+      }
     }
     const groupsArray = this.props.gtable;
     const setGroupsTable = this.props.setGTable;
@@ -94,8 +112,24 @@ export default class GroupView extends Component {
             >
               Twoje Grupy
             </p>
-            <div className={stylesGroupView.groupContainer}>
-              <TabCard gtable={table} openPosts={this.openPosts.bind(this)}/>
+            <div className={stylesGroupView.topContainer}>
+              <div style={{display: "flex", flexDirection: "row", marginBottom: "20px",
+                width: "60%", justifyContent: "space-between"}}>
+                <div style={{marginRight: "20px"}}>
+                  <label htmlFor="group">Wybierz grupę: </label>
+                  <select id="group" onChange={this.changeGroup.bind(this)}>
+                    {
+                      groupsArray.map((value,key)=><option key={key+1} value={key}>{value.name}</option>)
+                    }
+                  </select>
+                </div>
+                <div>
+                  <CheckBox text="Przełącz widok" changeFunction={this.changeCoursesOrGroup.bind(this)}/>
+                </div>
+              </div>
+              <div className={stylesGroupView.groupContainer}>
+                <TabCard gtable={table} openPosts={this.openPosts.bind(this)}/>
+              </div>
             </div>
           </>
         ) : null}
