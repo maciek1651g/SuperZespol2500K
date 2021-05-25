@@ -7,7 +7,8 @@ import $ from "./getElement";
 
 
 const BoxBox = (props) => {
-    const [groupsArray, setGroupsArray] = React.useState(props.groupsArray);
+    const groupsArray = props.groupsArray;
+    const setGroupArray = props.setGroupsArray;
 
     const addGroup = (e) => {
         e.preventDefault();
@@ -33,7 +34,7 @@ const BoxBox = (props) => {
     const getGroups = () => {
         publicAPI.getAllGroupsAttended((res)=>{
             if(res!==null){
-                setGroupsArray(res);
+                setGroupArray(res);
             }
         })
     }
@@ -74,23 +75,25 @@ const BoxBox = (props) => {
                             <button onClick={addTeam}>Dodaj zespół</button>
                         </form>
                         <div>
-                            <p>Grupy: </p>
+                            <p>Grupy z zespołami: </p>
                             <div>
                                 <ul>
                                     {
                                         groupsArray.map((group,key)=>
-                                            <>
-                                                <li key={key+1}>{group.name}</li>
-                                                <ul>
-                                                    {group.teams.map((team,key2)=><li key={((key+1)*100)+key2}>{team.name}</li>)}
-                                                </ul>
-                                            </>)
+                                        <>
+                                            <li key={key+1}>{group.name}</li>
+                                            <ul>
+                                                {group.teams.map((team,key2)=><li key={((key+1)*100)+key2}>{team.name}</li>)}
+                                            </ul>
+                                        </>)
                                     }
                                 </ul>
 
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>

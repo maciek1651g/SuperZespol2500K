@@ -35,7 +35,8 @@ const MainPage = () => {
     const [showDialogBoxes, setDialogBoxes] = React.useState(0);
     const [optionMenu, setOptionMenu] = React.useState(changeOptionMenu(id));
     const [groupsArray, setGroupsArray] = React.useState([]);
-    const[table,setTable]=useState([]);
+    const [table,setTable]=useState([]);
+
     React.useEffect(() => {
         PublicApi.getAllGroupsAttended((res) => {
             if(res!==null){
@@ -133,9 +134,9 @@ const MainPage = () => {
             <div className={stylesMainPage.rightColumn}>
                 
                 {optionMenu === 1 ? <MainBox ptable={table}/> : null}
-                {optionMenu === 2 ? <GroupView gtable={table["courses"]} /> : null}
+                {optionMenu === 2 ? <GroupView gtable={groupsArray} setGTable={setGroupsArray} /> : null}
                 {optionMenu === 3 ? <CalendarBox   /> : null}
-                {optionMenu === 4 ? <BoxBox groupsArray={groupsArray}/> : null}
+                {optionMenu === 4 ? <BoxBox groupsArray={groupsArray} setGroupsArray={setGroupsArray}/> : null}
             </div>
         </div>
     )

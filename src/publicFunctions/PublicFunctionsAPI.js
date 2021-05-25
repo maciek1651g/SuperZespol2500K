@@ -52,6 +52,20 @@ function createCourses(arrayCourses, groupID, callback, errorCallback=null)
     api.createCourses(arrayCourses, groupID);
 }
 
+function createOneCourse(courseName, lecturerName, locationStreetName, locationBuildingNumber,
+                       locationCity, locationLink, locationRoomNumber, semester,
+                       groupID, callback, errorCallback=null)
+{
+    const api = new ClientAPI();
+    api.onSuccessFunctionHandler = callback;
+    api.onErrorFunctionHandler = errorCallback;
+    const location = {address:{streetName: locationStreetName, buildingNumber: locationBuildingNumber,
+            city: locationCity}, link: locationLink, room: locationRoomNumber};
+    const course = [{name: courseName, lecturer: lecturerName,
+        location: location,  semester: semester}]
+    api.createCourses(course, groupID);
+}
+
 function addUsersToGroup(emailsArray, groupID, callback, errorCallback=null)
 {
     const api = new ClientAPI();
@@ -86,5 +100,5 @@ function getGroupsPartial(callback, errorCallback=null)
 
 
 const exp = {login, register, logout, createGroup, createTeams, createCourses, addUsersToGroup,
-            getAllGroupsAttended, createScheduleForGroupAndTeam, getGroupsPartial};
+            getAllGroupsAttended, createScheduleForGroupAndTeam, getGroupsPartial, createOneCourse};
 export default exp;

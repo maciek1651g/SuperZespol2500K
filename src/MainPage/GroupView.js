@@ -35,7 +35,13 @@ export default class GroupView extends Component {
     });
   }
   render() {
-    let table = this.props.gtable;
+    let table = [];
+    if(this.props.gtable.length>0)
+    {
+      table = this.props.gtable[0]["courses"];
+    }
+    const groupsArray = this.props.gtable;
+    const setGroupsTable = this.props.setGTable;
     let { isPostsOpen, lesson, groupNumber, subpage } = this.state;
     return (
       <div className={stylesMainPage.rightContent}>
@@ -79,7 +85,7 @@ export default class GroupView extends Component {
         {subpage === 0 ? (
           <>
             <TopMainPage />
-            <GroupButton />
+            <GroupButton groupsArray={groupsArray} setGroupsArray={setGroupsTable}/>
             <p
               style={{
                 fontSize: "2em",
