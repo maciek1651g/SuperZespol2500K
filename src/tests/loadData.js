@@ -71,7 +71,7 @@ function loadStudents() {
 }
 
 const group = ["Rocznik 2018/2021"];
-let groupID = "c30ae428-d3af-46c3-a5d5-07da43791fdc";
+let groupID = null;
 
 function loadGroup() {
     publicAPI.createGroup(...group, (res) => {
@@ -111,7 +111,15 @@ const courses = [{name: "Ochrona informacji i bezpieczeństwo systemów komputer
                 {name: "Usługi sieciowe", lecturer: "Jarosław Kurek", location: location,  semester: 6},
                 {name: "Grafika komputerowa", lecturer: "Andrzej Śluzek", location: location,  semester: 6},
                 {name: "Podstawy przetwarzania dźwięku", lecturer: "Piotr Wrzeciono", location: location,  semester: 6},
-                {name: "Metody Data Mining", lecturer: "Marek Karwański", location: location,  semester: 6}];
+                {name: "Metody Data Mining", lecturer: "Marek Karwański", location: location,  semester: 6},
+                {name: "Projekt zespołowy", lecturer: "Jarosław Kurek", location: location,  semester: 6},
+                {name: "Seminarium dyplomowe", lecturer: "Leszek Chmielewski", location: location,  semester: 6},
+                {name: "Aplikacje internetowe", lecturer: "Alan Akhmet", location: location,  semester: 6},
+                {name: "Problemy społeczne i zawodowe informatyki", lecturer: "Leszek Chmielewski", location: location,  semester: 6},
+                {name: "Grafika komputerow", lecturer: "Michał Kruk", location: location,  semester: 6},
+                {name: "Hurtownie danych", lecturer: "Krzysztof Karpio", location: location,  semester: 6},
+                {name: "Symulacja komputerowa", lecturer: "Paweł Hoser", location: location,  semester: 6},
+                {name: "Systemy rozproszone", lecturer: "Bartłomiej Kubica", location: location,  semester: 6}];
 
 function loadCurses() {
     publicAPI.createCourses(courses, groupID, ()=>{
@@ -130,55 +138,119 @@ function getInfo()
         console.log(groupObject);
         coursesArray = groupObject.courses;
         scheduleTM =  [
-                    {
-                        DaysOfTheWeek: "Monday",
-                        StartTime: "09:45:00",
-                        EndTime: "10:30:00",
-                        Course: {
-                            Id: getCourseID(coursesArray, "Wizualizacja danych")
-                        }
-                    },
-                    {
-                        DaysOfTheWeek: "Monday",
-                        StartTime: "10:30:00",
-                        EndTime: "12:00:00",
-                        Course: {
-                            Id: getCourseID(coursesArray, "Wizualizacja danych")
-                        }
-                    },
-                    {
-                        DaysOfTheWeek: "Monday",
-                        StartTime: "14:00:00",
-                        EndTime: "15:30:00",
-                        Course: {
-                            Id: getCourseID(coursesArray, "Seminarium dyplomowe")
-                        }
-                    },
-                    {
-                        DaysOfTheWeek: "Monday",
-                        StartTime: "15:45:00",
-                        EndTime: "17:15:00",
-                        Course: {
-                            Id: getCourseID(coursesArray, "Grafika komputerowa")
-                        }
-                    },
-                    {
-                        DaysOfTheWeek: "Monday",
-                        StartTime: "17:30:00",
-                        EndTime: "18:15:00",
-                        Course: {
-                            Id: getCourseID(coursesArray, "Podstawy przetwarzania dźwięku")
-                        }
-                    },
-                    {
-                        DaysOfTheWeek: "Monday",
-                        StartTime: "18:15:00",
-                        EndTime: "19:45:00",
-                        Course: {
-                            Id: getCourseID(coursesArray, "Podstawy przetwarzania dźwięku")
-                        }
-                    }
-                ];
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "09:45:00",
+                EndTime: "10:30:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Wizualizacja danych")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "10:30:00",
+                EndTime: "12:00:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Wizualizacja danych")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "14:00:00",
+                EndTime: "15:30:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Seminarium dyplomowe")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "15:45:00",
+                EndTime: "17:15:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Grafika komputerowa")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "17:30:00",
+                EndTime: "18:15:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Podstawy przetwarzania dźwięku")
+                }
+            },
+            {
+                DaysOfTheWeek: "Monday",
+                StartTime: "18:15:00",
+                EndTime: "19:45:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Podstawy przetwarzania dźwięku")
+                }
+            },
+            {
+                DaysOfTheWeek: "Tuesday",
+                StartTime: "12:15:00",
+                EndTime: "13:00:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Projekt zespołowy")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "08:15:00",
+                EndTime: "09:45:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Aplikacje internetowe")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "10:00:00",
+                EndTime: "10:45:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Problemy społeczne i zawodowe informatyki")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "11:00:00",
+                EndTime: "12:30:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Grafika komputerow")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "12:45:00",
+                EndTime: "13:30:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Symulacja komputerowa")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "13:45:00",
+                EndTime: "15:15:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Systemy rozproszone")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "15:30:00",
+                EndTime: "17:00:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Symulacja komputerowa")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "17:15:00",
+                EndTime: "18:00:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Systemy rozproszone")
+                }
+            }
+        ];
         setScheduleForTM(scheduleTM)
     });
 }
@@ -263,6 +335,62 @@ function setScheduleForTM(scheduleTM)
                 Course: {
                     Id: getCourseID(coursesArray, "Grafika komputerowa")
                 }
+            },
+            {
+                DaysOfTheWeek: "Tuesday",
+                StartTime: "11:30:00",
+                EndTime: "12:15:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Projekt zespołowy")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "10:00:00",
+                EndTime: "10:45:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Problemy społeczne i zawodowe informatyki")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "11:00:00",
+                EndTime: "12:30:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Grafika komputerow")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "12:45:00",
+                EndTime: "13:30:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Symulacja komputerowa")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "13:45:00",
+                EndTime: "15:15:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Systemy rozproszone")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "15:30:00",
+                EndTime: "17:00:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Systemy rozproszone")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "17:15:00",
+                EndTime: "18:45:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Symulacja komputerowa")
+                }
             }
         ];
         setScheduleForS(scheduleS)
@@ -324,6 +452,62 @@ function setScheduleForS(scheduleS)
                 Course: {
                     Id: getCourseID(coursesArray, "Ochrona informacji i bezpieczeństwo systemów komputerowych")
                 }
+            },
+            {
+                DaysOfTheWeek: "Tuesday",
+                StartTime: "10:45:00",
+                EndTime: "11:30:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Projekt zespołowy")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "08:15:00",
+                EndTime: "09:45:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Seminarium dyplomowe")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "10:00:00",
+                EndTime: "10:45:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Problemy społeczne i zawodowe informatyki")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "11:00:00",
+                EndTime: "12:30:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Grafika komputerow")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "12:45:00",
+                EndTime: "13:30:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Hurtownie danych")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "13:45:00",
+                EndTime: "15:15:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Grafika komputerow")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "15:30:00",
+                EndTime: "17:00:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Hurtownie danych")
+                }
             }
         ];
         setScheduleForIS2(scheduleSI2)
@@ -383,6 +567,62 @@ function setScheduleForIS2(scheduleSI2)
                 EndTime: "20:00:00",
                 Course: {
                     Id: getCourseID(coursesArray, "Systemy przetwarzania danych")
+                }
+            },
+            {
+                DaysOfTheWeek: "Tuesday",
+                StartTime: "10:00:00",
+                EndTime: "10:45:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Projekt zespołowy")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "08:15:00",
+                EndTime: "09:45:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Seminarium dyplomowe")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "10:00:00",
+                EndTime: "10:45:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Problemy społeczne i zawodowe informatyki")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "11:00:00",
+                EndTime: "12:30:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Grafika komputerow")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "12:45:00",
+                EndTime: "13:30:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Hurtownie danych")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "13:45:00",
+                EndTime: "15:15:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Hurtownie danych")
+                }
+            },
+            {
+                DaysOfTheWeek: "Thursday",
+                StartTime: "15:30:00",
+                EndTime: "17:00:00",
+                Course: {
+                    Id: getCourseID(coursesArray, "Grafika komputerow")
                 }
             }
         ];

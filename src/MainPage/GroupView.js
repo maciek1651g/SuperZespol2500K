@@ -9,6 +9,7 @@ import Info from "./Info";
 import GroupCalendar from "./GroupCalendar";
 import React, { Component } from "react";
 import GroupButton from "./GroupButton";
+import TabCard from "./TabCard";
 
 export default class GroupView extends Component {
   state = {
@@ -34,26 +35,7 @@ export default class GroupView extends Component {
     });
   }
   render() {
-    let table = [];
-    let tcard = [];
-    table = this.props.gtable;
-    let size = 0;
-    if (table) {
-      size = table.length;
-
-      for (let i = 0; i < size; i++) {
-        tcard[i] = (
-            <Card
-              openPosts={this.openPosts.bind(this)}
-              lesson={table[i]["name"]}
-              group="II"
-              color="#ec524b"
-
-            />
-        )
-      }
-
-    }
+    let table = this.props.gtable;
     let { isPostsOpen, lesson, groupNumber, subpage } = this.state;
     return (
       <div className={stylesMainPage.rightContent}>
@@ -107,8 +89,7 @@ export default class GroupView extends Component {
               Twoje Grupy
             </p>
             <div className={stylesGroupView.groupContainer}>
-              <p>{tcard}</p>
-
+              <TabCard gtable={table} openPosts={this.openPosts.bind(this)}/>
             </div>
           </>
         ) : null}

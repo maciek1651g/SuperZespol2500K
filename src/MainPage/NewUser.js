@@ -21,9 +21,9 @@ export default class NewUser extends Component {
               justifyContent: "center",
             }}
           >
-            <p style={{ margin: "0px", marginRight: "20px" }}>
+            <span style={{ margin: "0px", marginRight: "20px" }}>
               {this.props.text2}
-            </p>
+            </span>
 
             <Icon.Star
               width="30"

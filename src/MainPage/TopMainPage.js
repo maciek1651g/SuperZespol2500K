@@ -1,5 +1,4 @@
 import stylesMainPage from "./stylesMainPage.module.css";
-import stylesGroupView from "./stylesGroupView.module.css";
 import { Avatar, Badge } from "@material-ui/core";
 import SingleIco from "../LoginPage/SingleIco";
 import Icons from "../img/iconsSVG";

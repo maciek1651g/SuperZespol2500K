@@ -1,6 +1,6 @@
 import TopMainPage from "./TopMainPage";
 import stylesGroupView from "./stylesGroupView.module.css";
-import React, { Component } from "react";
+import React from "react";
 import AddUserButton from "./AddUserButton";
 import ListElement from "./ListElement";
 import GroupViewIcons from "./GroupViewIcons";

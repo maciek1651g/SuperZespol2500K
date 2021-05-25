@@ -1,7 +1,7 @@
 import styles from './../LoginPage/loginStyle.module.css';
 import stylesMainPage from './stylesMainPage.module.css';
 import IconMenu from './../LoginPage/IconMenu.js';
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import InfoBox from "../LoginPage/InfoBox";
 import SettingsBox from "../LoginPage/SettingsBox";
 import MainBox from "./MainBox";
@@ -38,9 +38,13 @@ const MainPage = () => {
     React.useEffect(() => {
         PublicApi.getAllGroupsAttended((res) => {
             if(res!==null){
-                setTable(res[0]);
+                if(res.length>0){
+                    setTable(res[0]);
+                }
+            } else {
+                PublicApi.logout();
+                history.push("/");
             }
-            
         })
     }, []);
     React.useEffect(() => {
