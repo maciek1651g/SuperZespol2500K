@@ -5,14 +5,16 @@ import Icons from "../img/iconsSVG";
 import React from "react";
 import ContextMenuProfile from "./ContextMenuProfile";
 import ContextMenuNotification from "./ContextMenuNotification";
+import User from "../User/User";
 
 const TopMainPage = (props) => {
   const [showNotification, setNotification] = React.useState(false);
   const [showContextMenu, setContextMenu] = React.useState(0);
+  const name = User.firstName;
 
   const helloText = (
     <p style={{ fontSize: "30px", margin: "0", color: "#979797" }}>
-      Hej <span style={{ color: "#43D7E2" }}>{props.name}</span>!
+      Hej <span style={{ color: "#43D7E2", textTransform: "capitalize"}}>{name}</span>!
     </p>
   );
 
@@ -27,7 +29,7 @@ const TopMainPage = (props) => {
             height: "100%",
           }}
         >
-          {typeof props.name === "string" ? helloText : null}
+          {typeof name === "string" ? helloText : null}
         </div>
         <div
           style={{
@@ -49,7 +51,7 @@ const TopMainPage = (props) => {
               cursor: "pointer",
             }}
           >
-            H
+              {name.charAt(0).toUpperCase()}
           </Avatar>
 
           {showContextMenu === 1 ? (

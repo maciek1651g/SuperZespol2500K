@@ -133,7 +133,7 @@ const MainPage = () => {
             </div>
             <div className={stylesMainPage.rightColumn}>
                 
-                {optionMenu === 1 ? <MainBox ptable={table}/> : null}
+                {optionMenu === 1 ? <MainBox ptable={table} groupsArray={groupsArray}/> : null}
                 {optionMenu === 2 ? <GroupView gtable={groupsArray} setGTable={setGroupsArray} /> : null}
                 {optionMenu === 3 ? <CalendarBox   /> : null}
                 {optionMenu === 4 ? <BoxBox groupsArray={groupsArray} setGroupsArray={setGroupsArray}/> : null}

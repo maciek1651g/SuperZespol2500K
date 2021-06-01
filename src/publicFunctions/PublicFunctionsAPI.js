@@ -1,10 +1,13 @@
 import ClientAPI from "../clientAPI/ClientAPI";
+import User from "../User/User"
 
 function login(login, password, callback, errorCallback=null)
 {
     const api = new ClientAPI();
     api.onSuccessFunctionHandler = (res) => {
-        api.setBearerToken(res);
+        api.setBearerToken(res.token);
+        User.setUser(res.user);
+        console.log(res)
         if(callback!==null)
         {
             callback(res);
@@ -25,6 +28,7 @@ function register(username, email, password, firstName, lastName, role, callback
 function logout()
 {
     const api = new ClientAPI();
+    localStorage.removeItem("User");
     api.logout();
 }
 
