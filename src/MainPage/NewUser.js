@@ -1,15 +1,28 @@
 import React, { Component } from "react";
 import * as Icon from "react-feather";
 import stylesGroupView from "./stylesGroupView.module.css";
-export default class NewUser extends Component {
-  render() {
+import PublicApi from "../publicFunctions/PublicFunctionsAPI";
+
+
+
+const NewUser = (props) => {
+
+  function deleteUserFromGroup()
+  {
+    PublicApi.deleteUserFromGroup([props.email], props.groupID, (res)=>{
+      if(res) {
+        console.log("OK")
+      }
+    })
+  }
+
     return (
       <>
         <div className={stylesGroupView.userBox}>
           <div className={stylesGroupView.width33}>
-            <div className={stylesGroupView.avatar}></div>
+            <div className={stylesGroupView.avatar}>{props.text1.charAt(0).toUpperCase()}</div>
             <p style={{ margin: "0px", marginLeft: "20px" }}>
-              {this.props.text1}
+              {props.text1}
             </p>
           </div>
 
@@ -22,7 +35,7 @@ export default class NewUser extends Component {
             }}
           >
             <span style={{ margin: "0px", marginRight: "20px" }}>
-              {this.props.text2}
+              {props.text2}
             </span>
 
             <Icon.Star
@@ -39,7 +52,7 @@ export default class NewUser extends Component {
               justifyContent: "flex-end",
             }}
           >
-            <div style={{ margin: "0 15px" }}>
+            <div style={{ margin: "0 15px" }} onClick={deleteUserFromGroup}>
               <Icon.UserX
                 width="30"
                 height="30"
@@ -59,5 +72,6 @@ export default class NewUser extends Component {
         </div>
       </>
     );
-  }
 }
+
+export default NewUser

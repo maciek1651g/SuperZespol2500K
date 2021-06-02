@@ -252,6 +252,15 @@ class ClientAPI {
   {
     this.sendMessage("GET", "/Groups/attended/partial");
   }
+
+  deleteUserFromGroup(arrayEmails, groupID)
+  {
+    let data = {email: arrayEmails};
+    data = this.dataToJson(data);
+    console.log(data)
+    console.log("/groups/" + groupID + "/users")
+    this.sendMessage("DELETE", "/groups/" + groupID + "/users", data);
+  }
 }
 
 export default ClientAPI;

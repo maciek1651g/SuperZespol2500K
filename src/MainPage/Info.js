@@ -19,7 +19,7 @@ export default class Info extends Component {
           tinfo[0] =
             <NewInfo key={1} text1="Prowadzący" text2={table[i]["lecturer"]} />;
           tinfo[1] =
-            <NewInfo key={2} text1="Link do zespołu" text2={table[i]["location"]["link"]} />;
+            <NewInfo key={2} text1="Link do zespołu" text2={table[i]["lecturer"]} />;
           tinfo[2] =
             <NewInfo key={3} text1="Numer sali" text2={table[i]["location"]["room"]} />;
           tinfo[3] =

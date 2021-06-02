@@ -14,6 +14,7 @@ import GroupView from "./GroupView";
 import PublicApi from "./../publicFunctions/PublicFunctionsAPI"
 import LoadingScreen from "../LoginPage/LoadingScreen";
 import ErrorMessage from "../LoginPage/ErrorMessage";
+import GroupDetails from "./GroupDetails";
 
 const changeOptionMenu = (id) => {
 
@@ -150,7 +151,7 @@ const MainPage = () => {
                 {optionMenu === 1 ? <MainBox ptable={table} groupsArray={groupsArray} setErrorMessage={setErrorMessage}/> : null}
                 {optionMenu === 2 ? <GroupView gtable={groupsArray} refreshGTable={loadData} setErrorMessage={setErrorMessage}/> : null}
                 {optionMenu === 3 ? <CalendarBox  setErrorMessage={setErrorMessage} /> : null}
-                {optionMenu === 4 ? <BoxBox groupsArray={groupsArray} setGroupsArray={setGroupsArray}/> : null}
+                {optionMenu === 4 ? <GroupDetails name={"Hawaje"} groupName={"asd"} groupsDetails={groupsArray}/> : null}
             </div>
         </div>
     )

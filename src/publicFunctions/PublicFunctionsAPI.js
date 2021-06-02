@@ -7,7 +7,6 @@ function login(login, password, callback, errorCallback=null)
     api.onSuccessFunctionHandler = (res) => {
         api.setBearerToken(res.token);
         User.setUser(res.user);
-        console.log(res)
         if(callback!==null)
         {
             callback(res);
@@ -102,7 +101,15 @@ function getGroupsPartial(callback, errorCallback=null)
     api.getGroupsPartial();
 }
 
+function deleteUserFromGroup(arrayEmails, groupID, callback, errorCallback)
+{
+    const api = new ClientAPI();
+    api.onSuccessFunctionHandler = callback;
+    api.onErrorFunctionHandler = errorCallback;
+    api.deleteUserFromGroup(arrayEmails, groupID);
+}
 
 const exp = {login, register, logout, createGroup, createTeams, createCourses, addUsersToGroup,
-            getAllGroupsAttended, createScheduleForGroupAndTeam, getGroupsPartial, createOneCourse};
+            getAllGroupsAttended, createScheduleForGroupAndTeam, getGroupsPartial, createOneCourse,
+            deleteUserFromGroup};
 export default exp;

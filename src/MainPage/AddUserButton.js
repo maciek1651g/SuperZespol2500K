@@ -7,14 +7,6 @@ import * as Icon from "react-feather";
 import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
 import EditIcon from "@material-ui/icons/Edit";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-
-function openAddUserModal() {
-  document.getElementById("modalAddNewUser").style.display = "block";
-}
-
-function closeAddUserModal() {
-  document.getElementById("modalAddNewUser").style.display = "none";
-}
 const AddNewUserToGroup = (props) => {
   return (
     <>
@@ -43,7 +35,16 @@ const AddNewUserToGroup = (props) => {
   );
 };
 
-const AddUserButton = () => {
+const AddUserButton = (props) => {
+
+    function openAddUserModal() {
+        setShowAddUser(true);
+    }
+
+    function closeAddUserModal() {
+        setShowAddUser(false);
+    }
+
   function toogleMenu() {
     let dropdownDisplay = document.getElementById("myDropdown").style.display;
     if (dropdownDisplay === "block") {
@@ -53,8 +54,11 @@ const AddUserButton = () => {
     }
   }
 
+    const [showAddUser, setShowAddUser] = React.useState(false);
+
   return (
     <>
+        {showAddUser?
       <div id="modalAddNewUser" className={stylesMainPage.modal}>
         <div className={stylesMainPage.modalContent}>
           <span
@@ -67,7 +71,7 @@ const AddUserButton = () => {
           <div
             className={stylesMainPage.writeGroupName}
             style={{
-              width: "40%",
+              width: "50%",
               display: "inline-block",
             }}
           >
@@ -77,20 +81,17 @@ const AddUserButton = () => {
               color="#4cd5df"
               style={{ verticalAlign: "middle" }}
             />
-            <small
-              style={{
-                color: "#979797",
-                marginLeft: "10px",
-                verticalAlign: "middle",
-              }}
-            >
-              Wyszukaj użytkownika po jego imieniu oraz nazwisku...
-            </small>
+            <input style={{
+                height: "30px",
+                marginLeft: "20px",
+                width: "250px"
+            }} placeholder=" Wyszukaj użytkownika po jego meilu..."/>
+
           </div>
           <div
             className={stylesMainPage.writeGroupName}
             style={{
-              width: "40% ",
+              width: "50% ",
               display: "inline-block",
             }}
           >
@@ -100,24 +101,14 @@ const AddUserButton = () => {
               color="#4cd5df"
               style={{ verticalAlign: "middle" }}
             />
-            <small
-              style={{
-                color: "#979797",
-                marginLeft: "10px",
-                verticalAlign: "middle",
-              }}
-            >
-              Wybierz rolę dla danego użytkownika...
-              <Icon.ChevronDown
-                width="20"
-                height="20"
-                color="#4cd5df"
-                style={{
-                  verticalAlign: "middle",
-                  float: "right",
-                }}
-              />
-            </small>
+            <select id="userMode" style={{
+                height: "30px",
+                marginLeft: "20px",
+                width: "250px"
+            }}>
+                <option value={0}>Student</option>
+                <option value={1}>Administrator</option>
+            </select>
           </div>
           <AddNewUserToGroup text1="Zygmunt Mucha" text2="zygmuch@gmail.com" />
           <AddNewUserToGroup text1="Michał Szef" text2="michałszef@gmail.com" />
@@ -129,6 +120,7 @@ const AddUserButton = () => {
           />
         </div>
       </div>
+        :null}
 
       <div
         className={stylesMainPage.dotsDropdown}

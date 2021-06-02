@@ -30,6 +30,8 @@ export default class Users extends Component {
           changeSubpage={this.props.changeSubpage.bind(this)}
           active="3"
         />
+
+
         <p>Członkowie Grupy</p>
         <div className={stylesGroupView.postsContainer}>
           <NewUser text1="Janusz Kowalski" text2="Starosta" />
