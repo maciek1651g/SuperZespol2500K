@@ -12,6 +12,8 @@ import { useHistory, useParams } from "react-router-dom";
 import { useLocation } from "react-router";
 import GroupView from "./GroupView";
 import PublicApi from "./../publicFunctions/PublicFunctionsAPI"
+import LoadingScreen from "../LoginPage/LoadingScreen";
+import ErrorMessage from "../LoginPage/ErrorMessage";
 
 const changeOptionMenu = (id) => {
 
@@ -36,9 +38,17 @@ const MainPage = () => {
     const [optionMenu, setOptionMenu] = React.useState(changeOptionMenu(id));
     const [groupsArray, setGroupsArray] = React.useState([]);
     const [table,setTable]=useState([]);
+    const [showLoading, setLoading] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState(null);
 
     React.useEffect(() => {
+        loadData();
+    }, []);
+
+    const loadData = () => {
+        setLoading(true);
         PublicApi.getAllGroupsAttended((res) => {
+            setLoading(false);
             if(res!==null){
                 if(res.length>0){
                     setTable(res[0]);
@@ -48,8 +58,10 @@ const MainPage = () => {
                 PublicApi.logout();
                 history.push("/");
             }
+        }, (err)=>{
+            setErrorMessage(err.messageForUser);
         })
-    }, []);
+    }
     React.useEffect(() => {
         if (typeof (id) !== "undefined") {
             switch (id) {
@@ -111,6 +123,8 @@ const MainPage = () => {
         <div id="app" className={stylesMainPage.app}>
             {showDialogBoxes === 1 ? <SettingsBox close={setDialogBoxes} /> : null}
             {showDialogBoxes === 2 ? <InfoBox close={setDialogBoxes} /> : null}
+            {showLoading ? <LoadingScreen /> : null}
+            {errorMessage!==null ? <ErrorMessage message={errorMessage} setMessage={setErrorMessage}/> : null}
 
             <div className={stylesMainPage.leftColumn}>
                 <div id="leftTop" className={styles.leftTop}>
@@ -133,9 +147,9 @@ const MainPage = () => {
             </div>
             <div className={stylesMainPage.rightColumn}>
                 
-                {optionMenu === 1 ? <MainBox ptable={table} groupsArray={groupsArray}/> : null}
-                {optionMenu === 2 ? <GroupView gtable={groupsArray} setGTable={setGroupsArray} /> : null}
-                {optionMenu === 3 ? <CalendarBox   /> : null}
+                {optionMenu === 1 ? <MainBox ptable={table} groupsArray={groupsArray} setErrorMessage={setErrorMessage}/> : null}
+                {optionMenu === 2 ? <GroupView gtable={groupsArray} refreshGTable={loadData} setErrorMessage={setErrorMessage}/> : null}
+                {optionMenu === 3 ? <CalendarBox  setErrorMessage={setErrorMessage} /> : null}
                 {optionMenu === 4 ? <BoxBox groupsArray={groupsArray} setGroupsArray={setGroupsArray}/> : null}
             </div>
         </div>

@@ -9,22 +9,42 @@ import * as Icon from "react-feather";
 import $ from "./getElement";
 import AddCourses from "./AddCourses";
 import FindTeam from "./FindTeam";
+import AddGroup from "./AddGroup";
+import CalendarBox from "./CalendarBox";
+import AddTeam from "./AddTeam";
 
-function openNewGroupModal() {
-  $("modalNewGroup").style.display = "block";
-}
-function openSearchGroupModal() {
-  $("modalSearchGroup").style.display = "block";
-}
-function closeNewGroupModal() {
-  $("modalNewGroup").style.display = "none";
-}
-function closeSearchGroupModal() {
-  $("modalSearchGroup").style.display = "none";
-}
+
 const GroupButton = (props) => {
+  function openNewGroupModal() {
+    const choose = parseInt(props.viewNum);
+    switch (choose)
+    {
+      case 0:
+        setAddCourses(0);
+        break;
+      case 1:
+        setAddCourses(1);
+        break;
+      case 2:
+        setAddCourses(2);
+        break;
+      default:
+        setAddCourses(-1);
+    }
+  }
+  function openSearchGroupModal() {
+    setFindTeam(true);
+  }
+  function closeNewGroupModal() {
+    setAddCourses(-1);
+  }
+  function closeSearchGroupModal() {
+    setFindTeam(false);
+  }
+
+
   const groupsArray = props.groupsArray;
-  const setGroupsArray = props.setGroupsArray;
+  const refreshGroupsArray = props.refreshGroupsArray;
 
   function toogleMenu() {
     let dropdownDisplay = $("myDropdown").style.display;
@@ -35,13 +55,22 @@ const GroupButton = (props) => {
     }
   }
 
-
+  const [addCourses, setAddCourses] = React.useState(-1);
+  const [findTeam, setFindTeam] = React.useState(false);
 
   return (
     <>
-      <AddCourses closeNewGroupModal={closeNewGroupModal} setGroupsArray={setGroupsArray}
-                  groupsArray={groupsArray}/>
-     <FindTeam closeSearchGroupModal={closeSearchGroupModal} groupsArray={groupsArray}/>
+      {addCourses===0? <AddGroup closeNewGroupModal={closeNewGroupModal} refreshGroupsArray={refreshGroupsArray}
+                                   groupsArray={groupsArray} setErrorMessage={props.setErrorMessage} />: null}
+      {addCourses===1? <AddTeam closeNewGroupModal={closeNewGroupModal} refreshGroupsArray={refreshGroupsArray}
+                                groupsArray={groupsArray} setErrorMessage={props.setErrorMessage}
+                                groupNumber={props.groupNumber}/>: null}
+      {addCourses===2? <AddCourses closeNewGroupModal={closeNewGroupModal} refreshGroupsArray={refreshGroupsArray}
+                                   groupsArray={groupsArray} setErrorMessage={props.setErrorMessage}
+                                   groupNumber={props.groupNumber}/>: null}
+      {findTeam? <FindTeam closeSearchGroupModal={closeSearchGroupModal} groupsArray={groupsArray}/> : null }
+
+
       <div
         className={stylesMainPage.dotsDropdown}
         style={{ display: "flex", justifyContent: "flex-end" }}
@@ -80,6 +109,6 @@ const GroupButton = (props) => {
       </div>
     </>
   );
-};
+}
 
 export default GroupButton;

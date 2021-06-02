@@ -261,7 +261,7 @@
 
 /* modal  */
 .modal {
-  display: none;
+  display: block;
   position: fixed;
   z-index: 2;
   padding-top: 30px;

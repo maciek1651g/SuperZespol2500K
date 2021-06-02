@@ -12,6 +12,7 @@ import GroupButton from "./GroupButton";
 import TabCard from "./TabCard";
 import $ from "./getElement";
 import CheckBox from "../LoginPage/CheckBox";
+import CalendarBox from "./CalendarBox";
 
 const GroupView = (props) =>  {
   const [isPostsOpen, setPostsOpen] = React.useState(false);
@@ -72,7 +73,7 @@ const GroupView = (props) =>  {
   }
 
   const groupsArray = props.gtable;
-  const setGroupsTable = props.setGTable;
+  const refreshGTable = props.refreshGTable;
 
   return (
     <div className={stylesMainPage.rightContent}>
@@ -116,7 +117,9 @@ const GroupView = (props) =>  {
       {subpage === 0 ?
         <>
           <TopMainPage />
-          <GroupButton groupsArray={groupsArray} setGroupsArray={setGroupsTable}/>
+          <GroupButton groupsArray={groupsArray} refreshGroupsArray={refreshGTable}
+                        viewNum={viewChoose} setErrorMessage={props.setErrorMessage}
+                       groupNumber={selectedGroup}/>
           <p
             style={{
               fontSize: "2em",
