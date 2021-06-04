@@ -117,9 +117,37 @@ function deleteGroup(groupID, callback, errorCallback=null)
     api.deleteGroup(groupID);
 }
 
+function editTeamName(groupID, teamName, newTeamName, callback, errorCallback=null)
+{
+    const api = createAPI(callback, errorCallback);
+    api.editTeamName(groupID, teamName, newTeamName);
+}
 
+function deleteTeam(groupID, teamName, callback, errorCallback=null)
+{
+    const api = createAPI(callback, errorCallback);
+    api.deleteTeam(groupID, teamName);
+}
+
+function addUsersToTeam(groupID, teamName, emailsArray, callback, errorCallback=null)
+{
+    const api = createAPI(callback, errorCallback);
+    api.addUsersToTeam(groupID, teamName, emailsArray);
+}
+
+function deleteUsersFromTeam(groupID, teamName, emailsArray, callback, errorCallback=null)
+{
+    const api = createAPI(callback, errorCallback);
+    api.deleteUserFromTeam(groupID, teamName, emailsArray);
+}
+
+function editScheduleForGroupAndTeam(groupID, teamName, semester, scheduledCursesArray, callback, errorCallback=null) {
+    const api = createAPI(callback, errorCallback);
+    api.editScheduleForGroupAndTeam(groupID, teamName, semester, scheduledCursesArray);
+}
 
 const exp = {login, register, logout, createGroup, createTeams, createCourses, addUsersToGroup,
             getAllGroupsAttended, createScheduleForGroupAndTeam, getGroupsPartial, createOneCourse,
-            deleteUserFromGroup, getSomeUsers, editGroupName, deleteGroup};
+            deleteUserFromGroup, getSomeUsers, editGroupName, deleteGroup, editTeamName,
+            deleteTeam, addUsersToTeam, deleteUsersFromTeam, editScheduleForGroupAndTeam};
 export default exp;

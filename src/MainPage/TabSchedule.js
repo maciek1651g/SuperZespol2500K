@@ -10,7 +10,8 @@ const TabSchedule = (props) => {
     const dayofweek = days[currentDay];
 
     let licznik = 0;
-    if (table["teams"]) {
+    console.log(table)
+    if (typeof table !== "undefined" && table["teams"]) {
         for (let i = 0; i < table["teams"].length; i++) {
             let startTime = '';
             let endTime = '';

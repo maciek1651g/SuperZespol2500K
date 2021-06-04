@@ -16,10 +16,10 @@ export default class Card extends Component {
             <button
               className={styles.errorButton + " " + styles.buttonStyle}
               onClick={() =>
-                this.props.openPosts(this.props.lesson, this.props.group)
+                this.props.openPosts(this.props.numberOnList)
               }
             >
-              PRZEJDŹ DO GRUPY
+              {this.props.textButton.toUpperCase()}
             </button>
           </div>
         </div>

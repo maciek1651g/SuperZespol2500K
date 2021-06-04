@@ -44,7 +44,7 @@ const AddTeam = (props) => {
                 <form onSubmit={createCourse}>
                     <div className={stylesMainPage.groupInfo}>
                         <p style={{ fontWeight: "bold", width: "50%" }}>Rocznik/grupa</p>
-                        <select  style={{
+                        <select style={{
                             fontWeight: "500",
                             color: "black",
                             width: "50%",

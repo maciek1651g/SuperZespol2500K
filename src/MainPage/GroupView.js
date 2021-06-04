@@ -13,6 +13,7 @@ import TabCard from "./TabCard";
 import $ from "./getElement";
 import CheckBox from "../LoginPage/CheckBox";
 import CalendarBox from "./CalendarBox";
+import GroupDetails from "./GroupDetails";
 
 const GroupView = (props) =>  {
   const [isPostsOpen, setPostsOpen] = React.useState(false);
@@ -29,10 +30,9 @@ const GroupView = (props) =>  {
   const [table, setTable] = React.useState(props.gtable);
 
 
-  const openPosts = (lesson, groupNumber) => {
+  const openGroups = (groupNum) => {
+    setSelectedGroup(groupNum);
     setSubpage(1);
-    setLesson(lesson);
-    setGroupNumber(groupNumber);
   }
   const changeSubpage = (number) => {
     setSubpage(number);
@@ -67,6 +67,18 @@ const GroupView = (props) =>  {
     changeView();
   }, [viewChoose, selectedGroup, groupArrayState]);
 
+  React.useEffect(()=>{
+    $("groupButton").addEventListener("click", returnToMainPage);
+
+    return function cleanupListener() {
+      $("groupButton").removeEventListener("click", returnToMainPage);
+    }
+  },[])
+
+  const returnToMainPage = () => {
+    setSubpage(0);
+  }
+
   if(props.gtable!==groupArrayState)
   {
     setGroupArrayState(props.gtable);
@@ -77,42 +89,11 @@ const GroupView = (props) =>  {
 
   return (
     <div className={stylesMainPage.rightContent}>
-      {subpage === 1 ? (
-        <Posts
-          lesson={lesson}
-          groupNumber={groupNumber}
-          changeSubpage={changeSubpage}
-        />
-      ) : null}
-      {subpage === 2 ? (
-        <Chat
-          lesson={lesson}
-          groupNumber={groupNumber}
-          changeSubpage={changeSubpage}
-        />
-      ) : null}
-      {subpage === 3 ? (
-        <Users
-          lesson={lesson}
-          groupNumber={groupNumber}
-          changeSubpage={changeSubpage}
-        />
-      ) : null}
-      {subpage === 4 ? (
-        <Info
-          lesson={lesson}
-          groupNumber={groupNumber}
-          changeSubpage={changeSubpage}
-          mtable={table}
-        />
-      ) : null}
-      {subpage === 5 ? (
-        <GroupCalendar
-          lesson={lesson}
-          groupNumber={groupNumber}
-          changeSubpage={changeSubpage}
-        />
-      ) : null}
+      {subpage === 1? <GroupDetails refreshData={props.refreshGTable}
+                                    setErrorMessage={props.setErrorMessage}
+                                    groupDetails={groupsArray[selectedGroup]}
+                                    returnToMainPage={returnToMainPage}
+      /> : null}
 
       {subpage === 0 ?
         <>
@@ -162,7 +143,7 @@ const GroupView = (props) =>  {
 
             <div className={stylesGroupView.groupContainer}>
 
-              <TabCard gtable={table} openPosts={openPosts}/>
+              <TabCard gtable={table} openPosts={openGroups}/>
 
             </div>
           </div>

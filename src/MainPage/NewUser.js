@@ -18,6 +18,20 @@ const NewUser = (props) => {
     })
   }
 
+  function deleteUserFromTeam()
+  {
+    PublicApi.deleteUsersFromTeam(props.groupID, props.teamName, [props.email], (res)=>{
+      if(res) {
+        props.refreshData();
+      }
+    }, (err)=>{
+      props.setErrorMessage(err.errorMessageForUser)
+    })
+  }
+
+
+  const isSetTeamName = props.teamName!==null;
+
     return (
       <>
         <div className={stylesGroupView.userBox}>
@@ -54,7 +68,7 @@ const NewUser = (props) => {
               justifyContent: "flex-end",
             }}
           >
-            <div style={{ margin: "0 15px" }} onClick={deleteUserFromGroup}>
+            <div style={{ margin: "0 15px" }} onClick={isSetTeamName? deleteUserFromTeam :deleteUserFromGroup}>
               <Icon.UserX
                 width="30"
                 height="30"

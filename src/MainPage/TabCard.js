@@ -15,10 +15,12 @@ const TabCard = (props) => {
             tcard[i] = (
                 <Card
                     key={i+1}
+                    numberOnList={i}
                     openPosts={props.openPosts}
                     lesson={table[i]["name"]}
                     group={table[i]["lecturer"]}
                     color="#ec524b"
+                    textButton="Przejdź do grupy"
 
                 />
             )

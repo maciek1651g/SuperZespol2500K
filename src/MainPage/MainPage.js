@@ -15,6 +15,7 @@ import PublicApi from "./../publicFunctions/PublicFunctionsAPI"
 import LoadingScreen from "../LoginPage/LoadingScreen";
 import ErrorMessage from "../LoginPage/ErrorMessage";
 import GroupDetails from "./GroupDetails";
+import TeamDelails from "./TeamDelails";
 
 const changeOptionMenu = (id) => {
 
@@ -60,7 +61,7 @@ const MainPage = () => {
                 history.push("/");
             }
         }, (err)=>{
-            setErrorMessage(err.messageForUser);
+            setErrorMessage(err.errorMessageForUser);
         })
     }
     React.useEffect(() => {
@@ -132,7 +133,7 @@ const MainPage = () => {
                     <h2 style={{ marginTop: "40px" }}>Lorem</h2>
                     <IconMenu name="navMenu" icoSVG={Icons.homeIco} optionMenu={1}
                         actualOptionMenu={optionMenu} setOptionMenu={setOptionMenu} setOpenDialogBox={setDialogBoxes} />
-                    <IconMenu name="navMenu" icoSVG={Icons.groupIco} optionMenu={2}
+                    <IconMenu name="navMenu" icoSVG={Icons.groupIco} optionMenu={2} id="groupButton"
                         actualOptionMenu={optionMenu} setOptionMenu={setOptionMenu} setOpenDialogBox={setDialogBoxes} />
                     <IconMenu name="navMenu" icoSVG={Icons.calendarIco} optionMenu={3}
                         actualOptionMenu={optionMenu} setOptionMenu={setOptionMenu} setOpenDialogBox={setDialogBoxes} />
@@ -151,7 +152,7 @@ const MainPage = () => {
                 {optionMenu === 1 ? <MainBox ptable={table} groupsArray={groupsArray} setErrorMessage={setErrorMessage}/> : null}
                 {optionMenu === 2 ? <GroupView gtable={groupsArray} refreshGTable={loadData} setErrorMessage={setErrorMessage}/> : null}
                 {optionMenu === 3 ? <CalendarBox  setErrorMessage={setErrorMessage} /> : null}
-                {optionMenu === 4 ? <GroupDetails name={"Hawaje"} groupName={"asd"} groupsDetails={groupsArray}
+                {optionMenu === 4 ? <TeamDelails  groupDetails={groupsArray.length>0?groupsArray[9]:null}
                                                   refreshData={loadData} setErrorMessage={setErrorMessage}/> : null}
             </div>
         </div>

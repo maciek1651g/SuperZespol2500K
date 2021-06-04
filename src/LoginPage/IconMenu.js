@@ -2,7 +2,7 @@ import styles from './loginStyle.module.css';
 
 const IconMenu = (props) => {
 
-    const closeAndOpenDialogBoxs = () => {
+    const closeAndOpenDialogBoxes = () => {
         if(props.setOpenDialogBox)
         {
             if(typeof (props.actualIdDialogBox)!=="undefined")
@@ -44,7 +44,7 @@ const IconMenu = (props) => {
     return (
         <label className={styles.buttonMenu}>
             {input}
-            <span className={styles.icon} onClick={closeAndOpenDialogBoxs}>
+            <span className={styles.icon} onClick={closeAndOpenDialogBoxes} id={props.id}>
                 {props.icoSVG}
             </span>
         </label>

@@ -230,21 +230,20 @@ class ClientAPI {
     this.sendMessage("GET", "/Groups/attended/full");
   }
 
-  createScheduleForGroupAndTeam(
-    groupID,
-    teamName,
-    semester,
-    scheduledCursesArray
-  ) {
+  createScheduleForGroupAndTeam(groupID, teamName, semester, scheduledCursesArray) {
     let data = {
       schedule: { scheduledCourses: scheduledCursesArray, semester: semester },
     };
     data = this.dataToJson(data);
-    this.sendMessage(
-      "POST",
-      "/groups/" + groupID + "/Teams/" + teamName + "/schedules",
-      data
-    );
+    this.sendMessage("POST", "/groups/" + groupID + "/Teams/" + teamName + "/schedules", data);
+  }
+
+  editScheduleForGroupAndTeam(groupID, teamName, semester, scheduledCursesArray) {
+    let data = {
+      schedule: { scheduledCourses: scheduledCursesArray, semester: semester },
+    };
+    data = this.dataToJson(data);
+    this.sendMessage("PUT", "/groups/" + groupID + "/Teams/" + teamName + "/schedules", data);
   }
 
   getGroupsPartial()
@@ -274,6 +273,32 @@ class ClientAPI {
   deleteGroup(groupID)
   {
     this.sendMessage("DELETE", "/Groups/" + groupID);
+  }
+
+  editTeamName(groupID, teamName, newTeamName)
+  {
+    let data = {newTeamName: newTeamName};
+    data = this.dataToJson(data);
+    this.sendMessage("PUT", "/groups/"+groupID+"/Teams/"+teamName, data);
+  }
+
+  deleteTeam(groupID, teamName)
+  {
+    this.sendMessage("DELETE", "/groups/"+groupID+"/Teams/"+teamName);
+  }
+
+  addUsersToTeam(groupID, teamName, emailsArray)
+  {
+    let data = {emails: emailsArray};
+    data = this.dataToJson(data);
+    this.sendMessage("POST", "/groups/"+groupID+"/Teams/"+teamName+"/users", data);
+  }
+
+  deleteUserFromTeam(groupID, teamName, arrayEmails)
+  {
+    let data = {emails: arrayEmails};
+    data = this.dataToJson(data);
+    this.sendMessage("DELETE", "/groups/"+groupID+"/Teams/"+teamName+"/users", data);
   }
 }
 
