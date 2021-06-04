@@ -22,7 +22,7 @@ const AddTeam = (props) => {
             }
             closeNewGroupModal();
         },(err)=>{
-            props.setErrorMessage(err.messageForUser);
+            props.setErrorMessage(err.errorMessageForUser);
         })
 
     }

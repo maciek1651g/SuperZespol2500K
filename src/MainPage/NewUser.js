@@ -11,8 +11,10 @@ const NewUser = (props) => {
   {
     PublicApi.deleteUserFromGroup([props.email], props.groupID, (res)=>{
       if(res) {
-        console.log("OK")
+        props.refreshData();
       }
+    }, (err)=>{
+      props.setErrorMessage(err.errorMessageForUser)
     })
   }
 

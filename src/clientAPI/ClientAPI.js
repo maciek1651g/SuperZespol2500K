@@ -41,7 +41,6 @@ class ClientAPI {
             } else {
               textError = "Niezidentyfikowany błąd.";
             }
-
             error = new ErrorClass(
               xhr.status,
               textError.Message,
@@ -255,11 +254,26 @@ class ClientAPI {
 
   deleteUserFromGroup(arrayEmails, groupID)
   {
-    let data = {email: arrayEmails};
+    let data = {emails: arrayEmails};
     data = this.dataToJson(data);
-    console.log(data)
-    console.log("/groups/" + groupID + "/users")
     this.sendMessage("DELETE", "/groups/" + groupID + "/users", data);
+  }
+
+  getSomeUsers(groupID, partEmail)
+  {
+    this.sendMessage("GET", "/groups/" + groupID + "/users?SearchLetters="+partEmail);
+  }
+
+  editGroupName(groupID, newGroupName)
+  {
+    let data = {newName: newGroupName};
+    data = this.dataToJson(data);
+    this.sendMessage("PUT", "/Groups/" + groupID, data);
+  }
+
+  deleteGroup(groupID)
+  {
+    this.sendMessage("DELETE", "/Groups/" + groupID);
   }
 }
 

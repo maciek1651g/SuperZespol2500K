@@ -7,7 +7,20 @@ import * as Icon from "react-feather";
 import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
 import EditIcon from "@material-ui/icons/Edit";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import PublicApi from "../publicFunctions/PublicFunctionsAPI";
+import $ from "./getElement";
 const AddNewUserToGroup = (props) => {
+
+    const addUserToGroup = () => {
+        PublicApi.addUsersToGroup([props.email], props.groupID, (res)=>{
+            if(res){
+                props.refreshUsers();
+            }
+        }, (err)=>{
+            props.setErrorMessage(err.errorMessageForUser)
+        })
+    }
+
   return (
     <>
       <div
@@ -25,9 +38,9 @@ const AddNewUserToGroup = (props) => {
           }}
           className={stylesMainPage.center}
         >
-          {props.text2}
+          {props.email}
         </p>
-        <button className={stylesGroupView.messageButton}>
+        <button className={stylesGroupView.messageButton} onClick={addUserToGroup}>
           <p>DODAJ</p>
         </button>
       </div>
@@ -37,12 +50,33 @@ const AddNewUserToGroup = (props) => {
 
 const AddUserButton = (props) => {
 
+    const inputUserEmail = (event) => {
+        let value = event.target.value;
+        searchUser(value);
+    }
+
+    const searchUser = (email=null) => {
+        email = $("partEmail").value;
+        if(email.length>=3)
+        {
+            PublicApi.getSomeUsers(props.groupID, email, (res)=>{
+                if(res!==null)
+                {
+                    setUsers(res);
+                }
+            })
+        }
+    }
+
     function openAddUserModal() {
         setShowAddUser(true);
     }
 
     function closeAddUserModal() {
         setShowAddUser(false);
+        setUsers(null)
+        toogleMenu();
+        props.refreshData();
     }
 
   function toogleMenu() {
@@ -55,6 +89,7 @@ const AddUserButton = (props) => {
   }
 
     const [showAddUser, setShowAddUser] = React.useState(false);
+    const [users, setUsers] = React.useState(null);
 
   return (
     <>
@@ -68,6 +103,7 @@ const AddUserButton = (props) => {
             &times;
           </span>
           <h2 style={{ margin: "30px 5%" }}>Dodaj Członka Do Grupy</h2>
+            <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
           <div
             className={stylesMainPage.writeGroupName}
             style={{
@@ -81,13 +117,14 @@ const AddUserButton = (props) => {
               color="#4cd5df"
               style={{ verticalAlign: "middle" }}
             />
-            <input style={{
+            <input onChange={inputUserEmail} id="partEmail" style={{
                 height: "30px",
                 marginLeft: "20px",
                 width: "250px"
             }} placeholder=" Wyszukaj użytkownika po jego meilu..."/>
 
           </div>
+
           <div
             className={stylesMainPage.writeGroupName}
             style={{
@@ -101,7 +138,7 @@ const AddUserButton = (props) => {
               color="#4cd5df"
               style={{ verticalAlign: "middle" }}
             />
-            <select id="userMode" style={{
+            <select id="userMode" disabled={true} style={{
                 height: "30px",
                 marginLeft: "20px",
                 width: "250px"
@@ -110,14 +147,17 @@ const AddUserButton = (props) => {
                 <option value={1}>Administrator</option>
             </select>
           </div>
-          <AddNewUserToGroup text1="Zygmunt Mucha" text2="zygmuch@gmail.com" />
-          <AddNewUserToGroup text1="Michał Szef" text2="michałszef@gmail.com" />
-          <AddNewUserToGroup text1="Monika Jazda" text2="monjazda@gmail.com" />
-          <AddNewUserToGroup text1="Anna Kropka" text2="aniadot@gmail.com" />
-          <AddNewUserToGroup
-            text1="Bolesław Śmiały"
-            text2="bolekilolek@gmail.com"
-          />
+            </div>
+            <div>
+                {users===null? <p>Tutaj będą wyświetlani wyszukiwani użytkownicy</p>:
+                users.length===0? <p>Nie znaleziono użytkowników o takiej nazwie</p>:
+                users.map((value, key)=><AddNewUserToGroup key={key} text1={value.firstName+" "+value.lastName}
+                                                           groupID={props.groupID} email={value.email}
+                                                            refreshUsers={searchUser} setErrorMessage={props.setErrorMessage}/>)
+                }
+
+            </div>
+
         </div>
       </div>
         :null}

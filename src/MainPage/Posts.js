@@ -17,6 +17,7 @@ const Posts = (props) =>{
             margin: "0",
             display: "inline-block",
           }}
+
         >
           {props.name}
         </p>

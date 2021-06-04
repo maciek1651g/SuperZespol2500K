@@ -151,7 +151,8 @@ const MainPage = () => {
                 {optionMenu === 1 ? <MainBox ptable={table} groupsArray={groupsArray} setErrorMessage={setErrorMessage}/> : null}
                 {optionMenu === 2 ? <GroupView gtable={groupsArray} refreshGTable={loadData} setErrorMessage={setErrorMessage}/> : null}
                 {optionMenu === 3 ? <CalendarBox  setErrorMessage={setErrorMessage} /> : null}
-                {optionMenu === 4 ? <GroupDetails name={"Hawaje"} groupName={"asd"} groupsDetails={groupsArray}/> : null}
+                {optionMenu === 4 ? <GroupDetails name={"Hawaje"} groupName={"asd"} groupsDetails={groupsArray}
+                                                  refreshData={loadData} setErrorMessage={setErrorMessage}/> : null}
             </div>
         </div>
     )
