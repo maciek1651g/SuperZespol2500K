@@ -57,6 +57,7 @@ const AddUserToTeam = (props) => {
     function closeAddUserModal() {
         setShowAddUser(false);
         setUsers(null)
+        props.refreshData();
         toogleMenu();
     }
 

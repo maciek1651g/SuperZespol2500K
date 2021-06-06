@@ -366,6 +366,7 @@ class ClientAPI {
 
     this.sendMessage("PUT", "/groups/"+groupID+"/Teams/"+teamName+"/Assignments/"+assigmentID, data);
   }
+
 }
 
 export default ClientAPI;

@@ -6,7 +6,6 @@ import React from "react";
 const GroupCard = (props) => {
 
 
-
     return (
         <div className={stylesMainPage.middleContent}>
             <div className={stylesMainPage.middleContentLeft}>
@@ -17,7 +16,9 @@ const GroupCard = (props) => {
                             <p style={{ color: "#979797" }}>&nbsp;</p>
                         </div>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "90%", height: "20%" }}>
-                            <div><button className={styles.errorButton + ' ' + styles.buttonStyle}>PRZEJDŹ DO GRUPY</button></div>
+                            <div>
+
+                            </div>
                             <div>
                                 <button className={styles.arrowButton} onClick={()=>props.changeGroup(false)}>{Icons.arrowLeft}</button>
                                 <button className={styles.arrowButton} onClick={()=>props.changeGroup(true)}>{Icons.arrowRight}</button>

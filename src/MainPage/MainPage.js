@@ -42,10 +42,28 @@ const MainPage = () => {
     const [table,setTable]=useState([]);
     const [showLoading, setLoading] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState(null);
+    const [chooseGroup, setChooseGroup] = React.useState(0);
 
     React.useEffect(() => {
         loadData();
     }, []);
+
+    const changeGroup = (boolIncrement) => {
+        let tmp = chooseGroup;
+        if(boolIncrement)
+        {
+            tmp+=1;
+            tmp=tmp%groupsArray.length;
+        }
+        else
+        {
+            tmp-=1;
+            if(tmp<0) tmp=groupsArray.length-1;
+        }
+
+        setChooseGroup(tmp);
+        setTable(groupsArray[tmp]);
+    }
 
     const loadData = () => {
         setLoading(true);
@@ -149,7 +167,8 @@ const MainPage = () => {
             </div>
             <div className={stylesMainPage.rightColumn}>
                 
-                {optionMenu === 1 ? <MainBox ptable={table} groupsArray={groupsArray} setErrorMessage={setErrorMessage}/> : null}
+                {optionMenu === 1 ? <MainBox ptable={table} groupsArray={groupsArray} setErrorMessage={setErrorMessage}
+                                             setChooseGroup={setChooseGroup} chooseGroup={chooseGroup} changeGroup={changeGroup}/> : null}
                 {optionMenu === 2 ? <GroupView gtable={groupsArray} refreshGTable={loadData} setErrorMessage={setErrorMessage}/> : null}
                 {optionMenu === 3 ? <CalendarBox  setErrorMessage={setErrorMessage} /> : null}
                 {optionMenu === 4 ? <BoxBox />: null}
