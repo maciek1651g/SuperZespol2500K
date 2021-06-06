@@ -84,6 +84,19 @@ const DayBox = (props) => {
   );
 };
 const CheckCalendar = (props) => {
+  const deadline = new Date(props.deadline)
+
+  const deleteAssigment = () => {
+      PublicApi.deleteAssigmentFromTeam(props.groupID, props.teamName, props.id,(res)=>{
+        if(res){
+          props.refreshData();
+          props.closeTab();
+        }
+      }, (err)=>{
+        props.setErrorMessage(err.errorMessageForUser)
+      });
+  }
+
   return (
     <>
       <div
@@ -91,7 +104,7 @@ const CheckCalendar = (props) => {
         style={{ justifyContent: "space-between" }}
       >
         <p style={{ fontWeight: "bold", width: "30%", textAlign: "left" }}>
-          {props.text1}
+          {props.name}
         </p>
         <p
           style={{
@@ -100,10 +113,10 @@ const CheckCalendar = (props) => {
             width: "20%",
           }}
         >
-          {props.text2}
+          {props.description}
         </p>
-        <p style={{ color: "#979797", width: "20%" }}>{props.text3}</p>
-        <p style={{ color: "#979797", width: "20%" }}>{props.text4}</p>
+        <p style={{ color: "#979797", width: "20%" }}>Semestr: {props.semester}</p>
+        <p style={{ color: "#979797", width: "20%" }}>Termin: {deadline.toDateString()}</p>
         <div
           style={{
             display: "flex",
@@ -111,11 +124,12 @@ const CheckCalendar = (props) => {
             alignItems: "center",
           }}
         >
-          <Icon.Edit3
+          <Icon.X
             width="20"
             height="20"
             color="#979797"
             className={stylesGroupView.svgButton}
+            onClick={deleteAssigment}
           />
         </div>
       </div>
@@ -171,6 +185,7 @@ let clickedDay=1;
 const SmallCalendar = ( { date, setDate, ...props }) => {
   const [currentDayEvent, setCurrentDayEvent] = React.useState(false);
   const [addEventProps, setAddEventProps] = React.useState(false);
+  const scheduler = props.team.assignments;
 
   const addAssigment =()=>{
 
@@ -287,7 +302,6 @@ const SmallCalendar = ( { date, setDate, ...props }) => {
     tmpDate = new Date(tmpDate.setDate(tmpDate.getDate() + 1));
   }
 
-  //console.log(props.group)
 
   return (
     <>
@@ -304,36 +318,15 @@ const SmallCalendar = ( { date, setDate, ...props }) => {
             {clickedDay.getDate()} {nameOfMonth(clickedDay.getMonth())} {clickedDay.getFullYear()}
           </h2>
 
-          <CheckCalendar
-            text1="Kolokwium Całki"
-            text2="12:00-14:00"
-            text3="Aula II bud. 34"
-            text4="LINK"
-          />
-          <CheckCalendar
-            text1="Kolokwium Całki"
-            text2="12:00-14:00"
-            text3="Aula II bud. 34"
-            text4="LINK"
-          />
-          <CheckCalendar
-            text1="Kolokwium Całki"
-            text2="12:00-14:00"
-            text3="Aula II bud. 34"
-            text4="LINK"
-          />
-          <CheckCalendar
-            text1="Kolokwium Całki"
-            text2="12:00-14:00"
-            text3="Aula II bud. 34"
-            text4="LINK"
-          />
-          <CheckCalendar
-            text1="Kolokwium Całki"
-            text2="12:00-14:00"
-            text3="Aula II bud. 34"
-            text4="LINK"
-          />
+          {
+            scheduler.map((value,key)=><CheckCalendar key={key} name={value.name} description={value.description}
+                                                      id={value.id} deadline={value.deadline} semester={value.semester}
+                                                      groupID={props.group.id} teamName={props.team.name}
+                                                      refreshData={props.refreshData} closeTab={closeCurrentDayModal}/>)
+          }
+
+
+
           <button
             className={stylesGroupView.messageButton}
             style={{ marginLeft: "3%", marginTop: "20px" }}

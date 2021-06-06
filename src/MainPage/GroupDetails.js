@@ -67,7 +67,7 @@ const GroupDetails = (props) => {
     }
 
     return (
-        <div className={stylesMainPage.rightContent}>
+        <>
             <TopMainPage />
             <AddUserButton groupID={groupDetails!==null?groupDetails.id:null}
                             refreshData={props.refreshData} setErrorMessage={props.setErrorMessage}/>
@@ -124,7 +124,7 @@ const GroupDetails = (props) => {
                     </div>
                 </>:null}
 
-        </div>
+        </>
     )
 };
 

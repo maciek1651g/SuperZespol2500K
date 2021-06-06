@@ -78,7 +78,7 @@ const TeamDetail = (props) => {
     }
 
     return (
-        <div className={stylesMainPage.rightContent}>
+        <>
             <TopMainPage />
             <AddUserToTeam group={groupDetail} team={teamDetails}
                            refreshData={props.refreshData} setErrorMessage={props.setErrorMessage}/>
@@ -176,7 +176,7 @@ const TeamDetail = (props) => {
                 </>
                 :null}
 
-        </div>
+        </>
     )
 };
 

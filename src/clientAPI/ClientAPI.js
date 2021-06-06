@@ -11,7 +11,7 @@ class ClientAPI {
     let xhr = new XMLHttpRequest();
     xhr.open(method.toUpperCase(), ClientAPI.baseUrl + url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.timeout = 5000;
+    xhr.timeout = 15000;
 
     if (ClientAPI.bearer !== null) {
       xhr.setRequestHeader("Authorization", "Bearer " + ClientAPI.bearer);
@@ -314,9 +314,6 @@ class ClientAPI {
     }
 
     data = this.dataToJson(data);
-
-    console.log(data)
-    console.log("/groups/"+groupID+"/teams/"+teamName+"/Assignments")
 
     this.sendMessage("POST", "/groups/"+groupID+"/teams/"+teamName+"/Assignments", data);
   }

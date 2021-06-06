@@ -6,11 +6,40 @@ import $ from "./getElement";
 
 const MakeSchedule = (props) => {
     const [schedul, setSchedul] = React.useState(props.team.schedules.length>0? props.team.schedules[0].scheduledCourses:[]);
+    const [semester, setSemester] = React.useState(-1);
 
 
     React.useEffect(()=>{
-        setSchedul(props.team.schedules.length>0? props.team.schedules[0].scheduledCourses:[])
-    },[props.team])
+        //let tmp = props.team.schedules.sort((a,b)=>);
+
+        let indexOfSemester=0;
+        for(let i=0;i<props.team.schedules.length;i++)
+        {
+            if(props.team.schedules[i].semester===parseInt(semester))
+            {
+                indexOfSemester=i;
+                break;
+            }
+        }
+
+
+        let tmpSchedul = props.team.schedules.length>0? props.team.schedules[indexOfSemester].scheduledCourses:[];
+
+        tmpSchedul.sort((a,b)=>{
+            if(a.startTime>b.startTime)
+                return 1
+            else if(a.startTime===b.startTime)
+                return 0
+            else
+                return -1
+        });
+
+
+        setSchedul(tmpSchedul)
+
+
+    },[props.team, semester])
+
 
     const setNewSchedule = () =>{
         const day = parseInt($("dayOfWeek").value);
@@ -28,7 +57,17 @@ const MakeSchedule = (props) => {
             }
         }
 
-        if((schedul!==null || typeof schedul!=="object"))
+        let flag=false;
+
+        for(let i=0;i<schedul.length; i++)
+        {
+            if(schedul[i].semester===semester){
+                flag=true;
+                break;
+            }
+        }
+
+        if((flag || typeof schedul!=="object"))
         {
             let newTab = [];
             newTab.push(newObject);
@@ -83,13 +122,23 @@ const MakeSchedule = (props) => {
     }
 
 
-
+    const changeSemester = (event) => {
+        setSemester(event.target.value);
+    }
 
 
 
     return (
         <div>
-            <div style={{display: "flex", flexDirection: "row"}}>
+            <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
+                <label>Semestr: </label>
+                <select value={semester} onChange={changeSemester}>
+                    {
+                        props.team.schedules.map((value, key)=><option key={key} value={value.semester}>{value.semester}</option>)
+                    }
+                </select>
+            </div>
+            <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", paddingTop: "30px"}}>
                 <div>
                     <label>Dzień</label>
                     <select id="dayOfWeek">
@@ -122,7 +171,7 @@ const MakeSchedule = (props) => {
                 </div>
                 <button className={stylesGroupView.messageButton} onClick={setNewSchedule}>Dodaj</button>
             </div>
-            <div style={{display: "flex", flexWrap: "wrap"}}>
+            <div style={{display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", paddingTop: "30px"}}>
                 <table border={1}>
                     <thead>
                         <tr>
