@@ -152,8 +152,7 @@ const MainPage = () => {
                 {optionMenu === 1 ? <MainBox ptable={table} groupsArray={groupsArray} setErrorMessage={setErrorMessage}/> : null}
                 {optionMenu === 2 ? <GroupView gtable={groupsArray} refreshGTable={loadData} setErrorMessage={setErrorMessage}/> : null}
                 {optionMenu === 3 ? <CalendarBox  setErrorMessage={setErrorMessage} /> : null}
-                {optionMenu === 4 ? <TeamDelails  groupDetails={groupsArray.length>0?groupsArray[9]:null}
-                                                  refreshData={loadData} setErrorMessage={setErrorMessage}/> : null}
+                {optionMenu === 4 ? <BoxBox />: null}
             </div>
         </div>
     )

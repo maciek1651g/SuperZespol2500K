@@ -257,7 +257,21 @@ const SmallCalendar = ( { date, setDate, ...props }) => {
   tmpDate = new Date(tmpDate.setDate(tmpDate.getDate() - firstDayInMonth));
 
   for (let i = 0; i < days; i++) {
+    let counter=0;
+    for(let i=0;i<scheduler.length;i++)
+    {
+      let assigmentDate=new Date(scheduler[i].deadline);
+      if(assigmentDate.toDateString()===tmpDate.toDateString())
+      {
+        counter++;
+      }
+    }
+
     let notInfo = null;
+    if(counter>0)
+    {
+      notInfo=counter;
+    }
 
     if (tmpDate.getMonth() === month) {
       if (

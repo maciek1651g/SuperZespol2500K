@@ -163,9 +163,22 @@ function editTeamAssigment(groupID, assigmentID, teamName, courseID, assigmentNa
     api.editTeamAssigment(groupID, assigmentID,teamName,courseID,assigmentName,assigmentDescription,semester,deadline);
 }
 
+function editCourse(groupID, courseID, courseName, courseLecturer, courseStreet, courseNumBuilding, courseCity, courseLink, courseRoom, courseSemester, callback, errorCallback=null)
+{
+    const api = createAPI(callback, errorCallback);
+    api.editCourse(groupID, courseID, courseName, courseLecturer, courseStreet, courseNumBuilding, courseCity, courseLink, courseRoom, courseSemester)
+}
+
+function deleteCourse(groupID, courseID, callback, errorCallback=null)
+{
+    const api = createAPI(callback, errorCallback);
+    api.deleteCourse(groupID, courseID);
+}
+
 const exp = {login, register, logout, createGroup, createTeams, createCourses, addUsersToGroup,
             getAllGroupsAttended, createScheduleForGroupAndTeam, getGroupsPartial, createOneCourse,
             deleteUserFromGroup, getSomeUsers, editGroupName, deleteGroup, editTeamName,
             deleteTeam, addUsersToTeam, deleteUsersFromTeam, editScheduleForGroupAndTeam,
-            addAssigmentToTeam, deleteAssigmentFromTeam, editTeamAssigment};
+            addAssigmentToTeam, deleteAssigmentFromTeam, editTeamAssigment, editCourse,
+            deleteCourse};
 export default exp;

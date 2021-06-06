@@ -220,6 +220,33 @@ class ClientAPI {
     this.sendMessage("POST", "/groups/" + groupID + "/Courses", data);
   }
 
+  deleteCourse(groupID, courseID) {
+    this.sendMessage("DELETE", "/groups/"+groupID+"/Courses/"+courseID);
+  }
+
+  editCourse(groupID, courseID, courseName, courseLecturer, courseStreet, courseNumBuilding, courseCity, courseLink, courseRoom, courseSemester)
+  {
+    let data =
+        {
+          course:  {
+            name: courseName,
+            lecturer: courseLecturer,
+            location: {
+              address:{
+                streetName: courseStreet,
+                buildingNumber: courseNumBuilding,
+                city: courseCity
+              },
+              link: courseLink,
+              room: courseRoom
+            },
+            semester: courseSemester
+          }
+        };
+    data = this.dataToJson(data);
+    this.sendMessage("PUT", "/groups/"+groupID+"/Courses/"+courseID, data);
+  }
+
   addUsersToGroup(emailsArray, groupID) {
     let data = { emails: emailsArray };
     data = this.dataToJson(data);

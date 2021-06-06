@@ -15,6 +15,7 @@ import CheckBox from "../LoginPage/CheckBox";
 import CalendarBox from "./CalendarBox";
 import GroupDetails from "./GroupDetails";
 import TeamDelails from "./TeamDelails";
+import CourseDetails from "./CourseDetails";
 
 const GroupView = (props) =>  {
   const [isPostsOpen, setPostsOpen] = React.useState(false);
@@ -24,6 +25,7 @@ const GroupView = (props) =>  {
   const [coursesOrTeams, setCoursesOrTeams] = React.useState(true);
   const [selectedGroup, setSelectedGroup] = React.useState(0);
   const [selectedTeam, setSelectedTeam] = React.useState(0);
+  const [selectedCours, setSelectedCours] = React.useState(0);
   const [subpage, setSubpage] = React.useState(0);
   const [lesson, setLesson] = React.useState("");
   const [groupNumber, setGroupNumber] = React.useState(0);
@@ -33,13 +35,16 @@ const GroupView = (props) =>  {
 
 
   const openGroups = (groupNum) => {
-
     setSelectedGroup(groupNum);
     setSubpage(1);
   }
   const openTeams = (teamNum) => {
     setSelectedTeam(teamNum)
     setSubpage(2);
+  }
+  const openCours = (courseNum) => {
+    setSelectedCours(courseNum)
+    setSubpage(3);
   }
 
   const changeSubpage = (number) => {
@@ -79,7 +84,11 @@ const GroupView = (props) =>  {
     $("groupButton").addEventListener("click", returnToMainPage);
 
     return function cleanupListener() {
-      $("groupButton").removeEventListener("click", returnToMainPage);
+      const groupButton = $("groupButton");
+      if(groupButton!==null && typeof groupButton !== "undefined")
+      {
+        groupButton.removeEventListener("click", returnToMainPage);
+      }
     }
   },[])
 
@@ -97,6 +106,14 @@ const GroupView = (props) =>  {
 
   return (
     <div className={stylesMainPage.rightContent}>
+      {subpage === 3? <CourseDetails refreshData={props.refreshGTable}
+                                    setErrorMessage={props.setErrorMessage}
+                                    groupDetails={groupsArray[selectedGroup]}
+                                    numOfCourse={selectedCours}
+                                    returnToMainPage={returnToMainPage}
+      /> : null}
+
+
       {subpage === 2? <TeamDelails  groupDetails={groupsArray[selectedGroup]}
                                     refreshData={props.refreshGTable}
                                     setErrorMessage={props.setErrorMessage}
@@ -162,8 +179,9 @@ const GroupView = (props) =>  {
                   <TabCard gtable={table} openPosts={openGroups}/>
                   :viewChoose==="1"?
                   <TabCard gtable={table} openPosts={openTeams}/>
-                  :
-                      <TabCard gtable={table} openPosts={openGroups}/>
+                  :viewChoose==="2"?
+                  <TabCard gtable={table} openPosts={openCours}/>
+                  :null
               }
 
 
