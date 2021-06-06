@@ -5,29 +5,30 @@ import $ from "./getElement";
 
 
 const MakeSchedule = (props) => {
+    const [schedul, setSchedul] = React.useState(props.team.schedules.length>0? props.team.schedules[0].scheduledCourses:[]);
 
-    const [schedul, setSchedul] = React.useState(props.team.schedules[0].scheduledCourses);
 
     React.useEffect(()=>{
-        setSchedul(props.team.schedules[0].scheduledCourses)
+        setSchedul(props.team.schedules.length>0? props.team.schedules[0].scheduledCourses:[])
     },[props.team])
 
     const setNewSchedule = () =>{
-        const day = $("dayOfWeek").value
+        const day = parseInt($("dayOfWeek").value);
         const startTime = $("startTime").value
         const endTime = $("endTime").value
         const subject = $("subject").value
-        const semester = $("semester").value
+        const semester = parseInt($("semester").value);
 
         const newObject = {
-            DaysOfTheWeek: day,
+            DayOfTheWeek: day,
             StartTime: startTime+":00",
             EndTime: endTime+":00",
             Course: {
                 Id: subject
             }
         }
-        if(schedul && schedul.length>0)
+
+        if((schedul!==null || typeof schedul!=="object"))
         {
             let newTab = [];
             newTab.push(newObject);
@@ -35,25 +36,18 @@ const MakeSchedule = (props) => {
             for(let i=0;i<schedul.length;i++)
             {
                 let object ={
-                        DaysOfTheWeek: schedul[i].dayOfTheWeek,
+                    DayOfTheWeek: schedul[i].dayOfTheWeek,
                     StartTime: schedul[i].startTime,
                     EndTime: schedul[i].endTime,
                     Course: {
-                    Id: schedul[i].course.id
+                        Id: schedul[i].course.id
                     }
                 }
 
                 newTab.push(object);
             }
 
-            PublicApi.editScheduleForGroupAndTeam(props.group.id, props.team.name, semester, newTab, (res)=>{
-                if(res)
-                {
-                    props.refreshData();
-                }
-            }, (err)=>{
-                props.setErrorMessage(err.errorMessageForUser)
-            });
+            updateSchedul(semester, newTab);
         }
         else
         {
@@ -70,20 +64,25 @@ const MakeSchedule = (props) => {
         }
     }
 
-  /*  <table border={1}>
-        <tr>
-            <th>Poniedziałek</th>
-            <th>Wtorek</th>
-            <th>Środa</th>
-            <th>Czwartek</th>
-            <th>Piątek</th>
-            <th>Sobota</th>
-            <th>Niedziela</th>
-        </tr>
-        <tr>
+    const updateSchedul = (semester, newTab) => {
+        PublicApi.editScheduleForGroupAndTeam(props.group.id, props.team.name, semester, newTab, (res)=>{
+            if(res)
+            {
+                props.refreshData();
+            }
+        }, (err)=>{
+            props.setErrorMessage(err.errorMessageForUser)
+        });
+    }
 
-        </tr>
-    </table>*/
+    const deleteSchedul = (indexSchedul) => {
+        const semester = schedul[0].course.semester;
+        let newTab = [...schedul];
+        newTab.splice(indexSchedul, 1);
+        updateSchedul(semester,newTab);
+    }
+
+
 
 
 
@@ -94,13 +93,13 @@ const MakeSchedule = (props) => {
                 <div>
                     <label>Dzień</label>
                     <select id="dayOfWeek">
-                        <option value={0}>Poniedziałek</option>
-                        <option value={1}>Wtorek</option>
-                        <option value={2}>Środa</option>
-                        <option value={3}>Czwartek</option>
-                        <option value={4}>Piątek</option>
-                        <option value={5}>Sobota</option>
-                        <option value={6}>Niedziela</option>
+                        <option value={1}>Poniedziałek</option>
+                        <option value={2}>Wtorek</option>
+                        <option value={3}>Środa</option>
+                        <option value={4}>Czwartek</option>
+                        <option value={5}>Piątek</option>
+                        <option value={6}>Sobota</option>
+                        <option value={7}>Niedziela</option>
                     </select>
                 </div>
                 <div>
@@ -124,17 +123,121 @@ const MakeSchedule = (props) => {
                 <button className={stylesGroupView.messageButton} onClick={setNewSchedule}>Dodaj</button>
             </div>
             <div style={{display: "flex", flexWrap: "wrap"}}>
-                {
-                    schedul.map((value, key)=>
-                        <div key={key} style={{minWidth: "400px", border: "1px solid black"}}>
-                            <p>Przedmiot: {value.course.name}</p>
-                            <p>Prowadzący: {value.course.lecturer}</p>
-                            <p>Dzień: {value.dayOfTheWeek}</p>
-                            <p>Start: {value.startTime}</p>
-                            <p>Koniec: {value.endTime}</p>
-                        </div>)
-                }
-
+                <table border={1}>
+                    <thead>
+                        <tr>
+                            <th>Poniedziałek</th>
+                            <th>Wtorek</th>
+                            <th>Środa</th>
+                            <th>Czwartek</th>
+                            <th>Piątek</th>
+                            <th>Sobota</th>
+                            <th>Niedziela</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {
+                                    schedul.map((value, key) => value.dayOfTheWeek === "Monday" ?
+                                        <div className={stylesGroupView.schedulContainer} key={key}>
+                                            <p>Przedmiot: {value.course.name}</p>
+                                            <p>Prowadzący: {value.course.lecturer}</p>
+                                            <p>Start: {value.startTime}</p>
+                                            <p>Koniec: {value.endTime}</p>
+                                            <button className={stylesGroupView.messageButton}
+                                                    onClick={() => deleteSchedul(key)}>usuń
+                                            </button>
+                                        </div> : null)
+                                }
+                            </td>
+                            <td>
+                                {
+                                    schedul.map((value, key) => value.dayOfTheWeek === "Tuesday" ?
+                                        <div className={stylesGroupView.schedulContainer} key={key}>
+                                            <p>Przedmiot: {value.course.name}</p>
+                                            <p>Prowadzący: {value.course.lecturer}</p>
+                                            <p>Start: {value.startTime}</p>
+                                            <p>Koniec: {value.endTime}</p>
+                                            <button className={stylesGroupView.messageButton}
+                                                    onClick={() => deleteSchedul(key)}>usuń
+                                            </button>
+                                        </div> : null)
+                                }
+                            </td>
+                            <td>
+                                {
+                                    schedul.map((value, key) => value.dayOfTheWeek === "Wednesday" ?
+                                        <div className={stylesGroupView.schedulContainer} key={key}>
+                                            <p>Przedmiot: {value.course.name}</p>
+                                            <p>Prowadzący: {value.course.lecturer}</p>
+                                            <p>Start: {value.startTime}</p>
+                                            <p>Koniec: {value.endTime}</p>
+                                            <button className={stylesGroupView.messageButton}
+                                                    onClick={() => deleteSchedul(key)}>usuń
+                                            </button>
+                                        </div> : null)
+                                }
+                            </td>
+                            <td>
+                                {
+                                    schedul.map((value, key) => value.dayOfTheWeek === "Thursday" ?
+                                        <div className={stylesGroupView.schedulContainer} key={key}>
+                                            <p>Przedmiot: {value.course.name}</p>
+                                            <p>Prowadzący: {value.course.lecturer}</p>
+                                            <p>Start: {value.startTime}</p>
+                                            <p>Koniec: {value.endTime}</p>
+                                            <button className={stylesGroupView.messageButton}
+                                                    onClick={() => deleteSchedul(key)}>usuń
+                                            </button>
+                                        </div> : null)
+                                }
+                            </td>
+                            <td>
+                                {
+                                    schedul.map((value, key) => value.dayOfTheWeek === "Friday" ?
+                                        <div className={stylesGroupView.schedulContainer} key={key}>
+                                            <p>Przedmiot: {value.course.name}</p>
+                                            <p>Prowadzący: {value.course.lecturer}</p>
+                                            <p>Start: {value.startTime}</p>
+                                            <p>Koniec: {value.endTime}</p>
+                                            <button className={stylesGroupView.messageButton}
+                                                    onClick={() => deleteSchedul(key)}>usuń
+                                            </button>
+                                        </div> : null)
+                                }
+                            </td>
+                            <td>
+                                {
+                                    schedul.map((value, key) => value.dayOfTheWeek === "Saturday" ?
+                                        <div className={stylesGroupView.schedulContainer} key={key}>
+                                            <p>Przedmiot: {value.course.name}</p>
+                                            <p>Prowadzący: {value.course.lecturer}</p>
+                                            <p>Start: {value.startTime}</p>
+                                            <p>Koniec: {value.endTime}</p>
+                                            <button className={stylesGroupView.messageButton}
+                                                    onClick={() => deleteSchedul(key)}>usuń
+                                            </button>
+                                        </div> : null)
+                                }
+                            </td>
+                            <td>
+                                {
+                                    schedul.map((value, key) => value.dayOfTheWeek === "Sunday" ?
+                                        <div className={stylesGroupView.schedulContainer} key={key}>
+                                            <p>Przedmiot: {value.course.name}</p>
+                                            <p>Prowadzący: {value.course.lecturer}</p>
+                                            <p>Start: {value.startTime}</p>
+                                            <p>Koniec: {value.endTime}</p>
+                                            <button className={stylesGroupView.messageButton}
+                                                    onClick={() => deleteSchedul(key)}>usuń
+                                            </button>
+                                        </div> : null)
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 

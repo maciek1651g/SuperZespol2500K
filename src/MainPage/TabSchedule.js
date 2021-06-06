@@ -11,7 +11,7 @@ const TabSchedule = (props) => {
 
     let licznik = 0;
     console.log(table)
-    if (typeof table !== "undefined" && table["teams"]) {
+    if (table["teams"] && table["teams"].schedules) {
         for (let i = 0; i < table["teams"].length; i++) {
             let startTime = '';
             let endTime = '';

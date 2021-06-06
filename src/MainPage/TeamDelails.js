@@ -14,6 +14,8 @@ import {useHistory} from "react-router-dom";
 import AddUserToTeam from "./AddUserToTeam";
 import GroupView from "./GroupView";
 import MakeSchedule from "./MakeSchedule";
+import SmallCalendar from "./SmallCalendar";
+import stylesCalendar from "./styleCalendar.module.css";
 
 const isAdmin = (admins, email) => {
     for(let i=0;i<admins.length; i++)
@@ -30,8 +32,10 @@ const TeamDetail = (props) => {
     const [numView, setNumView] = React.useState(0);
     const [editMode, setEditMode] = React.useState(false);
     const groupDetail = props.groupDetails;
-    const teamDetails = groupDetail!==null?groupDetail.teams[1]:null;
-    const [teamName, setTeamName] = React.useState(teamDetails!==null?teamDetails.name:"Nazwa grupy");
+    const teamDetails = groupDetail!==null && groupDetail.teams.length>0?groupDetail.teams[props.numOfTeam]:null;
+    const [teamName, setTeamName] = React.useState(teamDetails!==null && typeof teamDetails!=="undefined"?teamDetails.name:"Nazwa grupy");
+    const [date, setDate] = React.useState(new Date(new Date().setDate(1)));
+
 
     React.useEffect(()=>{
         setTeamName(teamDetails!==null?teamDetails.name:"Nazwa grupy")
@@ -50,7 +54,7 @@ const TeamDetail = (props) => {
             if(res){
                 history.push("/groups");
                 props.refreshData();
-                //props.returnToMainPage();
+                props.returnToMainPage();
             }
         }, (err)=>{
             props.setErrorMessage(err.errorMessageForUser)
@@ -144,6 +148,30 @@ const TeamDetail = (props) => {
                     <div className={stylesGroupView.postsContainer + " "+stylesGroupView.postsContainer2}>
                         <MakeSchedule group={groupDetail} team={teamDetails} setErrorMessage={props.setErrorMessage}
                                         refreshData={props.refreshData}/>
+                    </div>
+                </>
+                :null}
+
+            {numView===3?
+                <>
+                    <p>&nbsp;</p>
+                    <div
+                        className={stylesCalendar.calendarRightMiddle}
+                        style={{ height: "60%" }}
+                    >
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                position: "relative",
+                                height: "100%",
+                            }}
+                        >
+                            <SmallCalendar date={date} setDate={setDate} group={groupDetail}
+                                           team={teamDetails} setErrorMessage={props.setErrorMessage}
+                                           refreshData={props.refreshData}/>
+                        </div>
                     </div>
                 </>
                 :null}

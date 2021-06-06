@@ -300,6 +300,48 @@ class ClientAPI {
     data = this.dataToJson(data);
     this.sendMessage("DELETE", "/groups/"+groupID+"/Teams/"+teamName+"/users", data);
   }
+
+  addAssignmentToTeam(groupID, teamName, courseID, assigmentName, assigmentDescription, semester, deadline)
+  {
+    let data = null;
+    if(courseID===null)
+    {
+      data = {name: assigmentName, description: assigmentDescription, semester: semester, deadline: deadline};
+    }
+    else
+    {
+      data = {name: assigmentName, description: assigmentDescription, deadline: deadline, courseId: courseID};
+    }
+
+    data = this.dataToJson(data);
+
+    console.log(data)
+    console.log("/groups/"+groupID+"/teams/"+teamName+"/Assignments")
+
+    this.sendMessage("POST", "/groups/"+groupID+"/teams/"+teamName+"/Assignments", data);
+  }
+
+  deleteAssigmentFromTeam(groupID, assigmentID, teamName)
+  {
+    this.sendMessage("DELETE", "/groups/"+groupID+"/Teams/"+teamName+"/Assignments/"+assigmentID);
+  }
+
+  editTeamAssigment(groupID, assigmentID, teamName, courseID, assigmentName, assigmentDescription, semester, deadline)
+  {
+    let data = null;
+    if(courseID===null)
+    {
+      data = {name: assigmentName, description: assigmentDescription, semester: semester, deadline: deadline};
+    }
+    else
+    {
+      data = {name: assigmentName, description: assigmentDescription, deadline: deadline, courseId: courseID};
+    }
+
+    data = this.dataToJson(data);
+
+    this.sendMessage("PUT", "/groups/"+groupID+"/Teams/"+teamName+"/Assignments/"+assigmentID, data);
+  }
 }
 
 export default ClientAPI;

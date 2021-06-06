@@ -9,6 +9,7 @@ const AddTeam = (props) => {
     const closeNewGroupModal = props.closeNewGroupModal;
     const refreshGroupsArray = props.refreshGroupsArray;
     const groupsArray = props.groupsArray;
+    const [selectedGroup, setSelectedGroup] = React.useState(groupsArray[props.groupNumber].id)
 
     function createCourse(e){
         e.preventDefault();
@@ -31,6 +32,10 @@ const AddTeam = (props) => {
         refreshGroupsArray();
     }
 
+    const changeGroup = (event) => {
+        setSelectedGroup(event.target.value);
+    }
+
     return (
         <div id="modalNewGroup" className={stylesMainPage.modal}>
             <div className={stylesMainPage.modalContent}>
@@ -44,7 +49,7 @@ const AddTeam = (props) => {
                 <form onSubmit={createCourse}>
                     <div className={stylesMainPage.groupInfo}>
                         <p style={{ fontWeight: "bold", width: "50%" }}>Rocznik/grupa</p>
-                        <select style={{
+                        <select value={selectedGroup} onChange={changeGroup} style={{
                             fontWeight: "500",
                             color: "black",
                             width: "50%",
@@ -52,8 +57,7 @@ const AddTeam = (props) => {
                         }} id="groupID">
                             {
                                 groupsArray.map((value,key)=>
-                                    <option key={key+1} value={value.id}
-                                            selected={parseInt(props.groupNumber)===key}>{value.name}</option>)
+                                    <option key={key+1} value={value.id}>{value.name}</option>)
                             }
                         </select>
 

@@ -14,6 +14,7 @@ import $ from "./getElement";
 import CheckBox from "../LoginPage/CheckBox";
 import CalendarBox from "./CalendarBox";
 import GroupDetails from "./GroupDetails";
+import TeamDelails from "./TeamDelails";
 
 const GroupView = (props) =>  {
   const [isPostsOpen, setPostsOpen] = React.useState(false);
@@ -22,6 +23,7 @@ const GroupView = (props) =>  {
   const [isUsersOpen, setUsersOpen] = React.useState(false);
   const [coursesOrTeams, setCoursesOrTeams] = React.useState(true);
   const [selectedGroup, setSelectedGroup] = React.useState(0);
+  const [selectedTeam, setSelectedTeam] = React.useState(0);
   const [subpage, setSubpage] = React.useState(0);
   const [lesson, setLesson] = React.useState("");
   const [groupNumber, setGroupNumber] = React.useState(0);
@@ -31,9 +33,15 @@ const GroupView = (props) =>  {
 
 
   const openGroups = (groupNum) => {
+
     setSelectedGroup(groupNum);
     setSubpage(1);
   }
+  const openTeams = (teamNum) => {
+    setSelectedTeam(teamNum)
+    setSubpage(2);
+  }
+
   const changeSubpage = (number) => {
     setSubpage(number);
   }
@@ -89,6 +97,13 @@ const GroupView = (props) =>  {
 
   return (
     <div className={stylesMainPage.rightContent}>
+      {subpage === 2? <TeamDelails  groupDetails={groupsArray[selectedGroup]}
+                                    refreshData={props.refreshGTable}
+                                    setErrorMessage={props.setErrorMessage}
+                                    numOfTeam={selectedTeam}
+                                    returnToMainPage={returnToMainPage}
+      />  : null}
+
       {subpage === 1? <GroupDetails refreshData={props.refreshGTable}
                                     setErrorMessage={props.setErrorMessage}
                                     groupDetails={groupsArray[selectedGroup]}
@@ -119,16 +134,16 @@ const GroupView = (props) =>  {
 
               <div>
                 <label htmlFor="view">Wybierz widok: </label>
-                <select id="view" onChange={changeViewChoose}>
-                  <option value={0}>Grupy/Roczniki</option>
-                  <option value={1}>Zespoły</option>
-                  <option value={2}>Przedmioty</option>
+                <select value={viewChoose} id="view" onChange={changeViewChoose}>
+                  <option value={"0"}>Grupy/Roczniki</option>
+                  <option value={"1"}>Zespoły</option>
+                  <option value={"2"}>Przedmioty</option>
                 </select>
               </div>
 
               <div style={{marginRight: "20px"}}>
                 <label htmlFor="group">Wybierz grupę: </label>
-                <select id="group" onChange={changeGroup} disabled={viewChoose==="0"}>
+                <select value={selectedGroup} id="group" onChange={changeGroup} disabled={viewChoose==="0"} >
                   {
                     groupsArray.map((value,key)=><option key={key+1} value={key}>{value.name}</option>)
                   }
@@ -143,7 +158,14 @@ const GroupView = (props) =>  {
 
             <div className={stylesGroupView.groupContainer}>
 
-              <TabCard gtable={table} openPosts={openGroups}/>
+              {viewChoose==="0"?
+                  <TabCard gtable={table} openPosts={openGroups}/>
+                  :viewChoose==="1"?
+                  <TabCard gtable={table} openPosts={openTeams}/>
+                  :
+                      <TabCard gtable={table} openPosts={openGroups}/>
+              }
+
 
             </div>
           </div>
