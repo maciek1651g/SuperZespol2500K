@@ -10,16 +10,16 @@ export default class Card extends Component {
           <ListElement color={this.props.color} />
           <p style={{ fontSize: "1.6em", margin: "0" }}>{this.props.lesson}</p>
           <p className={stylesGroupView.groupNumber}>
-            Grupa {this.props.group}
+            {this.props.group}
           </p>
           <div>
             <button
               className={styles.errorButton + " " + styles.buttonStyle}
               onClick={() =>
-                this.props.openPosts(this.props.lesson, this.props.group)
+                this.props.openPosts(this.props.numberOnList)
               }
             >
-              PRZEJDŹ DO GRUPY
+              {this.props.textButton.toUpperCase()}
             </button>
           </div>
         </div>

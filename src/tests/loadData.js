@@ -139,7 +139,7 @@ function getInfo()
         coursesArray = groupObject.courses;
         scheduleTM =  [
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "09:45:00",
                 EndTime: "10:30:00",
                 Course: {
@@ -147,7 +147,7 @@ function getInfo()
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "10:30:00",
                 EndTime: "12:00:00",
                 Course: {
@@ -155,7 +155,7 @@ function getInfo()
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "14:00:00",
                 EndTime: "15:30:00",
                 Course: {
@@ -163,7 +163,7 @@ function getInfo()
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "15:45:00",
                 EndTime: "17:15:00",
                 Course: {
@@ -171,7 +171,7 @@ function getInfo()
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "17:30:00",
                 EndTime: "18:15:00",
                 Course: {
@@ -179,7 +179,7 @@ function getInfo()
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "18:15:00",
                 EndTime: "19:45:00",
                 Course: {
@@ -187,7 +187,7 @@ function getInfo()
                 }
             },
             {
-                DaysOfTheWeek: "Tuesday",
+                DayOfTheWeek: "Tuesday",
                 StartTime: "12:15:00",
                 EndTime: "13:00:00",
                 Course: {
@@ -195,7 +195,7 @@ function getInfo()
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "08:15:00",
                 EndTime: "09:45:00",
                 Course: {
@@ -203,7 +203,7 @@ function getInfo()
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "10:00:00",
                 EndTime: "10:45:00",
                 Course: {
@@ -211,7 +211,7 @@ function getInfo()
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "11:00:00",
                 EndTime: "12:30:00",
                 Course: {
@@ -219,7 +219,7 @@ function getInfo()
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "12:45:00",
                 EndTime: "13:30:00",
                 Course: {
@@ -227,7 +227,7 @@ function getInfo()
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "13:45:00",
                 EndTime: "15:15:00",
                 Course: {
@@ -235,7 +235,7 @@ function getInfo()
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "15:30:00",
                 EndTime: "17:00:00",
                 Course: {
@@ -243,7 +243,7 @@ function getInfo()
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "17:15:00",
                 EndTime: "18:00:00",
                 Course: {
@@ -289,7 +289,7 @@ function setScheduleForTM(scheduleTM)
 
         scheduleS =  [
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "08:45:00",
                 EndTime: "10:15:00",
                 Course: {
@@ -297,7 +297,7 @@ function setScheduleForTM(scheduleTM)
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "10:30:00",
                 EndTime: "12:00:00",
                 Course: {
@@ -305,7 +305,7 @@ function setScheduleForTM(scheduleTM)
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "14:00:00",
                 EndTime: "15:30:00",
                 Course: {
@@ -313,7 +313,7 @@ function setScheduleForTM(scheduleTM)
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "15:45:00",
                 EndTime: "17:15:00",
                 Course: {
@@ -321,7 +321,7 @@ function setScheduleForTM(scheduleTM)
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "17:15:00",
                 EndTime: "18:00:00",
                 Course: {
@@ -329,7 +329,7 @@ function setScheduleForTM(scheduleTM)
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "18:15:00",
                 EndTime: "19:45:00",
                 Course: {
@@ -337,7 +337,7 @@ function setScheduleForTM(scheduleTM)
                 }
             },
             {
-                DaysOfTheWeek: "Tuesday",
+                DayOfTheWeek: "Tuesday",
                 StartTime: "11:30:00",
                 EndTime: "12:15:00",
                 Course: {
@@ -345,7 +345,7 @@ function setScheduleForTM(scheduleTM)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "10:00:00",
                 EndTime: "10:45:00",
                 Course: {
@@ -353,7 +353,7 @@ function setScheduleForTM(scheduleTM)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "11:00:00",
                 EndTime: "12:30:00",
                 Course: {
@@ -361,7 +361,7 @@ function setScheduleForTM(scheduleTM)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "12:45:00",
                 EndTime: "13:30:00",
                 Course: {
@@ -369,7 +369,7 @@ function setScheduleForTM(scheduleTM)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "13:45:00",
                 EndTime: "15:15:00",
                 Course: {
@@ -377,7 +377,7 @@ function setScheduleForTM(scheduleTM)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "15:30:00",
                 EndTime: "17:00:00",
                 Course: {
@@ -385,7 +385,7 @@ function setScheduleForTM(scheduleTM)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "17:15:00",
                 EndTime: "18:45:00",
                 Course: {
@@ -406,7 +406,7 @@ function setScheduleForS(scheduleS)
 
         scheduleSI2 =  [
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "08:45:00",
                 EndTime: "10:15:00",
                 Course: {
@@ -414,7 +414,7 @@ function setScheduleForS(scheduleS)
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "10:30:00",
                 EndTime: "12:00:00",
                 Course: {
@@ -422,7 +422,7 @@ function setScheduleForS(scheduleS)
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "14:00:00",
                 EndTime: "14:45:00",
                 Course: {
@@ -430,7 +430,7 @@ function setScheduleForS(scheduleS)
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "15:00:00",
                 EndTime: "16:30:00",
                 Course: {
@@ -438,7 +438,7 @@ function setScheduleForS(scheduleS)
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "16:45:00",
                 EndTime: "18:15:00",
                 Course: {
@@ -446,7 +446,7 @@ function setScheduleForS(scheduleS)
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "18:30:00",
                 EndTime: "20:00:00",
                 Course: {
@@ -454,7 +454,7 @@ function setScheduleForS(scheduleS)
                 }
             },
             {
-                DaysOfTheWeek: "Tuesday",
+                DayOfTheWeek: "Tuesday",
                 StartTime: "10:45:00",
                 EndTime: "11:30:00",
                 Course: {
@@ -462,7 +462,7 @@ function setScheduleForS(scheduleS)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "08:15:00",
                 EndTime: "09:45:00",
                 Course: {
@@ -470,7 +470,7 @@ function setScheduleForS(scheduleS)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "10:00:00",
                 EndTime: "10:45:00",
                 Course: {
@@ -478,7 +478,7 @@ function setScheduleForS(scheduleS)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "11:00:00",
                 EndTime: "12:30:00",
                 Course: {
@@ -486,7 +486,7 @@ function setScheduleForS(scheduleS)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "12:45:00",
                 EndTime: "13:30:00",
                 Course: {
@@ -494,7 +494,7 @@ function setScheduleForS(scheduleS)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "13:45:00",
                 EndTime: "15:15:00",
                 Course: {
@@ -502,7 +502,7 @@ function setScheduleForS(scheduleS)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "15:30:00",
                 EndTime: "17:00:00",
                 Course: {
@@ -522,7 +522,7 @@ function setScheduleForIS2(scheduleSI2)
 
         scheduleSI1 =  [
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "08:45:00",
                 EndTime: "10:15:00",
                 Course: {
@@ -530,7 +530,7 @@ function setScheduleForIS2(scheduleSI2)
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "10:30:00",
                 EndTime: "12:00:00",
                 Course: {
@@ -538,7 +538,7 @@ function setScheduleForIS2(scheduleSI2)
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "14:00:00",
                 EndTime: "14:45:00",
                 Course: {
@@ -546,7 +546,7 @@ function setScheduleForIS2(scheduleSI2)
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "15:00:00",
                 EndTime: "16:30:00",
                 Course: {
@@ -554,7 +554,7 @@ function setScheduleForIS2(scheduleSI2)
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "16:45:00",
                 EndTime: "18:15:00",
                 Course: {
@@ -562,7 +562,7 @@ function setScheduleForIS2(scheduleSI2)
                 }
             },
             {
-                DaysOfTheWeek: "Monday",
+                DayOfTheWeek: "Monday",
                 StartTime: "18:30:00",
                 EndTime: "20:00:00",
                 Course: {
@@ -570,7 +570,7 @@ function setScheduleForIS2(scheduleSI2)
                 }
             },
             {
-                DaysOfTheWeek: "Tuesday",
+                DayOfTheWeek: "Tuesday",
                 StartTime: "10:00:00",
                 EndTime: "10:45:00",
                 Course: {
@@ -578,7 +578,7 @@ function setScheduleForIS2(scheduleSI2)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "08:15:00",
                 EndTime: "09:45:00",
                 Course: {
@@ -586,7 +586,7 @@ function setScheduleForIS2(scheduleSI2)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "10:00:00",
                 EndTime: "10:45:00",
                 Course: {
@@ -594,7 +594,7 @@ function setScheduleForIS2(scheduleSI2)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "11:00:00",
                 EndTime: "12:30:00",
                 Course: {
@@ -602,7 +602,7 @@ function setScheduleForIS2(scheduleSI2)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "12:45:00",
                 EndTime: "13:30:00",
                 Course: {
@@ -610,7 +610,7 @@ function setScheduleForIS2(scheduleSI2)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "13:45:00",
                 EndTime: "15:15:00",
                 Course: {
@@ -618,7 +618,7 @@ function setScheduleForIS2(scheduleSI2)
                 }
             },
             {
-                DaysOfTheWeek: "Thursday",
+                DayOfTheWeek: "Thursday",
                 StartTime: "15:30:00",
                 EndTime: "17:00:00",
                 Course: {

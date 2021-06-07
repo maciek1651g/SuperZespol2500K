@@ -5,21 +5,11 @@ import styles from "../LoginPage/loginStyle.module.css";
 import Icons from "../img/iconsSVG";
 import React from "react";
 import * as Icon from "react-feather";
+import PublicApi from "../publicFunctions/PublicFunctionsAPI";
+import $ from "./getElement";
+import MakeSchedule from "./MakeSchedule";
 
-function openCurrentDayModal() {
-  document.getElementById("modalCurrentDay").style.display = "block";
-}
 
-function closeCurrentDayModal() {
-  document.getElementById("modalCurrentDay").style.display = "none";
-}
-function openAddEventModal() {
-  document.getElementById("modalAddEvent").style.display = "block";
-}
-
-function closeAddEventModal() {
-  document.getElementById("modalAddEvent").style.display = "none";
-}
 
 const numberOfDaysInMonth = (month, year) => {
   switch (month) {
@@ -85,7 +75,7 @@ const nameOfMonth = (month) => {
 };
 const DayBox = (props) => {
   return (
-    <div className={props.class} onClick={() => openCurrentDayModal()}>
+    <div className={props.class} onClick={() => props.openCurrentDayModal(props.fullDate)}>
       <p style={{ margin: "10px 0" }}>{props.day}</p>
       {props.notInfo !== null && props.notInfo !== 0 ? (
         <div className={stylesCalendar.notBox}>{props.notInfo}</div>
@@ -94,6 +84,19 @@ const DayBox = (props) => {
   );
 };
 const CheckCalendar = (props) => {
+  const deadline = new Date(props.deadline)
+
+  const deleteAssigment = () => {
+      PublicApi.deleteAssigmentFromTeam(props.groupID, props.teamName, props.id,(res)=>{
+        if(res){
+          props.refreshData();
+          props.closeTab();
+        }
+      }, (err)=>{
+        props.setErrorMessage(err.errorMessageForUser)
+      });
+  }
+
   return (
     <>
       <div
@@ -101,7 +104,7 @@ const CheckCalendar = (props) => {
         style={{ justifyContent: "space-between" }}
       >
         <p style={{ fontWeight: "bold", width: "30%", textAlign: "left" }}>
-          {props.text1}
+          {props.name}
         </p>
         <p
           style={{
@@ -110,10 +113,10 @@ const CheckCalendar = (props) => {
             width: "20%",
           }}
         >
-          {props.text2}
+          {props.description}
         </p>
-        <p style={{ color: "#979797", width: "20%" }}>{props.text3}</p>
-        <p style={{ color: "#979797", width: "20%" }}>{props.text4}</p>
+        <p style={{ color: "#979797", width: "20%" }}>Semestr: {props.semester}</p>
+        <p style={{ color: "#979797", width: "20%" }}>Termin: {deadline.toDateString()}</p>
         <div
           style={{
             display: "flex",
@@ -121,11 +124,12 @@ const CheckCalendar = (props) => {
             alignItems: "center",
           }}
         >
-          <Icon.Edit3
+          <Icon.X
             width="20"
             height="20"
             color="#979797"
             className={stylesGroupView.svgButton}
+            onClick={deleteAssigment}
           />
         </div>
       </div>
@@ -142,21 +146,85 @@ const AddEvent = (props) => {
         <p style={{ fontWeight: "bold", width: "50%", textAlign: "left" }}>
           {props.text1}
         </p>
-        <p
-          style={{
-            fontWeight: "500",
-            color: "#979797",
-            width: "50%",
-            textAlign: "center",
-          }}
-        >
-          {props.text2}
-        </p>
+        {props.text2==="calendar"?
+            <input id={props.id} type="date"
+                   style={{
+                     fontWeight: "500",
+                     color: "#979797",
+                     width: "50%",
+                     textAlign: "center",
+                   }}
+            />: props.text2==="6"?
+                <input id={props.id} type="number"
+                       style={{
+                         fontWeight: "500",
+                         color: "#979797",
+                         width: "50%",
+                         textAlign: "center",
+                       }}
+                       placeholder={props.text2}
+                />:
+                <input id={props.id} type="text"
+                       style={{
+                         fontWeight: "500",
+                         color: "#979797",
+                         width: "50%",
+                         textAlign: "center",
+                       }}
+                       placeholder={props.text2}
+                />
+        }
+
       </div>
     </>
   );
-};
-const SmallCalendar = ({ date, setDate }) => {
+}
+
+let clickedDay=1;
+
+const SmallCalendar = ( { date, setDate, ...props }) => {
+  const [currentDayEvent, setCurrentDayEvent] = React.useState(false);
+  const [addEventProps, setAddEventProps] = React.useState(false);
+  const scheduler = props.team.assignments;
+
+  const addAssigment =()=>{
+
+    const assigmentName = $("assigmentName").value;
+    const assigmentDescription = $("assigmentDescription").value;
+    const endDate = $("assigmentDeadLine").value;
+    const semester = $("assigmentSemester").value;
+
+    PublicApi.addAssigmentToTeam(props.group.id, props.team.name, null, assigmentName, assigmentDescription,
+        semester, endDate, (res)=>{
+          if(res){
+            props.refreshData();
+          }
+        }, (err)=>{
+          props.setErrorMessage(err.errorMessageForUser)
+        });
+
+
+
+    closeAddEventModal()
+  }
+
+  function openCurrentDayModal(cDay) {
+    cDay.setDate(cDay.getDate() - 1)
+    clickedDay=cDay
+    setCurrentDayEvent(true);
+  }
+
+  function closeCurrentDayModal() {
+    setCurrentDayEvent(false)
+  }
+  function openAddEventModal() {
+    setAddEventProps(true);
+  }
+
+  function closeAddEventModal() {
+    setAddEventProps(false);
+  }
+
   const nextMonth = () => {
     setDate(new Date(date.setMonth(date.getMonth() + 1)));
   };
@@ -189,7 +257,21 @@ const SmallCalendar = ({ date, setDate }) => {
   tmpDate = new Date(tmpDate.setDate(tmpDate.getDate() - firstDayInMonth));
 
   for (let i = 0; i < days; i++) {
+    let counter=0;
+    for(let i=0;i<scheduler.length;i++)
+    {
+      let assigmentDate=new Date(scheduler[i].deadline);
+      if(assigmentDate.toDateString()===tmpDate.toDateString())
+      {
+        counter++;
+      }
+    }
+
     let notInfo = null;
+    if(counter>0)
+    {
+      notInfo=counter;
+    }
 
     if (tmpDate.getMonth() === month) {
       if (
@@ -201,8 +283,10 @@ const SmallCalendar = ({ date, setDate }) => {
           <DayBox
             key={i}
             day={tmpDate.getDate()}
+            fullDate={tmpDate}
             class={stylesCalendar.dayBox + " " + stylesCalendar.currentDay}
             notInfo={notInfo}
+            openCurrentDayModal={openCurrentDayModal}
           />
         );
       } else {
@@ -210,8 +294,10 @@ const SmallCalendar = ({ date, setDate }) => {
           <DayBox
             key={i}
             day={tmpDate.getDate()}
+            fullDate={tmpDate}
             class={stylesCalendar.dayBox}
             notInfo={notInfo}
+            openCurrentDayModal={openCurrentDayModal}
           />
         );
       }
@@ -220,16 +306,20 @@ const SmallCalendar = ({ date, setDate }) => {
         <DayBox
           key={i}
           day={tmpDate.getDate()}
+          fullDate={tmpDate}
           class={stylesCalendar.dayBoxGray}
           notInfo={notInfo}
+          openCurrentDayModal={openCurrentDayModal}
         />
       );
     }
     tmpDate = new Date(tmpDate.setDate(tmpDate.getDate() + 1));
   }
 
+
   return (
     <>
+      {currentDayEvent?
       <div id="modalCurrentDay" className={stylesMainPage.modal}>
         <div className={stylesMainPage.modalContent}>
           <span
@@ -239,39 +329,18 @@ const SmallCalendar = ({ date, setDate }) => {
             &times;
           </span>
           <h2 style={{ margin: "30px 5%" }}>
-            {currentDay} {nameOfMonth(currentMonth)} {currentYear}
+            {clickedDay.getDate()} {nameOfMonth(clickedDay.getMonth())} {clickedDay.getFullYear()}
           </h2>
 
-          <CheckCalendar
-            text1="Kolokwium Całki"
-            text2="12:00-14:00"
-            text3="Aula II bud. 34"
-            text4="LINK"
-          />
-          <CheckCalendar
-            text1="Kolokwium Całki"
-            text2="12:00-14:00"
-            text3="Aula II bud. 34"
-            text4="LINK"
-          />
-          <CheckCalendar
-            text1="Kolokwium Całki"
-            text2="12:00-14:00"
-            text3="Aula II bud. 34"
-            text4="LINK"
-          />
-          <CheckCalendar
-            text1="Kolokwium Całki"
-            text2="12:00-14:00"
-            text3="Aula II bud. 34"
-            text4="LINK"
-          />
-          <CheckCalendar
-            text1="Kolokwium Całki"
-            text2="12:00-14:00"
-            text3="Aula II bud. 34"
-            text4="LINK"
-          />
+          {
+            scheduler.map((value,key)=><CheckCalendar key={key} name={value.name} description={value.description}
+                                                      id={value.id} deadline={value.deadline} semester={value.semester}
+                                                      groupID={props.group.id} teamName={props.team.name}
+                                                      refreshData={props.refreshData} closeTab={closeCurrentDayModal}/>)
+          }
+
+
+
           <button
             className={stylesGroupView.messageButton}
             style={{ marginLeft: "3%", marginTop: "20px" }}
@@ -283,7 +352,9 @@ const SmallCalendar = ({ date, setDate }) => {
             <p>DODAJ WYDARZENIE</p>
           </button>
         </div>
-      </div>
+      </div>: null}
+
+      {addEventProps?
       <div id="modalAddEvent" className={stylesMainPage.modal}>
         <div className={stylesMainPage.modalContent}>
           <span
@@ -294,21 +365,24 @@ const SmallCalendar = ({ date, setDate }) => {
           </span>
           <h2 style={{ margin: "30px 5%" }}>Dodaj Nowe Wydarzenie</h2>
 
-          <AddEvent text1="Nazwa Wydarzenia" text2="Kolokwium Całki" />
-          <AddEvent text1="Godzina Rozpoczęcia" text2="12:00" />
-          <AddEvent text1="Godzina Zakończenia" text2="14:00" />
-          <AddEvent text1="Miejsce" text2="Aula II bud. 34" />
-          <AddEvent text1="Link" text2="Dodaj link do spotkania" />
+          <AddEvent group={props.group} setErrorMessage={props.setErrorMessage}
+                    refreshData={props.refreshData} text1="Nazwa Wydarzenia" text2="Kolokwium Całki" id="assigmentName"/>
+          <AddEvent group={props.group} setErrorMessage={props.setErrorMessage}
+                    refreshData={props.refreshData} text1="Opis wydarzenia" text2="12:00-14:00 Aula IV bud. 34" id="assigmentDescription"/>
+          <AddEvent group={props.group} setErrorMessage={props.setErrorMessage}
+                    refreshData={props.refreshData} text1="Termin końcowy" text2="calendar" id="assigmentDeadLine"/>
+          <AddEvent group={props.group} setErrorMessage={props.setErrorMessage}
+                    refreshData={props.refreshData} text1="Semestr" text2="6" id="assigmentSemester"/>
 
           <button
-            onClick={() => closeAddEventModal()}
+            onClick={() => addAssigment()}
             className={stylesGroupView.messageButton}
             style={{ marginLeft: "3%", marginTop: "20px" }}
           >
             <p>DODAJ WYDARZENIE</p>
           </button>
         </div>
-      </div>
+      </div>:null}
 
       <div
         className={stylesCalendar.calendar}

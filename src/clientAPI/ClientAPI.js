@@ -11,7 +11,7 @@ class ClientAPI {
     let xhr = new XMLHttpRequest();
     xhr.open(method.toUpperCase(), ClientAPI.baseUrl + url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.timeout = 5000;
+    //xhr.timeout = 30000;
 
     if (ClientAPI.bearer !== null) {
       xhr.setRequestHeader("Authorization", "Bearer " + ClientAPI.bearer);
@@ -41,7 +41,6 @@ class ClientAPI {
             } else {
               textError = "Niezidentyfikowany błąd.";
             }
-
             error = new ErrorClass(
               xhr.status,
               textError.Message,
@@ -221,6 +220,33 @@ class ClientAPI {
     this.sendMessage("POST", "/groups/" + groupID + "/Courses", data);
   }
 
+  deleteCourse(groupID, courseID) {
+    this.sendMessage("DELETE", "/groups/"+groupID+"/Courses/"+courseID);
+  }
+
+  editCourse(groupID, courseID, courseName, courseLecturer, courseStreet, courseNumBuilding, courseCity, courseLink, courseRoom, courseSemester)
+  {
+    let data =
+        {
+          course:  {
+            name: courseName,
+            lecturer: courseLecturer,
+            location: {
+              address:{
+                streetName: courseStreet,
+                buildingNumber: courseNumBuilding,
+                city: courseCity
+              },
+              link: courseLink,
+              room: courseRoom
+            },
+            semester: courseSemester
+          }
+        };
+    data = this.dataToJson(data);
+    this.sendMessage("PUT", "/groups/"+groupID+"/Courses/"+courseID, data);
+  }
+
   addUsersToGroup(emailsArray, groupID) {
     let data = { emails: emailsArray };
     data = this.dataToJson(data);
@@ -231,22 +257,116 @@ class ClientAPI {
     this.sendMessage("GET", "/Groups/attended/full");
   }
 
-  createScheduleForGroupAndTeam(
-    groupID,
-    teamName,
-    semester,
-    scheduledCursesArray
-  ) {
+  createScheduleForGroupAndTeam(groupID, teamName, semester, scheduledCursesArray) {
     let data = {
       schedule: { scheduledCourses: scheduledCursesArray, semester: semester },
     };
     data = this.dataToJson(data);
-    this.sendMessage(
-      "POST",
-      "/groups/" + groupID + "/Teams/" + teamName + "/schedules",
-      data
-    );
+    this.sendMessage("POST", "/groups/" + groupID + "/Teams/" + teamName + "/schedules", data);
   }
+
+  editScheduleForGroupAndTeam(groupID, teamName, semester, scheduledCursesArray) {
+    let data = {
+      schedule: { scheduledCourses: scheduledCursesArray, semester: semester },
+    };
+    data = this.dataToJson(data);
+    this.sendMessage("PUT", "/groups/" + groupID + "/Teams/" + teamName + "/schedules", data);
+  }
+
+  getGroupsPartial()
+  {
+    this.sendMessage("GET", "/Groups/attended/partial");
+  }
+
+  deleteUserFromGroup(arrayEmails, groupID)
+  {
+    let data = {emails: arrayEmails};
+    data = this.dataToJson(data);
+    this.sendMessage("DELETE", "/groups/" + groupID + "/users", data);
+  }
+
+  getSomeUsers(groupID, partEmail)
+  {
+    this.sendMessage("GET", "/groups/" + groupID + "/users?SearchLetters="+partEmail);
+  }
+
+  editGroupName(groupID, newGroupName)
+  {
+    let data = {newName: newGroupName};
+    data = this.dataToJson(data);
+    this.sendMessage("PUT", "/Groups/" + groupID, data);
+  }
+
+  deleteGroup(groupID)
+  {
+    this.sendMessage("DELETE", "/Groups/" + groupID);
+  }
+
+  editTeamName(groupID, teamName, newTeamName)
+  {
+    let data = {newTeamName: newTeamName};
+    data = this.dataToJson(data);
+    this.sendMessage("PUT", "/groups/"+groupID+"/Teams/"+teamName, data);
+  }
+
+  deleteTeam(groupID, teamName)
+  {
+    this.sendMessage("DELETE", "/groups/"+groupID+"/Teams/"+teamName);
+  }
+
+  addUsersToTeam(groupID, teamName, emailsArray)
+  {
+    let data = {emails: emailsArray};
+    data = this.dataToJson(data);
+    this.sendMessage("POST", "/groups/"+groupID+"/Teams/"+teamName+"/users", data);
+  }
+
+  deleteUserFromTeam(groupID, teamName, arrayEmails)
+  {
+    let data = {emails: arrayEmails};
+    data = this.dataToJson(data);
+    this.sendMessage("DELETE", "/groups/"+groupID+"/Teams/"+teamName+"/users", data);
+  }
+
+  addAssignmentToTeam(groupID, teamName, courseID, assigmentName, assigmentDescription, semester, deadline)
+  {
+    let data = null;
+    if(courseID===null)
+    {
+      data = {name: assigmentName, description: assigmentDescription, semester: semester, deadline: deadline};
+    }
+    else
+    {
+      data = {name: assigmentName, description: assigmentDescription, deadline: deadline, courseId: courseID};
+    }
+
+    data = this.dataToJson(data);
+
+    this.sendMessage("POST", "/groups/"+groupID+"/teams/"+teamName+"/Assignments", data);
+  }
+
+  deleteAssigmentFromTeam(groupID, assigmentID, teamName)
+  {
+    this.sendMessage("DELETE", "/groups/"+groupID+"/Teams/"+teamName+"/Assignments/"+assigmentID);
+  }
+
+  editTeamAssigment(groupID, assigmentID, teamName, courseID, assigmentName, assigmentDescription, semester, deadline)
+  {
+    let data = null;
+    if(courseID===null)
+    {
+      data = {name: assigmentName, description: assigmentDescription, semester: semester, deadline: deadline};
+    }
+    else
+    {
+      data = {name: assigmentName, description: assigmentDescription, deadline: deadline, courseId: courseID};
+    }
+
+    data = this.dataToJson(data);
+
+    this.sendMessage("PUT", "/groups/"+groupID+"/Teams/"+teamName+"/Assignments/"+assigmentID, data);
+  }
+
 }
 
 export default ClientAPI;

@@ -6,16 +6,16 @@ const NewGroup = (props) => {
     <>
       <div className={stylesMainPage.groupInfo}>
         <p style={{ fontWeight: "bold", width: "50%" }}>{props.text1}</p>
-        <p
+        <input
+            id={props.id}
           style={{
             fontWeight: "500",
-            color: "#979797",
+            color: "black",
             width: "50%",
             textAlign: "center",
           }}
-        >
-          {props.text2}
-        </p>
+          placeholder={props.text2}
+        />
       </div>
     </>
   );

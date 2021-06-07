@@ -5,10 +5,8 @@ import stylesGroupView from "./stylesGroupView.module.css";
 import GroupViewIcons from "./GroupViewIcons";
 import Message from "./Message";
 import AddUserButton from "./AddUserButton";
-// import * as Icon from "react-feather";
-// feather.replace();
-export default class Posts extends Component {
-  render() {
+
+const Posts = (props) =>{
     return (
       <>
         <TopMainPage />
@@ -19,19 +17,23 @@ export default class Posts extends Component {
             margin: "0",
             display: "inline-block",
           }}
+
         >
-          {this.props.lesson}
+          {props.name}
         </p>
         <div className={stylesGroupView.dot}>
           <ListElement color="#ec524b" />
         </div>
         <p className={stylesGroupView.groupNumber}>
-          Grupa {this.props.groupNumber}
+            {props.groupName!==null? <span>Grupa {props.groupNumber}</span> : null}
         </p>
         <GroupViewIcons
-          changeSubpage={this.props.changeSubpage.bind(this)}
+          changeSubpage={props.changeSubpage}
           active="1"
         />
+
+
+
         <p>Posty informacyjne</p>
         <div className={stylesGroupView.postsContainer}>
           <Message
@@ -74,5 +76,6 @@ export default class Posts extends Component {
         </div>
       </>
     );
-  }
 }
+
+export default Posts

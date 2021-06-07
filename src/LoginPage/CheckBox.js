@@ -4,9 +4,9 @@ const CheckBox = (props) => {
 
     return (
         <label className={styles.checkOptions}>
-            <p>{props.text}</p>
+            <p style={{margin: "0 10px 0 0"}}>{props.text}</p>
             <label className={styles.switch}>
-                <input type="checkbox" />
+                <input type="checkbox" onChange={props.changeFunction}/>
                 <span className={styles.slider}></span>
             </label>
         </label>
