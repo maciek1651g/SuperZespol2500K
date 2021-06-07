@@ -4,13 +4,10 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import AddBoxOutlinedIcon from "@material-ui/icons/AddBoxOutlined";
 import SearchIcon from "@material-ui/icons/Search";
 import React from "react";
-import SearchGroup from "./SearchGroup";
-import * as Icon from "react-feather";
 import $ from "./getElement";
 import AddCourses from "./AddCourses";
 import FindTeam from "./FindTeam";
 import AddGroup from "./AddGroup";
-import CalendarBox from "./CalendarBox";
 import AddTeam from "./AddTeam";
 
 

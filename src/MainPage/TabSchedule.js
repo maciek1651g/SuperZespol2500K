@@ -67,7 +67,7 @@ const TabSchedule = (props) => {
     timeTable.sort((a,b)=>{
         if(a.startTime>b.startTime)
             return 1;
-        else if(a==b)
+        else if(a===b)
             return 0;
         else return -1;
     })

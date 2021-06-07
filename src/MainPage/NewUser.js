@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import * as Icon from "react-feather";
 import stylesGroupView from "./stylesGroupView.module.css";
 import PublicApi from "../publicFunctions/PublicFunctionsAPI";

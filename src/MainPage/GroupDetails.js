@@ -1,4 +1,3 @@
-import stylesMainPage from "./stylesMainPage.module.css";
 import React from "react";
 import TopMainPage from "./TopMainPage";
 import AddUserButton from "./AddUserButton";
@@ -8,7 +7,6 @@ import NewUser from "./NewUser";
 import * as Icon from "react-feather";
 import $ from "./getElement";
 import PublicApi from "../publicFunctions/PublicFunctionsAPI";
-import {useHistory} from "react-router-dom";
 
 const isAdmin = (admins, email) => {
     for(let i=0;i<admins.length; i++)
@@ -21,7 +19,6 @@ const isAdmin = (admins, email) => {
 }
 
 const GroupDetails = (props) => {
-    const history = useHistory();
     const [numView, setNumView] = React.useState(0);
     const [editMode, setEditMode] = React.useState(false);
     const groupDetails = props.groupDetails;

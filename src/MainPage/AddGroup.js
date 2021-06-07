@@ -8,7 +8,6 @@ import publicAPI from "../publicFunctions/PublicFunctionsAPI";
 const AddGroup = (props) => {
     const closeNewGroupModal = props.closeNewGroupModal;
     const refreshGroupsArray = props.refreshGroupsArray;
-    const groupsArray = props.groupsArray;
 
     function createCourse(e){
         e.preventDefault();

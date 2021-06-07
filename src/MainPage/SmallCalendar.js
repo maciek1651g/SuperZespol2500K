@@ -7,7 +7,6 @@ import React from "react";
 import * as Icon from "react-feather";
 import PublicApi from "../publicFunctions/PublicFunctionsAPI";
 import $ from "./getElement";
-import MakeSchedule from "./MakeSchedule";
 
 
 

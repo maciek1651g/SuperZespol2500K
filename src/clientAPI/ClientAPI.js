@@ -150,7 +150,7 @@ class ClientAPI {
   }
 
   onError(errorInfo) {
-    console.log(errorInfo);
+    //console.log(errorInfo);
     if (
       this.onErrorFunctionHandler !== null &&
       typeof this.onErrorFunctionHandler !== "undefined"

@@ -1,34 +1,19 @@
 import TopMainPage from "./TopMainPage";
 import stylesMainPage from "./stylesMainPage.module.css";
 import stylesGroupView from "./stylesGroupView.module.css";
-import Posts from "./Posts.js";
-import Card from "./Card";
-import Users from "./Users";
-import Chat from "./Chat";
-import Info from "./Info";
-import GroupCalendar from "./GroupCalendar";
-import React, { Component } from "react";
+import React from "react";
 import GroupButton from "./GroupButton";
 import TabCard from "./TabCard";
 import $ from "./getElement";
-import CheckBox from "../LoginPage/CheckBox";
-import CalendarBox from "./CalendarBox";
 import GroupDetails from "./GroupDetails";
 import TeamDelails from "./TeamDelails";
 import CourseDetails from "./CourseDetails";
 
 const GroupView = (props) =>  {
-  const [isPostsOpen, setPostsOpen] = React.useState(false);
-  const [isInfoOpen, setInfoOpen] = React.useState(false);
-  const [isChatOpen, setChatOpen] = React.useState(false);
-  const [isUsersOpen, setUsersOpen] = React.useState(false);
-  const [coursesOrTeams, setCoursesOrTeams] = React.useState(true);
   const [selectedGroup, setSelectedGroup] = React.useState(0);
   const [selectedTeam, setSelectedTeam] = React.useState(0);
   const [selectedCours, setSelectedCours] = React.useState(0);
   const [subpage, setSubpage] = React.useState(0);
-  const [lesson, setLesson] = React.useState("");
-  const [groupNumber, setGroupNumber] = React.useState(0);
   const [viewChoose, setViewChoose] = React.useState("0");
   const [groupArrayState, setGroupArrayState] = React.useState(props.gtable);
   const [table, setTable] = React.useState(props.gtable);
@@ -47,24 +32,18 @@ const GroupView = (props) =>  {
     setSubpage(3);
   }
 
-  const changeSubpage = (number) => {
-    setSubpage(number);
-  }
   const changeGroup=() => {
     setSelectedGroup($("group").value);
   }
   const changeViewChoose = () => {
     setViewChoose($("view").value);
   }
-  const changeCoursesOrGroup=()=>{
-    setCoursesOrTeams(!coursesOrTeams)
-  }
 
   const changeView = () => {
     switch (viewChoose)
     {
       case "0":
-        setTable(groupArrayState)
+        setTable(groupArrayState);
         break;
       case "1":
         setTable(groupArrayState[selectedGroup]["teams"]);
@@ -72,7 +51,8 @@ const GroupView = (props) =>  {
       case "2":
         setTable(groupArrayState[selectedGroup]["courses"]);
         break;
-
+      default:
+        setTable(groupArrayState);
     }
   }
 

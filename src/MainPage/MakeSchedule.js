@@ -1,6 +1,6 @@
 import PublicApi from "../publicFunctions/PublicFunctionsAPI";
 import stylesGroupView from "./stylesGroupView.module.css";
-import React, { Component } from "react";
+import React from "react";
 import $ from "./getElement";
 
 
@@ -166,7 +166,7 @@ const MakeSchedule = (props) => {
                 <div>
                     <label>Przedmiot</label>
                     <select id="subject">
-                        {props.group.courses.map((value, key)=><option value={value.id} key={key}>{value.name}</option>)}
+                        {props.group.courses.map((value, key)=><option value={value.id} key={key}>{value.name} ({value.lecturer})</option>)}
                     </select>
                 </div>
                 <button className={stylesGroupView.messageButton} onClick={setNewSchedule}>Dodaj</button>

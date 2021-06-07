@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import TopMainPage from "./TopMainPage";
 import ListElement from "./ListElement";
 import stylesGroupView from "./stylesGroupView.module.css";

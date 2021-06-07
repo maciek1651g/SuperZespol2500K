@@ -8,8 +8,6 @@ import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
 import EditIcon from "@material-ui/icons/Edit";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PublicApi from "../publicFunctions/PublicFunctionsAPI";
-import $ from "./getElement";
-import NewUser from "./NewUser";
 import User from "./../User/User"
 
 const AddNewUserToTeam = (props) => {

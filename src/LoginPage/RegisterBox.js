@@ -1,5 +1,5 @@
 import styles from "./loginStyle.module.css";
-import React, {lazy} from "react";
+import React from "react";
 import InputField from "./InputField";
 import publicAPI from "./../publicFunctions/PublicFunctionsAPI.js";
 import $ from "../MainPage/getElement";
