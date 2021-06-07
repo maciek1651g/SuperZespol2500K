@@ -28,7 +28,7 @@ const TabAssing = (props) => {
         }
     }
 
-    if(typeof table.teams !== "undefined")
+    if(typeof table.teams !== "undefined" && userTeams!==null)
     {
         for(let i=0;i<table.teams.length;i++)
         {

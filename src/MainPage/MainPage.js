@@ -16,6 +16,7 @@ import LoadingScreen from "../LoginPage/LoadingScreen";
 import ErrorMessage from "../LoginPage/ErrorMessage";
 import GroupDetails from "./GroupDetails";
 import TeamDelails from "./TeamDelails";
+import User from "./../User/User"
 
 const changeOptionMenu = (id) => {
 
@@ -73,6 +74,8 @@ const MainPage = () => {
                 if(res.length>0){
                     setTable(res[0]);
                     setGroupsArray(res);
+                    console.log(res)
+                    console.log(User)
                 }
             } else {
                 PublicApi.logout();

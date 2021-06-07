@@ -77,6 +77,30 @@ const TeamDetail = (props) => {
         }
     }
 
+    let users=[];
+
+    if(groupDetail!==null)
+    {
+        for(let i=0;i<groupDetail.students.length;i++)
+        {
+            for(let j=0;j<groupDetail.students[i].teams.length;j++)
+            {
+                if(groupDetail.students[i].teams[j]===teamDetails.name)
+                {
+                    let value = groupDetail.students[i];
+                    users.push(<NewUser key={i} text1={value.firstName+" "+value.lastName}
+                                        text2={isAdmin(groupDetail.administrators,value.email)?
+                                            "Administrator": "Student"} email={value.email}
+                                        groupID={groupDetail.id} refreshData={props.refreshData}
+                                        setErrorMessage={props.setErrorMessage} teamName={teamDetails.name}
+                    />);
+                    break;
+                }
+            }
+        }
+    }
+
+
     return (
         <>
             <TopMainPage />
@@ -132,13 +156,7 @@ const TeamDetail = (props) => {
                 <>
                     <p>Członkowie Zespołu</p>
                     <div className={stylesGroupView.postsContainer}>
-                        {groupDetail!==null? groupDetail.students.map((value, key)=>
-                            <NewUser key={key} text1={value.firstName+" "+value.lastName}
-                                     text2={isAdmin(groupDetail.administrators,value.email)?
-                                         "Administrator": "Student"} email={value.email}
-                                     groupID={groupDetail.id} refreshData={props.refreshData}
-                                     setErrorMessage={props.setErrorMessage} teamName={teamDetails.name}
-                                        />): null}
+                        {users}
                     </div>
                 </>:null}
 

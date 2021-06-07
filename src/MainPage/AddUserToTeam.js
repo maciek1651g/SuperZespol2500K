@@ -9,12 +9,27 @@ import EditIcon from "@material-ui/icons/Edit";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PublicApi from "../publicFunctions/PublicFunctionsAPI";
 import $ from "./getElement";
+import NewUser from "./NewUser";
+import User from "./../User/User"
+
 const AddNewUserToTeam = (props) => {
+
+    const [isVisible, setVisible] = React.useState(true);
 
     const addUserToTeam = () => {
         PublicApi.addUsersToTeam(props.groupID, props.teamName, [props.email], (res)=>{
             if(res){
-                console.log("OK")
+                if(props.email===User.email)
+                {
+                    for(let j=0;j<User.groups.length;j++)
+                    {
+                        if(User.groups[j].id===props.groupID)
+                        {
+                           User.groups[j].userTeams = [...User.groups[j].userTeams, props.teamName];
+                        }
+                    }
+                }
+                setVisible(false);
             }
         }, (err)=>{
             props.setErrorMessage(err.errorMessageForUser)
@@ -23,6 +38,7 @@ const AddNewUserToTeam = (props) => {
 
     return (
         <>
+            {isVisible?
             <div
                 className={stylesMainPage.groupInfo}
                 style={{ justifyContent: "space-between" }}
@@ -43,10 +59,10 @@ const AddNewUserToTeam = (props) => {
                 <button className={stylesGroupView.messageButton} onClick={addUserToTeam}>
                     <p>DODAJ</p>
                 </button>
-            </div>
+            </div>:null}
         </>
-    );
-};
+    )
+}
 
 const AddUserToTeam = (props) => {
 
@@ -72,8 +88,44 @@ const AddUserToTeam = (props) => {
 
     const [showAddUser, setShowAddUser] = React.useState(false);
     const [users, setUsers] = React.useState(props.group!==null?props.group.students:null);
+    const [usersToDisplay, setUsersToDisplay] = React.useState([]);
 
     React.useEffect(()=>{setUsers(props.group!==null?props.group.students:null)},[props.group])
+
+
+    const updateUserToDisplay = () =>{
+        let userToDIsplay=[]
+
+        if(users!==null)
+        {
+            for(let i=0;i<users.length;i++)
+            {
+                let flaga=true;
+                for(let j=0;j<users[i].teams.length;j++)
+                {
+                    if(users[i].teams[j]===props.team.name)
+                    {
+                        flaga=false;
+                        break;
+                    }
+                }
+                if(flaga)
+                {
+                    let value = users[i];
+                    userToDIsplay.push(<AddNewUserToTeam key={i} text1={value.firstName+" "+value.lastName}
+                                                         groupID={props.group.id} email={value.email}
+                                                         teamName={props.team.name}
+                                                         setErrorMessage={props.setErrorMessage}/>);
+                }
+            }
+        }
+
+        setUsersToDisplay(userToDIsplay);
+    }
+
+    React.useEffect(()=>{
+        updateUserToDisplay()
+    },[users])
 
     return (
         <>
@@ -104,14 +156,7 @@ const AddUserToTeam = (props) => {
                             </div>
                         </div>
                         <div>
-                            {users===null? <p>Tutaj będą wyświetlani użytkownicy</p>:
-                                users.length===0? <p>Nie znaleziono użytkowników</p>:
-                                    users.map((value, key)=><AddNewUserToTeam key={key} text1={value.firstName+" "+value.lastName}
-                                                                               groupID={props.group.id} email={value.email}
-                                                                              teamName={props.team.name}
-                                                                              setErrorMessage={props.setErrorMessage}/>)
-                            }
-
+                            {usersToDisplay}
                         </div>
 
                     </div>

@@ -11,7 +11,7 @@ class ClientAPI {
     let xhr = new XMLHttpRequest();
     xhr.open(method.toUpperCase(), ClientAPI.baseUrl + url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.timeout = 15000;
+    //xhr.timeout = 30000;
 
     if (ClientAPI.bearer !== null) {
       xhr.setRequestHeader("Authorization", "Bearer " + ClientAPI.bearer);
