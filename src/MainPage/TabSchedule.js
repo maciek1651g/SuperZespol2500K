@@ -5,22 +5,25 @@ import User from "./../User/User"
 const TabSchedule = (props) => {
     let table = props.table;
     let tname = [];
-    const currentDate = new Date();
+    const currentDate = props.day;
     const currentDay = currentDate.getDay();
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const dayofweek = days[currentDay];
-
 
 
     let userTeams = null
     let maxSemester = 0;
     let timeTable = [];
 
-    for(let j=0;j<User.groups.length;j++)
+    if(typeof table.students !== "undefined")
     {
-        if(User.groups[j].id===table.id)
+        for(let i=0;i<table.students.length;i++)
         {
-            userTeams = User.groups[j].userTeams;
+            if(User.email===table.students[i].email)
+            {
+                userTeams=table.students[i].teams;
+                break;
+            }
         }
     }
 

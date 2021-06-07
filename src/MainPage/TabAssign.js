@@ -20,11 +20,15 @@ const TabAssing = (props) => {
     let userTeams = null
     let assigments = [];
 
-    for(let j=0;j<User.groups.length;j++)
+    if(typeof table.students !== "undefined")
     {
-        if(User.groups[j].id===table.id)
+        for(let i=0;i<table.students.length;i++)
         {
-            userTeams = User.groups[j].userTeams;
+            if(User.email===table.students[i].email)
+            {
+                userTeams=table.students[i].teams;
+                break;
+            }
         }
     }
 

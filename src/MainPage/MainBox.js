@@ -11,6 +11,18 @@ import GroupCard from "./GroupCard";
 
 const MainBox = (props) => {
     let table = props.ptable;
+    const [timeTableDay, setTimetableDay]= React.useState(new Date());
+    const days = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
+
+    const changeTimeTableDay = (incrementDay) => {
+        let tmpDay = new Date(timeTableDay.setDate(timeTableDay.getDate()+incrementDay));
+        setTimetableDay(tmpDay);
+    }
+
+    const changeGroup = (parameters) => {
+        setTimetableDay(new Date());
+        props.changeGroup(parameters);
+    }
 
     return (
         <div className={stylesMainPage.rightContent}>
@@ -19,14 +31,19 @@ const MainBox = (props) => {
                 <p style={{ fontSize: "40px", margin: "0", height: "10%" }}>Twoje Grupy</p>
                 <div className={stylesMainPage.rightMiddleBottom}>
 
-                    <GroupCard changeGroup={props.changeGroup} group={props.groupsArray.length>0?props.groupsArray[props.chooseGroup]:null}/>
+                    <GroupCard changeGroup={changeGroup} group={props.groupsArray.length>0?props.groupsArray[props.chooseGroup]:null}/>
 
                     <div className={stylesMainPage.middleContent}>
                         <div className={stylesMainPage.middleContentRight}>
-                            <p style={{ fontSize: "20px" }}>Dzisiejsze zajęcia</p>
+                            <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                                <button className={styles.arrowButton} onClick={()=>changeTimeTableDay(-1)}>{Icons.arrowLeft}</button>
+                                <p style={{ fontSize: "20px" }}>({days[timeTableDay.getDay()]}) {timeTableDay.ddmmyyy()}</p>
+                                <button className={styles.arrowButton} onClick={()=>changeTimeTableDay(1)}>{Icons.arrowRight}</button>
+                            </div>
+
                             <ul className={stylesMainPage.scrollBar}>
 
-                                <TabSchedule table={table}/>
+                                <TabSchedule table={table} day={timeTableDay}/>
 
                             </ul>
                         </div>
