@@ -8,7 +8,6 @@ const MakeSchedule = (props) => {
     const [schedul, setSchedul] = React.useState(props.team.schedules.length>0? props.team.schedules[0].scheduledCourses:[]);
     const [semester, setSemester] = React.useState(-1);
 
-
     React.useEffect(()=>{
         //let tmp = props.team.schedules.sort((a,b)=>);
 
@@ -59,15 +58,15 @@ const MakeSchedule = (props) => {
 
         let flag=false;
 
-        for(let i=0;i<schedul.length; i++)
+        for(let i=0;i<props.team.schedules.length; i++)
         {
-            if(schedul[i].semester===semester){
+            if(props.team.schedules[i].semester===semester){
                 flag=true;
                 break;
             }
         }
 
-        if((flag || typeof schedul!=="object"))
+        if(flag)
         {
             let newTab = [];
             newTab.push(newObject);
@@ -172,7 +171,7 @@ const MakeSchedule = (props) => {
                 <button className={stylesGroupView.messageButton} onClick={setNewSchedule}>Dodaj</button>
             </div>
             <div style={{display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", paddingTop: "30px"}}>
-                <table border={1}>
+                <table border={1} style={{width: "100%", textAlign: "center"}}>
                     <thead>
                         <tr>
                             <th>Poniedziałek</th>
@@ -186,7 +185,7 @@ const MakeSchedule = (props) => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
+                            <td className={stylesGroupView.scheduleCell}>
                                 {
                                     schedul.map((value, key) => value.dayOfTheWeek === "Monday" ?
                                         <div className={stylesGroupView.schedulContainer} key={key}>
@@ -200,7 +199,7 @@ const MakeSchedule = (props) => {
                                         </div> : null)
                                 }
                             </td>
-                            <td>
+                            <td className={stylesGroupView.scheduleCell}>
                                 {
                                     schedul.map((value, key) => value.dayOfTheWeek === "Tuesday" ?
                                         <div className={stylesGroupView.schedulContainer} key={key}>
@@ -214,7 +213,7 @@ const MakeSchedule = (props) => {
                                         </div> : null)
                                 }
                             </td>
-                            <td>
+                            <td className={stylesGroupView.scheduleCell}>
                                 {
                                     schedul.map((value, key) => value.dayOfTheWeek === "Wednesday" ?
                                         <div className={stylesGroupView.schedulContainer} key={key}>
@@ -228,7 +227,7 @@ const MakeSchedule = (props) => {
                                         </div> : null)
                                 }
                             </td>
-                            <td>
+                            <td className={stylesGroupView.scheduleCell}>
                                 {
                                     schedul.map((value, key) => value.dayOfTheWeek === "Thursday" ?
                                         <div className={stylesGroupView.schedulContainer} key={key}>
@@ -242,7 +241,7 @@ const MakeSchedule = (props) => {
                                         </div> : null)
                                 }
                             </td>
-                            <td>
+                            <td className={stylesGroupView.scheduleCell}>
                                 {
                                     schedul.map((value, key) => value.dayOfTheWeek === "Friday" ?
                                         <div className={stylesGroupView.schedulContainer} key={key}>
@@ -256,7 +255,7 @@ const MakeSchedule = (props) => {
                                         </div> : null)
                                 }
                             </td>
-                            <td>
+                            <td className={stylesGroupView.scheduleCell}>
                                 {
                                     schedul.map((value, key) => value.dayOfTheWeek === "Saturday" ?
                                         <div className={stylesGroupView.schedulContainer} key={key}>
@@ -270,7 +269,7 @@ const MakeSchedule = (props) => {
                                         </div> : null)
                                 }
                             </td>
-                            <td>
+                            <td className={stylesGroupView.scheduleCell}>
                                 {
                                     schedul.map((value, key) => value.dayOfTheWeek === "Sunday" ?
                                         <div className={stylesGroupView.schedulContainer} key={key}>
