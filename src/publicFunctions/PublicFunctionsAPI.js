@@ -15,8 +15,11 @@ function login(login, password, callback, errorCallback=null)
 {
     const api = new ClientAPI();
     api.onSuccessFunctionHandler = (res) => {
-        api.setBearerToken(res.token);
-        User.setUser(res.user);
+        if(res!==null)
+        {
+            api.setBearerToken(res.token);
+            User.setUser(res.user);
+        }
         if(callback!==null)
         {
             callback(res);
